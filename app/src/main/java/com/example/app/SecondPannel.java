@@ -44,7 +44,6 @@ public class SecondPannel extends AppCompatActivity {
             login.setError("Campul este gol");
 
 
-
         if(!num.isEmpty() && prenum.isEmpty() && usern.isEmpty() && !log.isEmpty())
         {
             Intent intent = new Intent(this,ThirdPannel.class);
