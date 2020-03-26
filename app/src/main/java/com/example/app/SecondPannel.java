@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class SecondPannel extends AppCompatActivity {
 
@@ -23,28 +24,28 @@ public class SecondPannel extends AppCompatActivity {
         prenume = findViewById(R.id.prenume);
         username = findViewById(R.id.username);
         login = findViewById(R.id.login);
+    }
+
+    public void openThirdPannel(View view){
 
         num = nume.getText().toString();
         prenum = prenume.getText().toString();
         usern = username.getText().toString();
         log = login.getText().toString();
-    }
 
-    public void openThirdPannel(View view){
-        if(num.isEmpty())
+        if(num.length() == 0)
             nume.setError("Campul este gol");
 
-        if(prenum.isEmpty())
+        if(prenum.length() == 0)
             prenume.setError("Campul este gol");
 
-        if(usern.isEmpty())
+        if(usern.length() == 0)
             username.setError("Campul este gol");
 
-        if(log.isEmpty())
+        if(log.length() == 0)
             login.setError("Campul este gol");
 
-
-        if(!num.isEmpty() && prenum.isEmpty() && usern.isEmpty() && !log.isEmpty())
+        if(!num.isEmpty() && !prenum.isEmpty() && !usern.isEmpty() && !log.isEmpty())
         {
             Intent intent = new Intent(this,ThirdPannel.class);
             startActivity(intent);

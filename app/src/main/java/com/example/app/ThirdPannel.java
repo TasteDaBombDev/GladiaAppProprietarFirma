@@ -32,13 +32,13 @@ public class ThirdPannel extends AppCompatActivity {
         String password = pass.getText().toString();
         String verifPassword = verifpass.getText().toString();
 
-        if (password.isEmpty())
+        if (password.length() == 0)
         {
             pass.setError("Campul este gol");
             return;
         }
 
-        if (verifPassword.isEmpty())
+        if (verifPassword.length() == 0)
         {
             verifpass.setError("Campul este gol");
             return;

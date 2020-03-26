@@ -36,52 +36,90 @@
         android:layout_centerVertical="true"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/nume"
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dip"
-            android:ems="10"
-            android:hint="Nume"
-            android:inputType="textPersonName"
-            android:padding="10dip" />
+            app:mtf_image="@drawable/mail"
+            app:mtf_labelColor="#fff">
 
-        <EditText
-            android:id="@+id/prenume"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dip"
-            android:ems="10"
-            android:hint="Prenume"
-            android:inputType="textPersonName"
-            android:padding="10dip" />
+            <EditText
+                android:id="@+id/nume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nume"
+                android:inputType="textPersonName"
+                android:textColor="#444"
+                android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dip"
-            android:ems="10"
-            android:hint="Nume de utilizator"
-            android:inputType="textPersonName"
-            android:padding="10dip" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
 
-        <EditText
-            android:id="@+id/zi_nastere"
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dip"
-            android:ems="10"
-            android:inputType="date"
-            android:padding="10dip" />
+            android:layout_height="match_parent"
+            app:mtf_image="@drawable/mail"
+            app:mtf_labelColor="#fff">
 
-        <EditText
-            android:id="@+id/login"
+            <EditText
+                android:id="@+id/prenume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Prenume"
+                android:inputType="textPersonName"
+                android:textColor="#444"
+                android:textSize="20sp" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="E-mail / Numar telefon"
-            android:inputType="textPersonName" />
+            android:layout_height="match_parent"
+            app:mtf_image="@drawable/mail"
+            app:mtf_labelColor="#fff">
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nume de utilizator"
+                android:inputType="textPersonName"
+                android:textColor="#444"
+                android:textSize="20sp" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mtf_image="@drawable/mail"
+            app:mtf_labelColor="#fff">
+
+            <EditText
+                android:id="@+id/zi_nastere"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date"
+                android:textColor="#444"
+                android:textSize="20sp" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mtf_image="@drawable/mail"
+            app:mtf_labelColor="#fff">
+
+            <EditText
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="E-mail / Numar telefon"
+                android:inputType="textPersonName"
+                android:textColor="#444"
+                android:textSize="20sp" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
 
     </LinearLayout>
 

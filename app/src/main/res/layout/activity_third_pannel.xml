@@ -32,20 +32,33 @@
         android:layout_centerVertical="true"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/pass"
-            android:layout_width="wrap_content"
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dip"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="10dip"
-            android:paddingLeft="10dip"
-            android:paddingTop="10dip"
-            android:paddingRight="10dip"
-            android:paddingBottom="10dip" />
+            app:mtf_image="@drawable/mail"
+            app:mtf_labelColor="#fff">
+
+            <EditText
+                android:id="@+id/pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="10dip"
+                android:paddingLeft="10dip"
+                android:paddingTop="10dip"
+                android:paddingRight="10dip"
+                android:paddingBottom="10dip" />
+
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mtf_image="@drawable/mail"
+            app:mtf_labelColor="#fff">
 
         <EditText
             android:id="@+id/verif_pass"
@@ -55,5 +68,7 @@
             android:ems="10"
             android:hint="Verify Password"
             android:inputType="textPassword" />
+
+        </com.github.florent37.materialtextfield.MaterialTextField>
     </LinearLayout>
 </RelativeLayout>
