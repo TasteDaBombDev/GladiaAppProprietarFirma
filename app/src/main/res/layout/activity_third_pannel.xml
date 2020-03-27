@@ -21,8 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#063852"
             android:onClick="openForthPannel"
-            android:text="Next" />
+            android:text="Next"
+            android:textColor="#fff" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,8 +37,9 @@
         <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:mtf_backgroundColor="#063852"
             app:mtf_image="@drawable/mail"
-            app:mtf_labelColor="#fff">
+            app:mtf_labelColor="#063852">
 
             <EditText
                 android:id="@+id/pass"
@@ -50,25 +53,48 @@
                 android:paddingLeft="10dip"
                 android:paddingTop="10dip"
                 android:paddingRight="10dip"
-                android:paddingBottom="10dip" />
+                android:paddingBottom="10dip"
+                android:textColor="#fff" />
 
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:mtf_backgroundColor="#063852"
             app:mtf_image="@drawable/mail"
-            app:mtf_labelColor="#fff">
+            app:mtf_labelColor="#063852">
 
-        <EditText
-            android:id="@+id/verif_pass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Verify Password"
-            android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/verif_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Verify Password"
+                android:inputType="textPassword"
+                android:textColor="#fff" />
 
         </com.github.florent37.materialtextfield.MaterialTextField>
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parola contului tau"
+            android:textColor="#063852"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.29000002" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </RelativeLayout>
