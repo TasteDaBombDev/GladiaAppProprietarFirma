@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FourthPannel"
+    tools:context=".Login"
     android:background="@drawable/bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="416dp"
+        android:layout_height="775dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -18,14 +18,14 @@
         android:layout_marginTop="0dp">
 
         <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/materialTextField2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="53dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.38"
+            app:layout_constraintVertical_bias="0.241"
             app:mtf_backgroundColor="#063852"
             app:mtf_image="@drawable/mail"
             app:mtf_labelColor="#063852">
@@ -35,56 +35,59 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Cod"
-                android:inputType="number"
-                android:textColor="#fff" />
+                android:hint="E-mail sau telefon"
+                android:inputType="text" />
         </com.github.florent37.materialtextfield.MaterialTextField>
 
-        <TextView
-            android:id="@+id/textView4"
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/materialTextField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Introdu codul trimis in caseta de mai jos"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.26" />
+            app:layout_constraintVertical_bias="0.39"
+            app:mtf_backgroundColor="#063852"
+            app:mtf_image="@drawable/mail"
+            app:mtf_labelColor="#063852">
+
+            <EditText
+                android:id="@+id/login_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Parola"
+                android:inputType="textPassword" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#063852"
+            android:onClick="login"
+            android:text="@string/title_activity_login"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextField"
+            app:layout_constraintVertical_bias="0.19" />
 
         <TextView
-            android:id="@+id/anouncement"
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ti-am trimis un ceva"
+            android:text="Logheaza-te"
             android:textColor="#063852"
-            android:textSize="40sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@+id/materialTextField2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.18" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dip"
-        android:layout_marginBottom="20dip"
-        android:gravity="bottom"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#063852"
-            android:onClick="registerUser"
-            android:text="Finish"
-            android:textColor="#fff" />
-    </LinearLayout>
 
 </RelativeLayout>

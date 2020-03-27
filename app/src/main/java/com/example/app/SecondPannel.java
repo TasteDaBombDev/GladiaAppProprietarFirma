@@ -16,7 +16,7 @@ import com.github.florent37.materialtextfield.MaterialTextField;
 public class SecondPannel extends AppCompatActivity {
 
     private EditText nume,prenume,username,login;
-    private String num,prenum,usern,log;
+    private static String num,prenum,usern,log;
     private MaterialTextField login_outline;
 
     @Override
@@ -41,10 +41,10 @@ public class SecondPannel extends AppCompatActivity {
 
     public void openThirdPannel(View view){
 
-        num = nume.getText().toString();
-        prenum = prenume.getText().toString();
-        usern = username.getText().toString();
-        log = login.getText().toString();
+        num = nume.getText().toString().trim();
+        prenum = prenume.getText().toString().trim();
+        usern = username.getText().toString().trim();
+        log = login.getText().toString().trim();
 
         if(num.length() == 0)
             nume.setError("Campul este gol");
@@ -66,6 +66,21 @@ public class SecondPannel extends AppCompatActivity {
         }
     }
 
+    public static String getLogin(){
+        return log;
+    }
+
+    public static String getNume(){
+        return num;
+    }
+
+    public static String getUsername() {
+        return usern;
+    }
+
+    public static String getPrenume() {
+        return prenum;
+    }
 
     @Override
     public void finish() {

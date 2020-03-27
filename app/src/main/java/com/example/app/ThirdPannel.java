@@ -17,6 +17,7 @@ import android.widget.EditText;
 public class ThirdPannel extends AppCompatActivity {
 
     private EditText pass,verifpass;
+    private static String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,8 @@ public class ThirdPannel extends AppCompatActivity {
     }
 
     public void openForthPannel(View view) {
-        String password = pass.getText().toString();
-        String verifPassword = verifpass.getText().toString();
+        password = pass.getText().toString().trim();
+        String verifPassword = verifpass.getText().toString().trim();
 
         if (password.length() == 0)
         {
@@ -84,6 +85,10 @@ public class ThirdPannel extends AppCompatActivity {
             return;
         }
 
+    }
+
+    public static String getPassword() {
+        return password;
     }
 
     @Override

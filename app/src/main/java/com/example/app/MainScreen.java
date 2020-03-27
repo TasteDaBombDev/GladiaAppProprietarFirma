@@ -54,10 +54,11 @@ public class MainScreen extends FragmentActivity implements OnMapReadyCallback {
             public void onSuccess(Location location) {
                 if(location != null){
                     me = location;
-                    Toast.makeText(getApplicationContext(), me.getLatitude() + " " + me.getLatitude(), Toast.LENGTH_SHORT).show();
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                     mapFragment.getMapAsync(MainScreen.this);
                 }
+                else
+                    Toast.makeText(MainScreen.this, "Deschide-ti locatia", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -71,7 +72,7 @@ public class MainScreen extends FragmentActivity implements OnMapReadyCallback {
         MarkerOptions markerOptions = new MarkerOptions().position(point).title("Me");
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(point));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,5));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,10));
 
         googleMap.addMarker(markerOptions);
     }

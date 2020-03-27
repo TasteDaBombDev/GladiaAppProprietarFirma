@@ -11,10 +11,13 @@ import android.widget.Toast;
 
 import java.util.Random;
 
+import static java.lang.Character.isDigit;
+
 public class FourthPannel extends AppCompatActivity {
 
     private EditText cod;
     private String trueCode;
+    private String method;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,11 @@ public class FourthPannel extends AppCompatActivity {
     }
 
     private void sendCode(){
-        EditText login = findViewById(R.id.login);
-        String method = login.getText().toString();
+        method = SecondPannel.getLogin();
         String regex = "[0-9]+";
         if(method.matches(regex)){
             //is a phone number
-            Toast.makeText(getApplicationContext(),"you introduced a phone number" + trueCode,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"you introduced a phone number " + trueCode,Toast.LENGTH_LONG).show();
         }
         else{
             //is a mail
@@ -52,7 +54,7 @@ public class FourthPannel extends AppCompatActivity {
         return code.equals(trueCode);
     }
 
-    public void openApp(View view) {
+    public void registerUser(View view) {
         if(check()){
             Intent intent = new Intent(FourthPannel.this, Register.class);
             startActivity(intent);
