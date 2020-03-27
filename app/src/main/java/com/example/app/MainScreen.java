@@ -72,7 +72,7 @@ public class MainScreen extends FragmentActivity implements OnMapReadyCallback {
         MarkerOptions markerOptions = new MarkerOptions().position(point).title("Me");
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(point));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,10));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,16));
 
         googleMap.addMarker(markerOptions);
     }
