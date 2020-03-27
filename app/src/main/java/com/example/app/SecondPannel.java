@@ -6,13 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.github.florent37.materialtextfield.MaterialTextField;
 
 public class SecondPannel extends AppCompatActivity {
 
     private EditText nume,prenume,username,login;
     private String num,prenum,usern,log;
+    private MaterialTextField login_outline;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +30,13 @@ public class SecondPannel extends AppCompatActivity {
         prenume = findViewById(R.id.prenume);
         username = findViewById(R.id.username);
         login = findViewById(R.id.login);
+        login_outline = findViewById(R.id.login_outline);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     public void openThirdPannel(View view){

@@ -28,6 +28,11 @@ public class ThirdPannel extends AppCompatActivity {
         actionBar.hide();
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     public void openForthPannel(View view) {
         String password = pass.getText().toString();
         String verifPassword = verifpass.getText().toString();

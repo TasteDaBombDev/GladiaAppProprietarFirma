@@ -86,4 +86,9 @@ public class MainScreen extends FragmentActivity implements OnMapReadyCallback {
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

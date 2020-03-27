@@ -17,6 +17,11 @@ public class MainActivity extends AppCompatActivity {
         actionBar.hide();
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     public void openSecondScreen(View view) {
         Intent intent = new Intent(this, SecondPannel.class);
         startActivity(intent);
