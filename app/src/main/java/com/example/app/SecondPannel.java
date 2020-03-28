@@ -25,9 +25,9 @@ import java.util.Calendar;
 
 public class SecondPannel extends AppCompatActivity {
 
-    private EditText nume,prenume,username,login,date;
-    private static String num,prenum,usern,log;
-    private MaterialTextField login_outline,date_outline,username_outline,prenume_outline,nume_outline;
+    private EditText nume,prenume,date;
+    private static String num,prenum,birthDate;
+    private MaterialTextField date_outline,prenume_outline,nume_outline;
     private Animation make_error;
 
     @Override
@@ -40,11 +40,7 @@ public class SecondPannel extends AppCompatActivity {
 
         nume = findViewById(R.id.nume);
         prenume = findViewById(R.id.prenume);
-        username = findViewById(R.id.username);
-        login = findViewById(R.id.login);
-        login_outline = findViewById(R.id.login_outline);
         date_outline = findViewById(R.id.date_outline);
-        username_outline = findViewById(R.id.username_outline);
         prenume_outline = findViewById(R.id.prenume_outline);
         nume_outline = findViewById(R.id.nume_outline);
         date = findViewById(R.id.zi_nastere);
@@ -77,8 +73,6 @@ public class SecondPannel extends AppCompatActivity {
                 if(!nume_outline.hasFocus()){
                     prenume_outline.setHasFocus(false);
                     date_outline.setHasFocus(false);
-                    username_outline.setHasFocus(false);
-                    login_outline.setHasFocus(false);
                     nume_outline.setHasFocus(true);
                 }
                 else nume_outline.setHasFocus(false);
@@ -91,25 +85,9 @@ public class SecondPannel extends AppCompatActivity {
                 if(!prenume_outline.hasFocus()){
                     nume_outline.setHasFocus(false);
                     date_outline.setHasFocus(false);
-                    username_outline.setHasFocus(false);
-                    login_outline.setHasFocus(false);
                     prenume_outline.setHasFocus(true);
                 }
                 else prenume_outline.setHasFocus(false);
-            }
-        });
-
-        username_outline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!username_outline.hasFocus()){
-                    prenume_outline.setHasFocus(false);
-                    date_outline.setHasFocus(false);
-                    username_outline.setHasFocus(true);
-                    login_outline.setHasFocus(false);
-                    nume_outline.setHasFocus(false);
-                }
-                else username_outline.setHasFocus(false);
             }
         });
 
@@ -119,25 +97,9 @@ public class SecondPannel extends AppCompatActivity {
                 if(!date_outline.hasFocus()){
                     prenume_outline.setHasFocus(false);
                     date_outline.setHasFocus(true);
-                    username_outline.setHasFocus(false);
-                    login_outline.setHasFocus(false);
                     nume_outline.setHasFocus(false);
                 }
                 else date_outline.setHasFocus(false);
-            }
-        });
-
-        login_outline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!login_outline.hasFocus()){
-                    prenume_outline.setHasFocus(false);
-                    date_outline.setHasFocus(false);
-                    username_outline.setHasFocus(false);
-                    login_outline.setHasFocus(true);
-                    nume_outline.setHasFocus(false);
-                }
-                else login_outline.setHasFocus(false);
             }
         });
 
@@ -160,19 +122,18 @@ public class SecondPannel extends AppCompatActivity {
                 x2 = touchEvent.getX();
                 y2 = touchEvent.getY();
                 if (x1 > x2)
-                    openThirdPannel();
+                    openSecondPannelPrime();
 
             } break;
         }
         return false;
     }
 
-    public void openThirdPannel(){
+    public void openSecondPannelPrime(){
 
         num = nume.getText().toString().trim();
         prenum = prenume.getText().toString().trim();
-        usern = username.getText().toString().trim();
-        log = login.getText().toString().trim();
+        birthDate = date.getText().toString().trim();
 
         if(num.length() == 0)
         {
@@ -187,42 +148,24 @@ public class SecondPannel extends AppCompatActivity {
             prenume_outline.startAnimation(make_error);
         }
 
-        if(usern.length() == 0)
+        if(!num.isEmpty() && !prenum.isEmpty())
         {
-            username.setError("Campul este gol");
-//            username_outline.setBackgroundResource(R.color.error);
-            username_outline.startAnimation(make_error);
-        }
-
-        if(log.length() == 0)
-        {
-            login.setError("Campul este gol");
-//            login_outline.setBackgroundResource(R.color.error);
-            login_outline.startAnimation(make_error);
-        }
-
-        if(!num.isEmpty() && !prenum.isEmpty() && !usern.isEmpty() && !log.isEmpty())
-        {
-            Intent intent = new Intent(this,ThirdPannel.class);
+            Intent intent = new Intent(this,SecondPannelPrime.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
-    }
-
-    public static String getLogin(){
-        return log;
     }
 
     public static String getNume(){
         return num;
     }
 
-    public static String getUsername() {
-        return usern;
-    }
-
     public static String getPrenume() {
         return prenum;
+    }
+
+    public static String getBirthDate() {
+        return birthDate;
     }
 
     @Override

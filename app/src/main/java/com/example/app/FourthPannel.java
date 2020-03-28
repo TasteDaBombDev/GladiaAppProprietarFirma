@@ -68,7 +68,7 @@ public class FourthPannel extends AppCompatActivity {
     }
 
     private void sendCode(){
-        method = SecondPannel.getLogin();
+        method = SecondPannelPrime.getLogin();
         String regex = "[0-9]+";
         if(method.matches(regex)){
             //is a phone number

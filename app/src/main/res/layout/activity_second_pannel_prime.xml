@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondPannel"
+    tools:context=".SecondPannelPrime"
     android:background="@drawable/bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,67 +42,43 @@
         android:orientation="vertical">
 
         <com.github.florent37.materialtextfield.MaterialTextField
-            android:id="@+id/nume_outline"
+            android:id="@+id/username_outline"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mtf_backgroundColor="#063852"
+            app:mtf_image="@drawable/mail"
+            app:mtf_labelColor="#063852"
+            app:mtf_openKeyboardOnFocus="true">
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nume de utilizator"
+                android:inputType="textPersonName"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/login_outline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="false"
             app:mtf_backgroundColor="#063852"
-            app:mtf_hasFocus="false"
             app:mtf_image="@drawable/mail"
             app:mtf_labelColor="#063852"
             app:mtf_openKeyboardOnFocus="true">
 
             <EditText
-                android:id="@+id/nume"
+                android:id="@+id/login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Nume"
+                android:hint="E-mail / Numar telefon"
                 android:inputType="textPersonName"
                 android:textColor="#fff"
                 android:textSize="20sp" />
-
-        </com.github.florent37.materialtextfield.MaterialTextField>
-
-        <com.github.florent37.materialtextfield.MaterialTextField
-            android:id="@+id/prenume_outline"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:mtf_backgroundColor="#063852"
-            app:mtf_image="@drawable/mail"
-            app:mtf_labelColor="#063852"
-            app:mtf_openKeyboardOnFocus="true">
-
-            <EditText
-                android:id="@+id/prenume"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Prenume"
-                android:inputType="textPersonName"
-                android:textColor="#fff"
-                android:textSize="20sp" />
-        </com.github.florent37.materialtextfield.MaterialTextField>
-
-        <com.github.florent37.materialtextfield.MaterialTextField
-            android:id="@+id/date_outline"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:mtf_backgroundColor="#063852"
-            app:mtf_image="@drawable/mail"
-            app:mtf_labelColor="#063852"
-            app:mtf_openKeyboardOnFocus="true">
-
-            <EditText
-                android:id="@+id/zi_nastere"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Ziua de nastere"
-                android:inputType="date"
-                android:textColor="#fff"
-                android:textSize="20sp" />
-
         </com.github.florent37.materialtextfield.MaterialTextField>
 
     </LinearLayout>
@@ -115,12 +91,12 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date despre tine"
+            android:text="Date de autentificare"
             android:textColor="#063852"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintHorizontal_bias="0.10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.13" />
