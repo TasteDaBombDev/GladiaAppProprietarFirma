@@ -7,26 +7,32 @@
     tools:context=".SecondPannel"
     android:background="@drawable/bg">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dip"
-        android:layout_marginBottom="20dip"
-        android:foregroundGravity="bottom"
-        android:gravity="bottom"
-        android:orientation="horizontal">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/next1"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#063852"
-            android:onClick="openThirdPannel"
-            android:text="Next"
-            android:textColor="#fff" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.92">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:padding="5dp"
+                android:text="@string/swipe_left"
+                android:textColor="#063852"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -36,11 +42,15 @@
         android:orientation="vertical">
 
         <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/nume_outline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="false"
             app:mtf_backgroundColor="#063852"
+            app:mtf_hasFocus="false"
             app:mtf_image="@drawable/mail"
-            app:mtf_labelColor="#063852">
+            app:mtf_labelColor="#063852"
+            app:mtf_openKeyboardOnFocus="true">
 
             <EditText
                 android:id="@+id/nume"
@@ -55,11 +65,13 @@
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/prenume_outline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:mtf_backgroundColor="#063852"
             app:mtf_image="@drawable/mail"
-            app:mtf_labelColor="#063852">
+            app:mtf_labelColor="#063852"
+            app:mtf_openKeyboardOnFocus="true">
 
             <EditText
                 android:id="@+id/prenume"
@@ -73,11 +85,13 @@
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/username_outline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:mtf_backgroundColor="#063852"
             app:mtf_image="@drawable/mail"
-            app:mtf_labelColor="#063852">
+            app:mtf_labelColor="#063852"
+            app:mtf_openKeyboardOnFocus="true">
 
             <EditText
                 android:id="@+id/username"
@@ -91,11 +105,13 @@
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/date_outline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:mtf_backgroundColor="#063852"
             app:mtf_image="@drawable/mail"
-            app:mtf_labelColor="#063852">
+            app:mtf_labelColor="#063852"
+            app:mtf_openKeyboardOnFocus="true">
 
             <EditText
                 android:id="@+id/zi_nastere"
@@ -115,7 +131,8 @@
             android:layout_height="wrap_content"
             app:mtf_backgroundColor="#063852"
             app:mtf_image="@drawable/mail"
-            app:mtf_labelColor="#063852">
+            app:mtf_labelColor="#063852"
+            app:mtf_openKeyboardOnFocus="true">
 
             <EditText
                 android:id="@+id/login"

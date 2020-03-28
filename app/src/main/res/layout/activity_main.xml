@@ -23,32 +23,4 @@
         android:textSize="50sp"
         android:textStyle="italic" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="100px"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:height="150dip"
-            android:onClick="openSecondScreen"
-            android:text="Register" />
-
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_weight="1"
-            android:height="150dip"
-            android:onClick="login"
-            android:text="Login" />
-    </LinearLayout>
-
 </RelativeLayout>

@@ -5,11 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.florent37.materialtextfield.MaterialTextField;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Random;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static java.lang.Character.isDigit;
 
@@ -18,6 +32,10 @@ public class FourthPannel extends AppCompatActivity {
     private EditText cod;
     private String trueCode;
     private String method;
+    private String url;
+    private OkHttpClient client;
+    private Animation make_error;
+    private MaterialTextField code_outline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +43,22 @@ public class FourthPannel extends AppCompatActivity {
         setContentView(R.layout.activity_fourth_pannel);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
+        code_outline = findViewById(R.id.code_outline);
+
         cod = findViewById(R.id.cod);
         trueCode = generateCode();
         sendCode();
+        client = new OkHttpClient();
+        url = "http://gladiaholdings.com/PHP/send_mail.php";
+
+        code_outline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!code_outline.hasFocus()) code_outline.setHasFocus(true);
+                else code_outline.setHasFocus(false);
+            }
+        });
     }
 
     private String generateCode(){
@@ -45,8 +76,40 @@ public class FourthPannel extends AppCompatActivity {
         }
         else{
             //is a mail
+//            Request request = new Request.Builder().url(url).build();
+//            client.newCall(request).enqueue(new Callback() {
+//                @Override
+//                public void onFailure(Call call, IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, Response response) throws IOException {
+//                    if(response.isSuccessful())
+//                        Toast.makeText(getApplicationContext(),"sent you a text",Toast.LENGTH_SHORT).show();
+//                }
+//            });
             Toast.makeText(getApplicationContext(),"you introduced a mail" + trueCode,Toast.LENGTH_LONG).show();
         }
+    }
+
+    private float x1,x2,y1,y2;
+
+    public boolean onTouchEvent(MotionEvent touchEvent){
+        switch (touchEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:{
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+            } break;
+            case MotionEvent.ACTION_UP:{
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+                if (x1 > x2)
+                    registerUser();
+
+            } break;
+        }
+        return false;
     }
 
     private boolean check(){
@@ -54,14 +117,17 @@ public class FourthPannel extends AppCompatActivity {
         return code.equals(trueCode);
     }
 
-    public void registerUser(View view) {
+    public void registerUser() {
         if(check()){
             Intent intent = new Intent(FourthPannel.this, Register.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
         else
+        {
+            code_outline.startAnimation(make_error);
             cod.setError("Nu ai introdus codul corect!");
+        }
     }
 
     @Override

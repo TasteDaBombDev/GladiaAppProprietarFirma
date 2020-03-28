@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="map_key" translatable="false">
-        AIzaSyCQcbTvMbTXoXXoi5PvMf-WiiaAH7cSNXo
-    </string>
+    <string name="map_key" translatable="false">AIzaSyCQcbTvMbTXoXXoi5PvMf-WiiaAH7cSNXo</string>
+    <float name="latitudine">0.0</float>
+    <float name="longitudine">0.0</float>
 </resources>
