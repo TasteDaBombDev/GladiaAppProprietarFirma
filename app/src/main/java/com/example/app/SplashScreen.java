@@ -32,9 +32,6 @@ public class SplashScreen extends AppCompatActivity {
         logo = (ImageView) findViewById(R.id.logo);
         name = findViewById(R.id.appName);
 
-        Animation animation = AnimationUtils.loadAnimation(this,R.anim.popin);
-        logo.startAnimation(animation);
-
         new Handler().postDelayed(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override

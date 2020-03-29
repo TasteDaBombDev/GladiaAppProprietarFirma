@@ -67,26 +67,7 @@ public class SecondPannelPrime extends AppCompatActivity {
 
     }
 
-    private float x1,x2,y1,y2;
-
-    public boolean onTouchEvent(MotionEvent touchEvent){
-        switch (touchEvent.getAction()){
-            case MotionEvent.ACTION_DOWN:{
-                x1 = touchEvent.getX();
-                y1 = touchEvent.getY();
-            } break;
-            case MotionEvent.ACTION_UP:{
-                x2 = touchEvent.getX();
-                y2 = touchEvent.getY();
-                if (x1 > x2)
-                    openThirdPannel();
-
-            } break;
-        }
-        return false;
-    }
-
-    public void openThirdPannel(){
+    public void openThirdPannel(View view){
 
         usern = username.getText().toString().trim();
         log = login.getText().toString().trim();
