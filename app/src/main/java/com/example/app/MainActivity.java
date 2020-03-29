@@ -12,8 +12,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +31,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        TextView welcome = findViewById(R.id.welcome);
+        Animation anim = AnimationUtils.loadAnimation(this,R.anim.popin);
+        welcome.startAnimation(anim);
+//        getWindow().setTransitionBackgroundFadeDuration(2000);
     }
+
 
     @Override
     public void onBackPressed() {

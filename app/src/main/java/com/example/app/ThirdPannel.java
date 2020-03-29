@@ -65,26 +65,7 @@ public class ThirdPannel extends AppCompatActivity {
 
     }
 
-    private float x1,x2,y1,y2;
-
-    public boolean onTouchEvent(MotionEvent touchEvent){
-        switch (touchEvent.getAction()){
-            case MotionEvent.ACTION_DOWN:{
-                x1 = touchEvent.getX();
-                y1 = touchEvent.getY();
-            } break;
-            case MotionEvent.ACTION_UP:{
-                x2 = touchEvent.getX();
-                y2 = touchEvent.getY();
-                if (x1 > x2)
-                    openForthPannel();
-
-            } break;
-        }
-        return false;
-    }
-
-    public void openForthPannel() {
+    public void openForthPannel(View view) {
         password = pass.getText().toString().trim();
         String verifPassword = verifpass.getText().toString().trim();
 

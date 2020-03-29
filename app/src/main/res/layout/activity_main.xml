@@ -6,30 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@drawable/bg"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:windowTransitionBackgroundFadeDuration="2000">
 
-    <TextView
-        android:id="@+id/welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="Welcome"
-        android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textColor="#FF0000"
-        android:textSize="60sp"
-        android:textStyle="italic" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="84dp"
+            android:layout_height="74dp"
+            android:transitionName="imgTransition"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.021"
+            app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Welcome"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textColor="#FF0000"
+            android:textSize="60sp"
+            android:textStyle="italic"
+            android:transitionName="Transition"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.152" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

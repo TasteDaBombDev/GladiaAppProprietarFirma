@@ -17,11 +17,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+
 public class SplashScreen extends AppCompatActivity {
 
     private ImageView logo;
     private TextView name;
-    private static int SPLASH_TIME = 2500;
+    private static int SPLASH_TIME = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +39,18 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
 
+                Pair[] pairs = new Pair[1];
+                pairs[0] = new Pair<View, String>(logo,"imgTransition");
+
+                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this,pairs);
+
+
                 Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                startActivity(intent, activityOptions.toBundle());
+
+
             }
         },SPLASH_TIME);
+
     }
 }
