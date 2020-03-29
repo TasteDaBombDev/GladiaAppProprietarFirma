@@ -29,6 +29,7 @@ public class SecondPannel extends AppCompatActivity {
     private static String num,prenum,birthDate;
     private MaterialTextField date_outline,prenume_outline,nume_outline;
     private Animation make_error;
+    private Spinner sex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,11 @@ public class SecondPannel extends AppCompatActivity {
         prenume_outline = findViewById(R.id.prenume_outline);
         nume_outline = findViewById(R.id.nume_outline);
         date = findViewById(R.id.zi_nastere);
+        sex = findViewById(R.id.sex);
+
+        String[] items = new String[]{"Female", "Male", "Other"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        sex.setAdapter(adapter);
 
 
 
@@ -52,7 +58,7 @@ public class SecondPannel extends AppCompatActivity {
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        date.setOnClickListener(new View.OnClickListener() {
+        date_outline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SecondPannel.this, new DatePickerDialog.OnDateSetListener() {
@@ -139,6 +145,7 @@ public class SecondPannel extends AppCompatActivity {
         {
             nume.setError("Campul este gol");
             nume_outline.startAnimation(make_error);
+            nume_outline.setHasFocus(true);
         }
 
         if(prenum.length() == 0)
@@ -146,6 +153,7 @@ public class SecondPannel extends AppCompatActivity {
             prenume.setError("Campul este gol");
 //            prenume_outline.setBackgroundResource(R.color.error);
             prenume_outline.startAnimation(make_error);
+            prenume_outline.setHasFocus(true);
         }
 
         if(!num.isEmpty() && !prenum.isEmpty())

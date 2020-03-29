@@ -14,8 +14,12 @@ import android.widget.Toast;
 
 import com.github.florent37.materialtextfield.MaterialTextField;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
 
@@ -32,7 +36,6 @@ public class FourthPannel extends AppCompatActivity {
     private EditText cod;
     private String trueCode;
     private String method;
-    private String url;
     private OkHttpClient client;
     private Animation make_error;
     private MaterialTextField code_outline;
@@ -50,7 +53,6 @@ public class FourthPannel extends AppCompatActivity {
         trueCode = generateCode();
         sendCode();
         client = new OkHttpClient();
-        url = "http://gladiaholdings.com/PHP/send_mail.php";
 
         code_outline.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +78,15 @@ public class FourthPannel extends AppCompatActivity {
         }
         else{
             //is a mail
+            String mail = SecondPannelPrime.getLogin();
+            String username = SecondPannelPrime.getUsername();
+
+            String method = "sendMail";
+            BackgroundWork backgroundWork = new BackgroundWork(this);
+            Toast.makeText(getApplicationContext(),"back",Toast.LENGTH_SHORT).show();
+            backgroundWork.execute(method,mail,trueCode,username);
+//            finish();
+
 //            Request request = new Request.Builder().url(url).build();
 //            client.newCall(request).enqueue(new Callback() {
 //                @Override
