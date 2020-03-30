@@ -20,8 +20,20 @@ public class Register extends AppCompatActivity {
     public void openApp(){
         //register
         //Sterge Liniile de mai jos. Ele sunt facute sa te redirectioneze catre clasa de login.
-        Intent intent = new Intent(this,Login.class);
-        startActivity(intent);
+        String nume = SecondPannel.getNume();
+        String prenume = SecondPannel.getPrenume();
+        String date = SecondPannel.getBirthDate();
+        String username = SecondPannelPrime.getUsername();
+        String login = SecondPannelPrime.getLogin();
+        String pass = ThirdPannel.getPassword();
+
+        String method = "register";
+        BackgroundWork backgroundWork = new BackgroundWork(this);
+        backgroundWork.execute(method,username, nume, prenume, pass, login, date);
+        finish();
+        //        Intent intent = new Intent(this,MainScreen.class);
+//        startActivity(intent);
+
     }
 
     @Override
