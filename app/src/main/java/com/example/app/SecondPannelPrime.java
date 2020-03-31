@@ -12,8 +12,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.github.florent37.materialtextfield.MaterialTextField;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -84,13 +91,76 @@ public class SecondPannelPrime extends AppCompatActivity {
             login.setError("Campul este gol");
 //            login_outline.setBackgroundResource(R.color.error);
             login_outline.startAnimation(make_error);
+            return;
         }
 
         if(!usern.isEmpty() && !log.isEmpty())
         {
-            Intent intent = new Intent(this,ThirdPannel.class);
+//            Response.Listener<String> responseListener = new Response.Listener<String>(){
+//
+//                @Override
+//                public void onResponse(String response) {
+//                    Toast.makeText(getApplicationContext(),"sunt aici", Toast.LENGTH_SHORT).show();
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(response);
+//                        boolean success = jsonObject.getBoolean("success");
+//
+//                        if(success){
+//                            Response.Listener<String> responseListener2 = new Response.Listener<String>(){
+//
+//                                @Override
+//                                public void onResponse(String response) {
+//                                    Toast.makeText(getApplicationContext(),"sunt aici", Toast.LENGTH_SHORT).show();
+//                                    try {
+//                                        JSONObject jsonObject = new JSONObject(response);
+//                                        boolean success = jsonObject.getBoolean("success");
+//
+//                                        if(success){
+//                                        }
+//                                        else{
+//                                            String message = jsonObject.getString("msg");
+//                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    } catch (JSONException e) {
+//                                        Toast.makeText(getApplicationContext(),"JSON_err",Toast.LENGTH_SHORT).show();
+//                                        e.printStackTrace();
+//                                    }
+//
+//                                }
+//                            };
+//
+//                            String regex = "[0-9]+";
+//                            if(log.matches(regex)){
+//                                ServerRequest registerRequest2 = new ServerRequest(log, "http://gladiaholdings.com/PHP/checkTelefon.php", responseListener2);
+//                                RequestQueue queue = Volley.newRequestQueue(SecondPannelPrime.this);
+//                                queue.add(registerRequest2);
+//                            }
+//                            else {
+//                                ServerRequest registerRequest2 = new ServerRequest(log, "http://gladiaholdings.com/PHP/checkMail.php", responseListener2);
+//                                RequestQueue queue = Volley.newRequestQueue(SecondPannelPrime.this);
+//                                queue.add(registerRequest2);
+//                            }
+//
+//                        }
+//                        else{
+//                            String message = jsonObject.getString("msg");
+//                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+//                        }
+//                    } catch (JSONException e) {
+//                        Toast.makeText(getApplicationContext(),"JSON_err",Toast.LENGTH_SHORT).show();
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//            };
+//
+//            ServerRequest serverRequest = new ServerRequest(usern, "http://gladiaholdings.com/PHP/checkUsername.php", responseListener);
+//            RequestQueue queue = Volley.newRequestQueue(SecondPannelPrime.this);
+//            queue.add(serverRequest);
+            Intent intent = new Intent(SecondPannelPrime.this,ThirdPannel.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
         }
     }
 

@@ -30,12 +30,16 @@ public class MainScreen extends FragmentActivity implements OnMapReadyCallback {
     private Location me;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
+    private int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        Bundle extras = getIntent().getExtras();
+        userID = extras.getInt("userID");
 
+        Toast.makeText(getApplicationContext(),userID + "",Toast.LENGTH_SHORT).show();
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();

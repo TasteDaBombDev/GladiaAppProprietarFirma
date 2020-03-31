@@ -78,14 +78,6 @@ public class FourthPannel extends AppCompatActivity {
         }
         else{
             //is a mail
-            String mail = SecondPannelPrime.getLogin();
-            String username = SecondPannelPrime.getUsername();
-
-            String method = "sendMail";
-            BackgroundWork backgroundWork = new BackgroundWork(this);
-            Toast.makeText(getApplicationContext(),"back",Toast.LENGTH_SHORT).show();
-            backgroundWork.execute(method,mail,trueCode,username);
-//            finish();
 
 //            Request request = new Request.Builder().url(url).build();
 //            client.newCall(request).enqueue(new Callback() {

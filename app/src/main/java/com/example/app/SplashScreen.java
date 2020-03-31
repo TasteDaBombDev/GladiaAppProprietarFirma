@@ -23,7 +23,7 @@ public class SplashScreen extends AppCompatActivity {
 
     private ImageView logo;
     private TextView name;
-    private static int SPLASH_TIME = 3000;
+    private static int SPLASH_TIME = 0000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
