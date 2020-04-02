@@ -46,11 +46,23 @@ public class Login extends AppCompatActivity {
                     boolean success = jsonObject.getBoolean("success");
                     String message = jsonObject.getString("msg");
                     int ID = jsonObject.getInt("userID");
+                    String username = jsonObject.getString("username");
 
                     if(success){
+
+                        Button relative = findViewById(R.id.login_btn);
+
+                        Pair[] pairs = new Pair[1];
+                        pairs[0] = new Pair<View, String>(relative,"imgTransition");
+
+                        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
+
+
                         Intent intent = new Intent(Login.this, MainScreen.class);
                         intent.putExtra("userID", ID);
-                        startActivity(intent);
+                        intent.putExtra("username",username);
+                        startActivity(intent,activityOptions.toBundle());
+                        finish();
 //                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     } else{
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

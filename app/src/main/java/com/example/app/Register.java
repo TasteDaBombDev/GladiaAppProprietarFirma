@@ -45,6 +45,7 @@ public class Register extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
                     String message = jsonObject.getString("msg");
+                    String username = jsonObject.getString("username");
                     int userID = jsonObject.getInt("userID");
 
 
@@ -52,6 +53,7 @@ public class Register extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Register.this, MainScreen.class);
                         intent.putExtra("idUser", userID);
+                        intent.putExtra("username",username);
                         startActivity(intent);
                     }
                     else{

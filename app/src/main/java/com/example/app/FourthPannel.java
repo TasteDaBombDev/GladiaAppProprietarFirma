@@ -3,16 +3,25 @@ package com.example.app;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.github.florent37.materialtextfield.MaterialTextField;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -27,7 +36,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
 import static java.lang.Character.isDigit;
 
@@ -79,19 +87,30 @@ public class FourthPannel extends AppCompatActivity {
         else{
             //is a mail
 
-//            Request request = new Request.Builder().url(url).build();
-//            client.newCall(request).enqueue(new Callback() {
+//            Response.Listener<String> listener = new Response.Listener<String>() {
 //                @Override
-//                public void onFailure(Call call, IOException e) {
-//                    e.printStackTrace();
-//                }
+//                public void onResponse(String response) {
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(response);
+//                        boolean success = jsonObject.getBoolean("success");
 //
-//                @Override
-//                public void onResponse(Call call, Response response) throws IOException {
-//                    if(response.isSuccessful())
-//                        Toast.makeText(getApplicationContext(),"sent you a text",Toast.LENGTH_SHORT).show();
+//                        if(success){
+//                            Toast.makeText(getApplicationContext(),"yay",Toast.LENGTH_SHORT).show();
+//                        } else{
+//                            Toast.makeText(getApplicationContext(), "no", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
 //                }
-//            });
+//            };
+//
+//
+//            ServerRequest serverRequest = new ServerRequest(SecondPannelPrime.getLogin(),SecondPannelPrime.getUsername(),trueCode,"http://gladiaholdings.com/PHP/login.php",listener);
+//            RequestQueue queue = Volley.newRequestQueue(FourthPannel.this);
+//            queue.add(serverRequest);
+
             Toast.makeText(getApplicationContext(),"you introduced a mail" + trueCode,Toast.LENGTH_LONG).show();
         }
     }
@@ -122,9 +141,9 @@ public class FourthPannel extends AppCompatActivity {
 
     public void registerUser() {
         if(check()){
-            Intent intent = new Intent(FourthPannel.this, Register.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//            Intent intent = new Intent(FourthPannel.this, Register.class);
+//            startActivity(intent);
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
         else
         {
