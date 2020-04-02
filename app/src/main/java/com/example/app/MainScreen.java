@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -39,10 +40,9 @@ public class MainScreen extends FragmentActivity implements OnMapReadyCallback {
         Bundle extras = getIntent().getExtras();
         userID = extras.getInt("userID");
 
-        Toast.makeText(getApplicationContext(),userID + "",Toast.LENGTH_SHORT).show();
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
+
 
 
     }
@@ -70,6 +70,9 @@ public class MainScreen extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+
+        MapStyleOptions mapStyleOptions= MapStyleOptions.loadRawResourceStyle(this,R.raw.map_style);
+        googleMap.setMapStyle(mapStyleOptions);
 
         LatLng point = new LatLng(me.getLatitude(),me.getLongitude());
 

@@ -29,10 +29,11 @@ public class ServerRequest extends StringRequest {
         }
     }
 
-    public ServerRequest(String data, String link, Response.Listener<String> listener){
+    public ServerRequest(String nothing, String data, String data2, String link, Response.Listener<String> listener){
         super(Method.POST, link, listener, null);
         params = new HashMap<>();
         params.put("data", data);
+        params.put("data2", data2);
     }
 
     public ServerRequest(String logare, String pass, String link, Response.Listener<String> listener){

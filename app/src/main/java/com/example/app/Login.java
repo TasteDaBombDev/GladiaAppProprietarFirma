@@ -3,9 +3,12 @@ package com.example.app;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -48,7 +51,7 @@ public class Login extends AppCompatActivity {
                         Intent intent = new Intent(Login.this, MainScreen.class);
                         intent.putExtra("userID", ID);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     } else{
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                     }

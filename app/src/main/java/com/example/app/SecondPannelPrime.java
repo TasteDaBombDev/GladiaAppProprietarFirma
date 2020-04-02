@@ -26,10 +26,18 @@ import java.util.Calendar;
 
 public class SecondPannelPrime extends AppCompatActivity {
 
-    private EditText login,username;
-    private static String usern,log;
-    private MaterialTextField login_outline,username_outline;
+    private static String usern, log;
+    private EditText login, username;
+    private MaterialTextField login_outline, username_outline;
     private Animation make_error;
+
+    public static String getLogin() {
+        return log;
+    }
+
+    public static String getUsername() {
+        return usern;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +45,7 @@ public class SecondPannelPrime extends AppCompatActivity {
         setContentView(R.layout.activity_second_pannel_prime);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
+        make_error = AnimationUtils.loadAnimation(this, R.anim.shake);
 
         username = findViewById(R.id.username);
         login = findViewById(R.id.login);
@@ -48,11 +56,10 @@ public class SecondPannelPrime extends AppCompatActivity {
         username_outline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!username_outline.hasFocus()){
+                if (!username_outline.hasFocus()) {
                     username_outline.setHasFocus(true);
                     login_outline.setHasFocus(false);
-                }
-                else username_outline.setHasFocus(false);
+                } else username_outline.setHasFocus(false);
             }
         });
 
@@ -60,11 +67,10 @@ public class SecondPannelPrime extends AppCompatActivity {
         login_outline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!login_outline.hasFocus()){
+                if (!login_outline.hasFocus()) {
                     username_outline.setHasFocus(false);
                     login_outline.setHasFocus(true);
-                }
-                else login_outline.setHasFocus(false);
+                } else login_outline.setHasFocus(false);
             }
         });
     }
@@ -74,101 +80,63 @@ public class SecondPannelPrime extends AppCompatActivity {
 
     }
 
-    public void openThirdPannel(View view){
+    public void openThirdPannel(View view) {
 
         usern = username.getText().toString().trim();
         log = login.getText().toString().trim();
 
-        if(usern.length() == 0)
-        {
+        if (usern.length() == 0) {
             username.setError("Campul este gol");
 //            username_outline.setBackgroundResource(R.color.error);
             username_outline.startAnimation(make_error);
         }
 
-        if(log.length() == 0)
-        {
+        if (log.length() == 0) {
             login.setError("Campul este gol");
 //            login_outline.setBackgroundResource(R.color.error);
             login_outline.startAnimation(make_error);
             return;
         }
 
-        if(!usern.isEmpty() && !log.isEmpty())
-        {
-//            Response.Listener<String> responseListener = new Response.Listener<String>(){
-//
-//                @Override
-//                public void onResponse(String response) {
-//                    Toast.makeText(getApplicationContext(),"sunt aici", Toast.LENGTH_SHORT).show();
-//                    try {
-//                        JSONObject jsonObject = new JSONObject(response);
-//                        boolean success = jsonObject.getBoolean("success");
-//
-//                        if(success){
-//                            Response.Listener<String> responseListener2 = new Response.Listener<String>(){
-//
-//                                @Override
-//                                public void onResponse(String response) {
-//                                    Toast.makeText(getApplicationContext(),"sunt aici", Toast.LENGTH_SHORT).show();
-//                                    try {
-//                                        JSONObject jsonObject = new JSONObject(response);
-//                                        boolean success = jsonObject.getBoolean("success");
-//
-//                                        if(success){
-//                                        }
-//                                        else{
-//                                            String message = jsonObject.getString("msg");
-//                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    } catch (JSONException e) {
-//                                        Toast.makeText(getApplicationContext(),"JSON_err",Toast.LENGTH_SHORT).show();
-//                                        e.printStackTrace();
-//                                    }
-//
-//                                }
-//                            };
-//
-//                            String regex = "[0-9]+";
-//                            if(log.matches(regex)){
-//                                ServerRequest registerRequest2 = new ServerRequest(log, "http://gladiaholdings.com/PHP/checkTelefon.php", responseListener2);
-//                                RequestQueue queue = Volley.newRequestQueue(SecondPannelPrime.this);
-//                                queue.add(registerRequest2);
-//                            }
-//                            else {
-//                                ServerRequest registerRequest2 = new ServerRequest(log, "http://gladiaholdings.com/PHP/checkMail.php", responseListener2);
-//                                RequestQueue queue = Volley.newRequestQueue(SecondPannelPrime.this);
-//                                queue.add(registerRequest2);
-//                            }
-//
-//                        }
-//                        else{
-//                            String message = jsonObject.getString("msg");
-//                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-//                        }
-//                    } catch (JSONException e) {
-//                        Toast.makeText(getApplicationContext(),"JSON_err",Toast.LENGTH_SHORT).show();
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            };
-//
-//            ServerRequest serverRequest = new ServerRequest(usern, "http://gladiaholdings.com/PHP/checkUsername.php", responseListener);
-//            RequestQueue queue = Volley.newRequestQueue(SecondPannelPrime.this);
-//            queue.add(serverRequest);
-            Intent intent = new Intent(SecondPannelPrime.this,ThirdPannel.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        if (!usern.isEmpty() && !log.isEmpty()) {
 
+            boolean[] go = {false,false};
+
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean success = jsonObject.getBoolean("success");
+
+                        if (success) {
+                            Intent intent = new Intent(SecondPannelPrime.this, ThirdPannel.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        } else {
+                            String message = jsonObject.getString("msg");
+                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), "JSON_err", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+
+                }
+            };
+
+
+            RequestQueue queue = Volley.newRequestQueue(SecondPannelPrime.this);
+
+            String regex = "[0-9]+";
+            if (log.matches(regex)) {
+                ServerRequest registerRequest2 = new ServerRequest("0", log, usern, "http://gladiaholdings.com/PHP/checkTelefon.php", responseListener);
+                queue.add(registerRequest2);
+            } else {
+                ServerRequest registerRequest2 = new ServerRequest("0", log, usern, "http://gladiaholdings.com/PHP/checkMail.php", responseListener);
+                queue.add(registerRequest2);
+            }
         }
-    }
-
-    public static String getLogin(){
-        return log;
-    }
-
-    public static String getUsername() {
-        return usern;
     }
 }
