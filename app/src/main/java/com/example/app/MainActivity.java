@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 
@@ -29,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
         TextView welcome = findViewById(R.id.welcome);
         Animation anim = AnimationUtils.loadAnimation(this,R.anim.popin);
         welcome.startAnimation(anim);
@@ -59,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
             } break;
         }
+//        Toast.makeText(getApplicationContext(),x1 + " " + x2 + " " + y1 + " " + y2, Toast.LENGTH_SHORT).show();
         return false;
     }
 

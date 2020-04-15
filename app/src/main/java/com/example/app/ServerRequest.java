@@ -36,11 +36,11 @@ public class ServerRequest extends StringRequest {
         params.put("data2", data2);
     }
 
-    public ServerRequest(String logare, String pass, String link, Response.Listener<String> listener){
+    public ServerRequest(String fieldName1, String logare,  String fieldName2, String pass, String link, Response.Listener<String> listener){
         super(Method.POST, link, listener, null);
         params = new HashMap<>();
-        params.put("user",logare);
-        params.put("pass", pass);
+        params.put(fieldName1,logare);
+        params.put(fieldName2, pass);
     }
 
     @Override

@@ -29,8 +29,6 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spash);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
         logo = (ImageView) findViewById(R.id.logo);
         name = findViewById(R.id.appName);
 
@@ -47,6 +45,7 @@ public class SplashScreen extends AppCompatActivity {
 
                 Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(intent, activityOptions.toBundle());
+                finish();
 
 
             }

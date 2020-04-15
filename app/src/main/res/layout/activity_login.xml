@@ -36,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="E-mail sau telefon"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="0761664890" />
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <com.github.florent37.materialtextfield.MaterialTextField
@@ -58,7 +59,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Parola"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="Lituania1" />
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <Button

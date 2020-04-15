@@ -198,11 +198,6 @@ public class SecondPannel extends AppCompatActivity {
         }
     }
 
-    public void createDialog(){
-        DialogClass dialogClass = new DialogClass();
-        dialogClass.show(getSupportFragmentManager(), "Confirmation");
-    }
-
     public static String getNume(){
         return num;
     }

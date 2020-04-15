@@ -25,8 +25,6 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
     }
 
     @Override
@@ -45,24 +43,25 @@ public class Login extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
                     String message = jsonObject.getString("msg");
-                    int ID = jsonObject.getInt("userID");
-                    String username = jsonObject.getString("username");
 
                     if(success){
 
+
+                        int ID = jsonObject.getInt("userID");
+                        String username = jsonObject.getString("username");
+
                         Button relative = findViewById(R.id.login_btn);
 
-                        Pair[] pairs = new Pair[1];
-                        pairs[0] = new Pair<View, String>(relative,"imgTransition");
-
-                        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
+//                        Pair[] pairs = new Pair[1];
+//                        pairs[0] = new Pair<View, String>(relative,"imgTransition");
+//
+//                        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
 
 
                         Intent intent = new Intent(Login.this, MainScreen.class);
                         intent.putExtra("userID", ID);
                         intent.putExtra("username",username);
-                        startActivity(intent,activityOptions.toBundle());
-                        finish();
+                        startActivity(intent);
 //                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     } else{
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
@@ -74,12 +73,9 @@ public class Login extends AppCompatActivity {
             }
         };
 
-
-        ServerRequest serverRequest = new ServerRequest(data.getText().toString().trim(), pass.getText().toString().trim(),"http://gladiaholdings.com/PHP/login.php",listener);
+        ServerRequest serverRequest = new ServerRequest("user", (data.getText().toString().trim()), "pass", (pass.getText().toString().trim()),"http://gladiaholdings.com/PHP/login.php",listener);
         RequestQueue queue = Volley.newRequestQueue(Login.this);
         queue.add(serverRequest);
-
-
 
 
     }
