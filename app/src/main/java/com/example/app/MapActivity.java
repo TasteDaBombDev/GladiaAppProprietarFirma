@@ -74,24 +74,38 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_map,container,false);
-        ImageView aggroZone = view.findViewById(R.id.toProfile);
+
+
+        ConstraintLayout aggroZone = view.findViewById(R.id.toProfile);
 
         aggroZone.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
+//                if (event.getAction() == MotionEvent.ACTION_DOWN){
+//                    map.getUiSettings().setScrollGesturesEnabled(false);
+//                    x1 = event.getX();
+//                    return true;
+//                }
+//                else{
+//                    x2 = event.getX();
+//                    if((x1 - 200) > x2)
+////                        ((MainScreen)getActivity()).swipeLeft(2);
+//                        map.getUiSettings().setScrollGesturesEnabled(false);
+////                    return true;
+//                }
+//                map.getUiSettings().setScrollGesturesEnabled(true);
+//                return false;
+
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
                     map.getUiSettings().setScrollGesturesEnabled(false);
-                    x1 = event.getX();
+                    return true;
                 }
-                else{
-                    x2 = event.getX();
+                if(event.getAction() == MotionEvent.ACTION_UP){
                     map.getUiSettings().setScrollGesturesEnabled(true);
+                    return false;
                 }
-//                Toast.makeText(getContext(), x1 + " " + x2, Toast.LENGTH_SHORT).show();
-                if(x1 > x2)
-                    ((MainScreen)getActivity()).swipeLeft(2);
                 return false;
             }
         });

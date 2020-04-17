@@ -24,6 +24,8 @@ public class MainScreen extends AppCompatActivity {
     private RelativeLayout root;
     private static int userID;
     private GoogleMap googleMap;
+    private int actualPos = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,30 +35,85 @@ public class MainScreen extends AppCompatActivity {
         userID = extras.getInt("userID");
         username = extras.getString("username");
 
+//        viewPager = new ViewPager.OnPageChangeListener() {
+//
+//            private static final float thresholdOffset = 0.5f;
+//            private boolean scrollStarted, checkDirection;
+//
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                if (checkDirection) {
+//
+//                    checkDirection = false;
+//                }
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {}
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//                if (!scrollStarted && state == ViewPager.SCROLL_STATE_DRAGGING) {
+//
+//                } else {
+//
+//                }
+//            }
+//        };
+
         viewPager = findViewById(R.id.mainSlider);
         root = findViewById(R.id.root);
         EnumFragments enumFragments = new EnumFragments(getSupportFragmentManager(),this);
         viewPager.setAdapter(enumFragments);
 
-//        Toast.makeText(getApplicationContext(),googleMap + "", Toast.LENGTH_LONG).show();
-//        LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View view = layoutInflater.inflate(R.layout.activity_map,null);
-//        root.addView(view);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            private boolean scrollStarted = false;
 
 
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 0)
+                    MapActivity.getMap().getUiSettings().setScrollGesturesEnabled(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                if (!scrollStarted && state == ViewPager.SCROLL_STATE_DRAGGING) {
+                    scrollStarted = true;
+                    MapActivity.getMap().getUiSettings().setScrollGesturesEnabled(false);
+                } else {
+                    scrollStarted = false;
+                    MapActivity.getMap().getUiSettings().setScrollGesturesEnabled(true);
+                }
+            }
+        });
     }
 
-    public void swipeRight(int x){
-        if(x < 2){
-            viewPager.setCurrentItem(x + 1);
-        }
-    }
-
-    public void swipeLeft(int x){
-        if(x > 0){
-            viewPager.setCurrentItem(x - 1);
-        }
-    }
+//    public boolean theSame(){
+//        if(viewPager.getCurrentItem() == actualPos)
+//            return true;
+//        return false;
+//    }
+//
+//    public void swipeRight(int x){
+//        if(x < 2){
+//            viewPager.setCurrentItem(x + 1);
+//            actualPos = x;
+//        }
+//    }
+//
+//    public void swipeLeft(int x){
+//        if(x > 0){
+//            viewPager.setCurrentItem(x - 1);
+//            actualPos = x;
+//        }
+//    }
 
     public static int getUserID() {
         return userID;

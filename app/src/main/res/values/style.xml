@@ -8,5 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowSwipeToDismiss">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>
