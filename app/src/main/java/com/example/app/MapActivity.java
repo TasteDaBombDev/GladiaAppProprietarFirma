@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,8 +50,9 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
 
     private View view;
 
-    static GoogleMap map;
-    MapView mapView;
+    private static GoogleMap map;
+    private MapView mapView;
+    private LatLng sydney = new LatLng(43.1, -87.9);
 
 
     public MapActivity(){
@@ -68,7 +70,7 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
     }
 
 
-    private float x1,x2,y1,y2;
+//    private float x1,x2,y1,y2;
     @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
@@ -76,9 +78,25 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
         view = inflater.inflate(R.layout.activity_map,container,false);
 
 
-        ConstraintLayout aggroZone = view.findViewById(R.id.toProfile);
+        ConstraintLayout aggroZoneProfile = view.findViewById(R.id.toProfile), aggroZoneEvents = view.findViewById(R.id.toEvents);
 
-        aggroZone.setOnTouchListener(new View.OnTouchListener() {
+        aggroZoneEvents.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    map.getUiSettings().setScrollGesturesEnabled(false);
+                    return true;
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    map.getUiSettings().setScrollGesturesEnabled(true);
+                    return false;
+                }
+                return false;
+            }
+        });
+
+
+        aggroZoneProfile.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -130,7 +148,6 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
         map = googleMap;
-        LatLng sydney = new LatLng(-33.852, 151.211);
 
         MarkerOptions markerOptions = new MarkerOptions().position(sydney).title("Me");
 
@@ -139,7 +156,6 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
 
         googleMap.addMarker(markerOptions);
     }
-
 
     //    private GoogleMap map;
 //    private Location me;
@@ -157,22 +173,22 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
 //    }
 //
 //    private void getLastLocation() {
-//        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+//        if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
 //            return;
 //        }
-//        Toast.makeText(getApplicationContext(), "hey...", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "hey...", Toast.LENGTH_SHORT).show();
 //        Task<Location> task = fusedLocationProviderClient.getLastLocation();
 //        task.addOnSuccessListener(new OnSuccessListener<Location>() {
 //            @Override
 //            public void onSuccess(Location location) {
 //                if(location != null){
 //                    me = location;
-//                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+//                    SupportMapFragment mapFragment = (SupportMapFragment) getParentFragmentManager().findFragmentById(R.id.mapView);
 //                    mapFragment.getMapAsync(MapActivity.this);
 //                }
 //                else
-//                    Toast.makeText(getApplicationContext(), "Deschide-ti locatia", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Deschide-ti locatia", Toast.LENGTH_SHORT).show();
 //            }
 //        });
 //    }

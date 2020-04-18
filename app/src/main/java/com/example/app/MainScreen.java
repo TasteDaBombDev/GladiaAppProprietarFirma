@@ -65,7 +65,8 @@ public class MainScreen extends AppCompatActivity {
         root = findViewById(R.id.root);
         EnumFragments enumFragments = new EnumFragments(getSupportFragmentManager(),this);
         viewPager.setAdapter(enumFragments);
-
+        viewPager.setCurrentItem(1);
+        
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             private boolean scrollStarted = false;

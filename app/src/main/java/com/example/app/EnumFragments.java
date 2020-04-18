@@ -26,10 +26,12 @@ public class EnumFragments extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position){
-        if(position == 0)
+        if(position == 1)
             return MapActivity.getINSTANCE();
-        else if(position == 1)
+        else if(position == 0)
             return Profile.getINSTANCE();
+        else if(position == 2)
+            return Evenimante.getINSTANCE();
         return null;
     }
 
@@ -84,7 +86,7 @@ public class EnumFragments extends FragmentPagerAdapter {
 //
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 //
 //    @Override
