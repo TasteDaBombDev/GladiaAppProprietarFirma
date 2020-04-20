@@ -25,6 +25,13 @@ public class MainScreen extends AppCompatActivity {
     private static int userID;
     private GoogleMap googleMap;
     private int actualPos = 0;
+    private static String nume;
+    private static String prenume;
+    private static String password;
+    private static String mail;
+    private static String ziuaDeNastere;
+    private static String sex;
+    private static String nrtel;
 
 
     @Override
@@ -34,6 +41,13 @@ public class MainScreen extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         userID = extras.getInt("userID");
         username = extras.getString("username");
+        nume = extras.getString("nume");
+        prenume = extras.getString("prenume");
+        password = extras.getString("password");
+        mail = extras.getString("mail");
+        ziuaDeNastere = extras.getString("ziuaDeNastere");
+        sex = extras.getString("sex");
+        nrtel = extras.getString("nrtel");
 
 //        viewPager = new ViewPager.OnPageChangeListener() {
 //
@@ -122,6 +136,34 @@ public class MainScreen extends AppCompatActivity {
 
     public static String getUsername() {
         return username;
+    }
+
+    public static String getNume() {
+        return nume;
+    }
+
+    public static String getPrenume() {
+        return prenume;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static String getMail() {
+        return mail;
+    }
+
+    public static String getZiuaDeNastere() {
+        return ziuaDeNastere;
+    }
+
+    public static String getSex() {
+        return sex;
+    }
+
+    public static String getNrtel() {
+        return nrtel;
     }
 
     @Override

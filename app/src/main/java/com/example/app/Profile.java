@@ -15,10 +15,22 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+
+import android.widget.Toast;
+
 public class Profile extends Fragment {
 
 
     private static Profile INSTANCE = null;
+
+    private static String username;
+    private static String nume;
+    private static String prenume;
+    private static String password;
+    private static String mail;
+    private static String ziuaDeNastere;
+    private static String sex;
+    private static String nrtel;
 
     View view;
 
@@ -55,9 +67,27 @@ public class Profile extends Fragment {
             }
         });
 
+        username = MainScreen.getUsername();
+        nume = MainScreen.getNume();
+        prenume = MainScreen.getPrenume();
+        password = MainScreen.getPassword();
+        mail = MainScreen.getMail();
+        ziuaDeNastere = MainScreen.getZiuaDeNastere();
+        sex = MainScreen.getSex();
+        nrtel = MainScreen.getNrtel();
+
+        Toast.makeText(getContext(), nume, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), prenume, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), password, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), mail, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), ziuaDeNastere, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), sex, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), nrtel, Toast.LENGTH_SHORT).show();
+
+
         return view;
     }
-    
+
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);

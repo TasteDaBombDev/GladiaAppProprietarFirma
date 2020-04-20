@@ -49,6 +49,13 @@ public class Login extends AppCompatActivity {
 
                         int ID = jsonObject.getInt("userID");
                         String username = jsonObject.getString("username");
+                        String nume = jsonObject.getString("nume");
+                        String prenume = jsonObject.getString("prenume");
+                        String password = jsonObject.getString("password");
+                        String mail = jsonObject.getString("mail");
+                        String ziuaDeNastere = jsonObject.getString("ziuaDeNastere");
+                        String sex = jsonObject.getString("sex");
+                        String nrtel = jsonObject.getString("nrtel");
 
                         Button relative = findViewById(R.id.login_btn);
 
@@ -61,6 +68,14 @@ public class Login extends AppCompatActivity {
                         Intent intent = new Intent(Login.this, MainScreen.class);
                         intent.putExtra("userID", ID);
                         intent.putExtra("username",username);
+                        intent.putExtra("nume", nume);
+                        intent.putExtra("prenume", prenume);
+                        intent.putExtra("password", password);
+                        intent.putExtra("mail", mail);
+                        intent.putExtra("ziuaDeNastere", ziuaDeNastere);
+                        intent.putExtra("sex", sex);
+                        intent.putExtra("nrtel", nrtel);
+
                         startActivity(intent);
 //                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     } else{

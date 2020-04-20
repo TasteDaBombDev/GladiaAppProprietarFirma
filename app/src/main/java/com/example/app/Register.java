@@ -1,11 +1,11 @@
 package com.example.app;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -16,7 +16,6 @@ import org.json.JSONObject;
 
 public class Register extends AppCompatActivity {
 
-    private boolean isRegistred = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
