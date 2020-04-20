@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity {
                         int ID = jsonObject.getInt("userID");
                         String username = jsonObject.getString("username");
                         String nume = jsonObject.getString("nume");
-                        String prenme = jsonObject.getString("prenume");
+                        String prenume = jsonObject.getString("prenume");
                         String password = jsonObject.getString("password");
                         String mail = jsonObject.getString("mail");
                         String ziuaDeNastere = jsonObject.getString("ziuaDeNastere");

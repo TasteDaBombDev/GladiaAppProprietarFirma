@@ -47,12 +47,28 @@ public class Register extends AppCompatActivity {
                     String username = jsonObject.getString("username");
                     int userID = jsonObject.getInt("userID");
 
+                    String nume = jsonObject.getString("nume");
+                    String prenume = jsonObject.getString("prenume");
+                    String password = jsonObject.getString("password");
+                    String mail = jsonObject.getString("mail");
+                    String ziuaDeNastere = jsonObject.getString("ziuaDeNastere");
+                    String sex = jsonObject.getString("sex");
+                    String nrtel = jsonObject.getString("nrtel");
 
                     if(success){
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Register.this, MainScreen.class);
                         intent.putExtra("idUser", userID);
                         intent.putExtra("username",username);
+
+                        intent.putExtra("nume", nume);
+                        intent.putExtra("prenume", prenume);
+                        intent.putExtra("password", password);
+                        intent.putExtra("mail", mail);
+                        intent.putExtra("ziuaDeNastere", ziuaDeNastere);
+                        intent.putExtra("sex", sex);
+                        intent.putExtra("nrtel", nrtel);
+
                         startActivity(intent);
                     }
                     else{
