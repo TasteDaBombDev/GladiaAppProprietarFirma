@@ -2,29 +2,26 @@ package com.example.app;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Evenimante extends Fragment {
+public class Evenimente extends Fragment {
 
-    private static Evenimante INSTANCE = null;
+    private static Evenimente INSTANCE = null;
 
     View view;
 
-    public Evenimante(){
+    public Evenimente(){
     }
 
-    public static Evenimante getINSTANCE(){
+    public static Evenimente getINSTANCE(){
         if (INSTANCE == null)
-            INSTANCE = new Evenimante();
+            INSTANCE = new Evenimente();
         return INSTANCE;
     }
 
@@ -37,7 +34,7 @@ public class Evenimante extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_evenimante,container,false);
+        view = inflater.inflate(R.layout.activity_evenimente,container,false);
 
         return view;
     }

@@ -20,11 +20,10 @@ public class MainScreen extends AppCompatActivity {
 
     private static String username;
     private ViewPager viewPager;
-    private EnumFragments enumFragments;
     private RelativeLayout root;
     private static int userID;
     private GoogleMap googleMap;
-    private int actualPos = 0;
+//    private int actualPos = 0;
     private static String nume;
     private static String prenume;
     private static String password;
@@ -48,32 +47,6 @@ public class MainScreen extends AppCompatActivity {
         ziuaDeNastere = extras.getString("ziuaDeNastere");
         sex = extras.getString("sex");
         nrtel = extras.getString("nrtel");
-
-//        viewPager = new ViewPager.OnPageChangeListener() {
-//
-//            private static final float thresholdOffset = 0.5f;
-//            private boolean scrollStarted, checkDirection;
-//
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                if (checkDirection) {
-//
-//                    checkDirection = false;
-//                }
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {}
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//                if (!scrollStarted && state == ViewPager.SCROLL_STATE_DRAGGING) {
-//
-//                } else {
-//
-//                }
-//            }
-//        };
 
         viewPager = findViewById(R.id.mainSlider);
         root = findViewById(R.id.root);

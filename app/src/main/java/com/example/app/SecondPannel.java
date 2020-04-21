@@ -32,7 +32,6 @@ public class SecondPannel extends AppCompatActivity {
     private static String num,prenum,birthDate;
     private MaterialTextField date_outline,prenume_outline,nume_outline;
     private Animation make_error;
-    private Spinner sex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +47,6 @@ public class SecondPannel extends AppCompatActivity {
         prenume_outline = findViewById(R.id.prenume_outline);
         nume_outline = findViewById(R.id.nume_outline);
         date = findViewById(R.id.zi_nastere);
-        sex = findViewById(R.id.sex);
-
-        String[] items = new String[]{"Female", "Male", "Other"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        sex.setAdapter(adapter);
 
         nume.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
