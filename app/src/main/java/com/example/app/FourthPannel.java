@@ -52,8 +52,6 @@ public class FourthPannel extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fourth_pannel);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
         make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
         code_outline = findViewById(R.id.code_outline);
 

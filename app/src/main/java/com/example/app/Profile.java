@@ -12,11 +12,16 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 
+import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 public class Profile extends Fragment {
 
@@ -31,6 +36,7 @@ public class Profile extends Fragment {
     private static String ziuaDeNastere;
     private static String sex;
     private static String nrtel;
+    private ToggleButton toggleButton;
 
     View view;
 
@@ -83,6 +89,9 @@ public class Profile extends Fragment {
         Toast.makeText(getContext(), ziuaDeNastere, Toast.LENGTH_SHORT).show();
         Toast.makeText(getContext(), sex, Toast.LENGTH_SHORT).show();
         Toast.makeText(getContext(), nrtel, Toast.LENGTH_SHORT).show();
+
+        ConstraintLayout constraintLayout = view.findViewById(R.id.bottomSheet);
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(constraintLayout);
 
 
         return view;

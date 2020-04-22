@@ -43,8 +43,6 @@ public class SecondPannelPrime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_pannel_prime);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
         make_error = AnimationUtils.loadAnimation(this, R.anim.shake);
 
         username = findViewById(R.id.username);

@@ -30,8 +30,6 @@ public class ThirdPannel extends AppCompatActivity {
         setContentView(R.layout.activity_third_pannel);
         pass = (EditText)findViewById(R.id.pass);
         verifpass = (EditText)findViewById(R.id.verif_pass);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
         make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
 
         pass_outline = findViewById(R.id.pass_outline);
