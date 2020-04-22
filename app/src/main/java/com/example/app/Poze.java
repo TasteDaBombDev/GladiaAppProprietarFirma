@@ -2,6 +2,7 @@ package com.example.app;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
@@ -10,18 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Evenimente extends Fragment {
+public class Poze extends Fragment {
 
-    private static Evenimente INSTANCE = null;
+    private static Poze INSTANCE = null;
 
     View view;
 
-    public Evenimente(){
+    public Poze(){
     }
 
-    public static Evenimente getINSTANCE(){
+    public static Poze getINSTANCE(){
+
         if (INSTANCE == null)
-            INSTANCE = new Evenimente();
+            INSTANCE = new Poze();
         return INSTANCE;
     }
 
@@ -38,7 +40,7 @@ public class Evenimente extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_evenimente,container,false);
+        view = inflater.inflate(R.layout.activity_poze,container,false);
 
         return view;
     }

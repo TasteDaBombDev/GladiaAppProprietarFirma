@@ -75,6 +75,7 @@ public class Login extends AppCompatActivity {
                         intent.putExtra("ziuaDeNastere", ziuaDeNastere);
                         intent.putExtra("sex", sex);
                         intent.putExtra("nrtel", nrtel);
+                        intent.putExtra("pannel", 2);
 
                         startActivity(intent);
 //                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

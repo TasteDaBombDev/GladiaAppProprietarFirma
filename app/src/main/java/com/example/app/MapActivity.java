@@ -64,6 +64,10 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
         return INSTANCE;
     }
 
+    public static void resetINSTANCE(){
+        INSTANCE = null;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Evenimente"></activity>
+        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".Poze" />
+        <activity android:name=".Evenimente" />
         <activity android:name=".Profile" />
         <activity android:name=".MapActivity" />
         <activity android:name=".SecondPannelPrime" />

@@ -48,11 +48,12 @@ public class MainScreen extends AppCompatActivity {
         sex = extras.getString("sex");
         nrtel = extras.getString("nrtel");
 
+
         viewPager = findViewById(R.id.mainSlider);
         root = findViewById(R.id.root);
         EnumFragments enumFragments = new EnumFragments(getSupportFragmentManager(),this);
         viewPager.setAdapter(enumFragments);
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(extras.getInt("pannel"));
         
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
