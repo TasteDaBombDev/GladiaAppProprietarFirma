@@ -14,12 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditProfile"></activity>
-        <activity android:name=".Poze" />
-        <activity android:name=".Evenimente" />
-        <activity android:name=".Profile" />
-        <activity android:name=".MapActivity" />
-        <activity android:name=".SecondPannelPrime" />
+        <activity android:name=".register.RegisterMainScreen"></activity>
+        <activity android:name=".userScreen.EditProfile" />
+        <activity android:name=".userScreen.Poze" />
+        <activity android:name=".userScreen.Evenimente" />
+        <activity android:name=".userScreen.Profile" />
+        <activity android:name=".userScreen.MapActivity" />
+        <activity android:name=".register.RegisterTrei" />
         <activity android:name=".Login" /> <!-- <activity -->
         <!-- android:name=".ui.login.Login" -->
         <!-- android:label="@string/title_activity_login" /> -->
@@ -30,16 +31,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register" />
+        <activity android:name=".register.Register" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
-        <activity android:name=".MainScreen" />
-        <activity android:name=".FourthPannel" />
-        <activity android:name=".ThirdPannel" />
-        <activity android:name=".SecondPannel" />
+        <activity android:name=".userScreen.MainScreen" />
+        <activity android:name=".register.RegisterFive" />
+        <activity android:name=".register.RegisterFour" />
+        <activity android:name=".register.RegisterDoi" />
         <activity android:name=".MainActivity" />
     </application>
 

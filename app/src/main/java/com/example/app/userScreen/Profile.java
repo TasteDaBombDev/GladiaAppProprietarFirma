@@ -1,8 +1,7 @@
-package com.example.app;
+package com.example.app.userScreen;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -15,18 +14,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 
-import android.widget.LinearLayout;
-import android.widget.Toast;
-import android.widget.ToggleButton;
-
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.example.app.R;
 
 public class Profile extends Fragment {
 

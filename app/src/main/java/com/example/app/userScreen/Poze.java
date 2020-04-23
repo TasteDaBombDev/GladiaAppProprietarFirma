@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.app.userScreen;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,18 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Evenimente extends Fragment {
+import com.example.app.R;
 
-    private static Evenimente INSTANCE = null;
+public class Poze extends Fragment {
+
+    private static Poze INSTANCE = null;
 
     View view;
 
-    public Evenimente(){
+    public Poze(){
     }
 
-    public static Evenimente getINSTANCE(){
+    public static Poze getINSTANCE(){
+
         if (INSTANCE == null)
-            INSTANCE = new Evenimente();
+            INSTANCE = new Poze();
         return INSTANCE;
     }
 
@@ -38,7 +41,7 @@ public class Evenimente extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_evenimente,container,false);
+        view = inflater.inflate(R.layout.activity_poze,container,false);
 
         return view;
     }

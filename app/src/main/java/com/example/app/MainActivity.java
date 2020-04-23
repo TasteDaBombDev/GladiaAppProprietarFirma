@@ -1,25 +1,16 @@
 package com.example.app;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.blogspot.atifsoftwares.animatoolib.Animatoo;
-
-import org.w3c.dom.Text;
+import com.example.app.register.RegisterDoi;
+import com.example.app.register.RegisterMainScreen;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -64,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void openSecondScreen() {
-        Intent intent = new Intent(this, SecondPannel.class);
+        Intent intent = new Intent(this, RegisterMainScreen.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

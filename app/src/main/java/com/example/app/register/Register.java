@@ -1,15 +1,17 @@
-package com.example.app;
+package com.example.app.register;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.app.userScreen.MainScreen;
+import com.example.app.R;
+import com.example.app.ServerRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,12 +28,12 @@ public class Register extends AppCompatActivity {
 
     public void openApp() {
         //register
-        String nume = SecondPannel.getNume();
-        String prenume = SecondPannel.getPrenume();
-        String date = SecondPannel.getBirthDate();
-        String username = SecondPannelPrime.getUsername();
-        String login = SecondPannelPrime.getLogin();
-        String pass = ThirdPannel.getPassword();
+        String nume = RegisterDoi.getNume();
+        String prenume = RegisterDoi.getPrenume();
+        String date = RegisterDoi.getBirthDate();
+        String username = RegisterTrei.getUsername();
+        String login = RegisterTrei.getLogin();
+        String pass = RegisterFour.getPassword();
 
 
         Response.Listener<String> responseListener = new Response.Listener<String>(){

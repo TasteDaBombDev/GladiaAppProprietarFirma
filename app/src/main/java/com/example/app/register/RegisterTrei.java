@@ -1,35 +1,37 @@
-package com.example.app;
+package com.example.app.register;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import android.app.DatePickerDialog;
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.app.R;
+import com.example.app.ServerRequest;
 import com.github.florent37.materialtextfield.MaterialTextField;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Calendar;
+public class RegisterTrei extends Fragment {
 
-public class SecondPannelPrime extends AppCompatActivity {
-
-    private static String usern, log;
+    private static String usern = "-", log = "-";
     private EditText login, username;
     private MaterialTextField login_outline, username_outline;
     private Animation make_error;
+    private static RegisterTrei INSTANCE = null;
+    private static boolean trei = false;
 
     public static String getLogin() {
         return log;
@@ -39,16 +41,41 @@ public class SecondPannelPrime extends AppCompatActivity {
         return usern;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second_pannel_prime);
-        make_error = AnimationUtils.loadAnimation(this, R.anim.shake);
+    public static boolean getTrei(){
+        return trei;
+    }
 
-        username = findViewById(R.id.username);
-        login = findViewById(R.id.login);
-        login_outline = findViewById(R.id.login_outline);
-        username_outline = findViewById(R.id.username_outline);
+    View view;
+
+    public RegisterTrei(){
+    }
+
+    public static RegisterTrei getINSTANCE(){
+        if (INSTANCE == null)
+            INSTANCE = new RegisterTrei();
+        return INSTANCE;
+    }
+
+    public static void resetINSTANCE(){
+        INSTANCE = null;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_second_pannel_prime,container,false);
+        make_error = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+
+        username = view.findViewById(R.id.username);
+        login = view.findViewById(R.id.login);
+        login_outline = view.findViewById(R.id.login_outline);
+        username_outline = view.findViewById(R.id.username_outline);
 
 
         username_outline.setOnClickListener(new View.OnClickListener() {
@@ -71,14 +98,49 @@ public class SecondPannelPrime extends AppCompatActivity {
                 } else login_outline.setHasFocus(false);
             }
         });
+        return view;
     }
 
-    @Override
-    public void onBackPressed() {
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_second_pannel_prime);
+//        make_error = AnimationUtils.loadAnimation(this, R.anim.shake);
+//
+//        username = findViewById(R.id.username);
+//        login = findViewById(R.id.login);
+//        login_outline = findViewById(R.id.login_outline);
+//        username_outline = findViewById(R.id.username_outline);
+//
+//
+//        username_outline.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!username_outline.hasFocus()) {
+//                    username_outline.setHasFocus(true);
+//                    login_outline.setHasFocus(false);
+//                } else username_outline.setHasFocus(false);
+//            }
+//        });
+//
+//
+//        login_outline.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!login_outline.hasFocus()) {
+//                    username_outline.setHasFocus(false);
+//                    login_outline.setHasFocus(true);
+//                } else login_outline.setHasFocus(false);
+//            }
+//        });
+//    }
+//
+//    @Override
+//    public void onBackPressed() {
+//
+//    }
 
-    }
-
-    public void openThirdPannel(View view) {
+    public void openThirdPannel() {
 
         usern = username.getText().toString().trim();
         log = login.getText().toString().trim();
@@ -98,8 +160,6 @@ public class SecondPannelPrime extends AppCompatActivity {
 
         if (!usern.isEmpty() && !log.isEmpty()) {
 
-            boolean[] go = {false,false};
-
             Response.Listener<String> responseListener = new Response.Listener<String>() {
 
                 @Override
@@ -109,23 +169,20 @@ public class SecondPannelPrime extends AppCompatActivity {
                         boolean success = jsonObject.getBoolean("success");
 
                         if (success) {
-                            Intent intent = new Intent(SecondPannelPrime.this, ThirdPannel.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            trei = true;
                         } else {
                             String message = jsonObject.getString("msg");
-                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), "JSON_err", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "JSON_err", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
-
                 }
             };
 
 
-            RequestQueue queue = Volley.newRequestQueue(SecondPannelPrime.this);
+            RequestQueue queue = Volley.newRequestQueue(getContext());
 
             String regex = "[0-9]+";
             if (log.matches(regex)) {

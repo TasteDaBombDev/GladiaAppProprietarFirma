@@ -1,26 +1,18 @@
-package com.example.app;
+package com.example.app.userScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
-import android.location.Location;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
+import com.example.app.R;
 import com.google.android.gms.maps.GoogleMap;
 
 public class MainScreen extends AppCompatActivity {
 
     private static String username;
     private ViewPager viewPager;
-    private RelativeLayout root;
+
     private static int userID;
     private GoogleMap googleMap;
 //    private int actualPos = 0;
@@ -50,7 +42,7 @@ public class MainScreen extends AppCompatActivity {
 
 
         viewPager = findViewById(R.id.mainSlider);
-        root = findViewById(R.id.root);
+
         EnumFragments enumFragments = new EnumFragments(getSupportFragmentManager(),this);
         viewPager.setAdapter(enumFragments);
         viewPager.setCurrentItem(extras.getInt("pannel"));

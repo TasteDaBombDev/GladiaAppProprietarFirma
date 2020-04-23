@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.app.userScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.app.R;
 
 
 public class EditProfile extends AppCompatActivity {

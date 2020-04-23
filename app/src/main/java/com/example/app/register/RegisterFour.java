@@ -1,39 +1,69 @@
-package com.example.app;
+package com.example.app.register;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
-import android.graphics.Color;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.app.R;
 import com.github.florent37.materialtextfield.MaterialTextField;
 
-public class ThirdPannel extends AppCompatActivity {
+public class RegisterFour extends Fragment {
 
     private EditText pass,verifpass;
     private static String password;
     private MaterialTextField pass_outline,verif_pass_outline;
     private Animation make_error;
+    private static RegisterFour INSTANCE = null;
+    private static boolean patru = false;
+    View view;
+
+    public RegisterFour(){
+
+    }
+
+    public static RegisterFour getINSTANCE(){
+        if (INSTANCE == null)
+            INSTANCE = new RegisterFour();
+        return INSTANCE;
+    }
+
+    public static void resetINSTANCE(){
+        INSTANCE = null;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static boolean getPatru(){
+        return patru;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_third_pannel);
-        pass = (EditText)findViewById(R.id.pass);
-        verifpass = (EditText)findViewById(R.id.verif_pass);
-        make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
+    }
 
-        pass_outline = findViewById(R.id.pass_outline);
-        verif_pass_outline = findViewById(R.id.verif_pass_outline);
+    @SuppressLint("ClickableViewAccessibility")
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_third_pannel,container,false);
+        pass = view.findViewById(R.id.pass);
+        verifpass = view.findViewById(R.id.verif_pass);
+        make_error = AnimationUtils.loadAnimation(getContext(),R.anim.shake);
+
+        pass_outline = view.findViewById(R.id.pass_outline);
+        verif_pass_outline = view.findViewById(R.id.verif_pass_outline);
 
         pass_outline.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,14 +86,49 @@ public class ThirdPannel extends AppCompatActivity {
                 else verif_pass_outline.setHasFocus(false);
             }
         });
+        return view;
     }
 
-    @Override
-    public void onBackPressed() {
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_third_pannel);
+//        pass = (EditText)findViewById(R.id.pass);
+//        verifpass = (EditText)findViewById(R.id.verif_pass);
+//        make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
+//
+//        pass_outline = findViewById(R.id.pass_outline);
+//        verif_pass_outline = findViewById(R.id.verif_pass_outline);
+//
+//        pass_outline.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(!pass_outline.hasFocus()){
+//                    pass_outline.setHasFocus(true);
+//                    verif_pass_outline.setHasFocus(false);
+//                }
+//                else pass_outline.setHasFocus(false);
+//            }
+//        });
+//
+//        verif_pass_outline.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(!verif_pass_outline.hasFocus()){
+//                    pass_outline.setHasFocus(false);
+//                    verif_pass_outline.setHasFocus(true);
+//                }
+//                else verif_pass_outline.setHasFocus(false);
+//            }
+//        });
+//    }
+//
+//    @Override
+//    public void onBackPressed() {
+//
+//    }
 
-    }
-
-    public void openForthPannel(View view) {
+    public void openForthPannel() {
         password = pass.getText().toString().trim();
         String verifPassword = verifpass.getText().toString().trim();
 
@@ -102,9 +167,7 @@ public class ThirdPannel extends AppCompatActivity {
                         digit = true;
                 }
                 if (letterBig && letterSmall && digit) {
-                    Intent intent = new Intent(ThirdPannel.this, FourthPannel.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    patru = true;
                 } else
                 {
                     pass_outline.startAnimation(make_error);
@@ -119,15 +182,5 @@ public class ThirdPannel extends AppCompatActivity {
             return;
         }
 
-    }
-
-    public static String getPassword() {
-        return password;
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }
