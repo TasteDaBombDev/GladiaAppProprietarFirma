@@ -43,10 +43,10 @@ public class EnumFragments extends FragmentPagerAdapter {
 //
 //        switch (position){
 //            case 0:
-//                view = layoutInflater.inflate(R.layout.activity_profile,null);
+//                view = layoutInflater.inflate(R.layout.profile_fragment,null);
 //                break;
 //            default:
-//                view = layoutInflater.inflate(R.layout.activity_map,null);
+//                view = layoutInflater.inflate(R.layout.map_fragment,null);
 //                break;
 //
 //        }

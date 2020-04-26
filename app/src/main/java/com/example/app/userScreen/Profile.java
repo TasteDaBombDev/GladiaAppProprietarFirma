@@ -59,7 +59,7 @@ public class Profile extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_profile,container,false);
+        view = inflater.inflate(R.layout.profile_fragment,container,false);
 
         ConstraintLayout aggroZone = view.findViewById(R.id.profile);
 
@@ -129,7 +129,7 @@ public class Profile extends Fragment {
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_profile);
+//        setContentView(R.layout.profile_fragment);
 //
 //        EditText username = findViewById(R.id.usernameProfile);
 //        username.setText(MainScreen.getUsername());

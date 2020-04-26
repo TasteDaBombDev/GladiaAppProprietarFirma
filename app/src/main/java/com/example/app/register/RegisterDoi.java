@@ -2,6 +2,7 @@ package com.example.app.register;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
@@ -13,10 +14,10 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
-import android.widget.EditText;
 
 import com.example.app.R;
-import com.github.florent37.materialtextfield.MaterialTextField;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 
@@ -24,10 +25,11 @@ public class RegisterDoi extends Fragment {
 
 
     private static RegisterDoi INSTANCE = null;
-    private static EditText nume,prenume,date;
+    private static TextInputEditText nume,prenume,date;
+    private static TextInputLayout prenume_layout,nume_layout;
+    private static ConstraintLayout doi_layout;
     private static String num,prenum,birthDate;
-    private static MaterialTextField date_outline,prenume_outline,nume_outline;
-    private static Animation make_error;
+    private static Animation make_error,slideIn;
     private static boolean doi = false;
 
     View view;
@@ -70,77 +72,18 @@ public class RegisterDoi extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_second_pannel,container,false);
+        view = inflater.inflate(R.layout.register_p1,container,false);
         make_error = AnimationUtils.loadAnimation(getContext(),R.anim.shake);
+        slideIn = AnimationUtils.loadAnimation(getContext(),R.anim.popin);
+
 
         nume = view.findViewById(R.id.nume);
         prenume = view.findViewById(R.id.prenume);
-        date_outline = view.findViewById(R.id.date_outline);
-        prenume_outline = view.findViewById(R.id.prenume_outline);
-        nume_outline = view.findViewById(R.id.nume_outline);
+        TextInputLayout date_outline = view.findViewById(R.id.date_outline);
         date = view.findViewById(R.id.zi_nastere);
-
-        nume.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                {
-                    nume_outline.setHasFocus(true);
-                    prenume_outline.setHasFocus(false);
-                    date_outline.setHasFocus(false);
-                }
-            }
-        });
-
-        prenume.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                {
-                    nume_outline.setHasFocus(false);
-                    prenume_outline.setHasFocus(true);
-                    date_outline.setHasFocus(false);
-                }
-            }
-        });
-
-        date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                {
-                    nume_outline.setHasFocus(false);
-                    prenume_outline.setHasFocus(false);
-                    date_outline.setHasFocus(true);
-                }
-            }
-        });
-
-
-        nume_outline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!nume_outline.hasFocus()){
-                    prenume_outline.setHasFocus(false);
-                    date_outline.setHasFocus(false);
-                    nume_outline.setHasFocus(true);
-                }
-                else nume_outline.setHasFocus(false);
-            }
-        });
-
-        prenume_outline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!prenume_outline.hasFocus()){
-                    nume_outline.setHasFocus(false);
-                    date_outline.setHasFocus(false);
-                    prenume_outline.setHasFocus(true);
-                }
-                else prenume_outline.setHasFocus(false);
-            }
-        });
-
+        prenume_layout = view.findViewById(R.id.prenume_layout);
+        nume_layout = view.findViewById(R.id.nume_layout);
+        doi_layout = view.findViewById(R.id.doi);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -170,18 +113,6 @@ public class RegisterDoi extends Fragment {
             }
         });
 
-        date_outline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!date_outline.hasFocus()){
-                    prenume_outline.setHasFocus(false);
-                    date_outline.setHasFocus(true);
-                    nume_outline.setHasFocus(false);
-                }
-                else date_outline.setHasFocus(false);
-            }
-        });
-
         return view;
     }
 
@@ -190,7 +121,7 @@ public class RegisterDoi extends Fragment {
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_second_pannel);
+//        setContentView(R.layout.register_p1);
 //        make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
 //
 //        nume = findViewById(R.id.nume);
@@ -313,6 +244,11 @@ public class RegisterDoi extends Fragment {
 //
 //
 
+
+    public static void animate(){
+        doi_layout.startAnimation(slideIn);
+    }
+
     public static void next(){
 
         num = nume.getText().toString().trim();
@@ -321,21 +257,25 @@ public class RegisterDoi extends Fragment {
 
         if(num.length() == 0)
         {
-            nume.setError("Campul este gol");
-            nume_outline.startAnimation(make_error);
-            nume_outline.setHasFocus(true);
+            nume_layout.setErrorEnabled(true);
+            nume_layout.setError("Campul este gol");
+            nume_layout.startAnimation(make_error);
+            return;
+        }
+        else{
+            nume_layout.setErrorEnabled(false);
         }
 
         if(prenum.length() == 0)
         {
-            prenume.setError("Campul este gol");
-//            prenume_outline.setBackgroundResource(R.color.error);
-            prenume_outline.startAnimation(make_error);
-            prenume_outline.setHasFocus(true);
+            prenume_layout.setErrorEnabled(true);
+            prenume_layout.setError("Campul este gol");
+            prenume_layout.startAnimation(make_error);
+            return;
         }
-
-//        if(date.getText().toString().isEmpty())
-//            createDialog();
+        else{
+            prenume_layout.setErrorEnabled(false);
+        }
 
         if(!num.isEmpty() && !prenum.isEmpty())
         {

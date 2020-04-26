@@ -1,7 +1,6 @@
 package com.example.app;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
@@ -11,13 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Pair;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -28,7 +22,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spash);
+        setContentView(R.layout.splash_screen);
         logo = (ImageView) findViewById(R.id.logo);
         name = findViewById(R.id.appName);
 
@@ -45,7 +39,6 @@ public class SplashScreen extends AppCompatActivity {
 
                 Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(intent, activityOptions.toBundle());
-                finish();
 
 
             }

@@ -40,7 +40,7 @@ public class Evenimente extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_evenimente,container,false);
+        view = inflater.inflate(R.layout.events,container,false);
 
         return view;
     }

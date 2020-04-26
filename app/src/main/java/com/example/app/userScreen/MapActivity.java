@@ -54,7 +54,7 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_map,container,false);
+        view = inflater.inflate(R.layout.map_fragment,container,false);
 
 
         ConstraintLayout aggroZoneProfile = view.findViewById(R.id.toProfile), aggroZoneEvents = view.findViewById(R.id.toEvents);
@@ -130,7 +130,7 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
 //    protected void onCreate(Bundle savedInstanceState) {
 //        Toast.makeText(this, "hey din onCreate", Toast.LENGTH_SHORT).show();
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_map);
+//        setContentView(R.layout.map_fragment);
 //
 //        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 //        getLastLocation();

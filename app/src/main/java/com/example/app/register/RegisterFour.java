@@ -11,17 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 
 import com.example.app.R;
-import com.github.florent37.materialtextfield.MaterialTextField;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterFour extends Fragment {
 
-    private EditText pass,verifpass;
-    private static String password;
-    private MaterialTextField pass_outline,verif_pass_outline;
-    private Animation make_error;
+    private static TextInputEditText pass,verifPassword;
+    private static TextInputLayout pass_layout, verif_pass_layout;
+    private static String password,verifpass;
+    private static Animation make_error;
     private static RegisterFour INSTANCE = null;
     private static boolean patru = false;
     View view;
@@ -57,42 +57,21 @@ public class RegisterFour extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_third_pannel,container,false);
+        view = inflater.inflate(R.layout.register_p3,container,false);
         pass = view.findViewById(R.id.pass);
-        verifpass = view.findViewById(R.id.verif_pass);
+        verifPassword = view.findViewById(R.id.verif_pass);
+        pass_layout = view.findViewById(R.id.pass_layout);
+        verif_pass_layout = view.findViewById(R.id.verif_pass_layout);
+
         make_error = AnimationUtils.loadAnimation(getContext(),R.anim.shake);
 
-        pass_outline = view.findViewById(R.id.pass_outline);
-        verif_pass_outline = view.findViewById(R.id.verif_pass_outline);
-
-        pass_outline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!pass_outline.hasFocus()){
-                    pass_outline.setHasFocus(true);
-                    verif_pass_outline.setHasFocus(false);
-                }
-                else pass_outline.setHasFocus(false);
-            }
-        });
-
-        verif_pass_outline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!verif_pass_outline.hasFocus()){
-                    pass_outline.setHasFocus(false);
-                    verif_pass_outline.setHasFocus(true);
-                }
-                else verif_pass_outline.setHasFocus(false);
-            }
-        });
         return view;
     }
 
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_third_pannel);
+//        setContentView(R.layout.register_p3);
 //        pass = (EditText)findViewById(R.id.pass);
 //        verifpass = (EditText)findViewById(R.id.verif_pass);
 //        make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
@@ -128,32 +107,42 @@ public class RegisterFour extends Fragment {
 //
 //    }
 
-    public void openForthPannel() {
+    public static void next() {
         password = pass.getText().toString().trim();
-        String verifPassword = verifpass.getText().toString().trim();
+        verifpass = verifPassword.getText().toString().trim();
 
         if (password.length() == 0)
         {
-            pass_outline.startAnimation(make_error);
-            pass.setError("Campul este gol");
+            pass_layout.setErrorEnabled(true);
+            pass_layout.setError("Campul este gol");
+            pass_layout.startAnimation(make_error);
             return;
         }
+        else{
+            pass_layout.setErrorEnabled(false);
+        }
 
-        if (verifPassword.length() == 0)
+        if (verifpass.length() == 0)
         {
-            verif_pass_outline.startAnimation(make_error);
-            verifpass.setError("Campul este gol");
+            verif_pass_layout.setErrorEnabled(true);
+            verif_pass_layout.setError("Campul este gol");
+            verif_pass_layout.startAnimation(make_error);
             return;
         }
+        else{
+            verif_pass_layout.setErrorEnabled(false);
+        }
 
-        if (!password.isEmpty() && !verifPassword.isEmpty() && password.compareTo(verifPassword) == 0) {
+        if (!password.isEmpty() && !verifpass.isEmpty() && password.compareTo(verifpass) == 0) {
             if (password.length() < 8)
             {
-                pass_outline.startAnimation(make_error);
-                pass.setError("Parola trebuie sa fie de cel putin de 8 caractere");
+                pass_layout.setErrorEnabled(true);
+                pass_layout.setError("Parola trebuie sa fie de cel putin de 8 caractere");
+                pass_layout.startAnimation(make_error);
                 return;
             }
             else {
+                pass_layout.setErrorEnabled(false);
 
                 boolean letterSmall = false;
                 boolean letterBig = false;
@@ -170,15 +159,18 @@ public class RegisterFour extends Fragment {
                     patru = true;
                 } else
                 {
-                    pass_outline.startAnimation(make_error);
-                    pass.setError("Parola trebuie sa contina minim litere mari, mici si cifre");
+                    pass_layout.setErrorEnabled(true);
+                    pass_layout.setError("Parola trebuie sa contina minim litere mari, mici si cifre");
+                    pass_layout.startAnimation(make_error);
                     return;
                 }
             }
-        } else
+        }
+        else
         {
-            verif_pass_outline.startAnimation(make_error);
-            verifpass.setError("Parolele nu coincid!");
+            verif_pass_layout.setErrorEnabled(true);
+            verif_pass_layout.setError("Parolele nu coincid!");
+            verif_pass_layout.startAnimation(make_error);
             return;
         }
 

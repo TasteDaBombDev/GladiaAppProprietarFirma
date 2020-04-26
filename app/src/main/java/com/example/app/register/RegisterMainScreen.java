@@ -26,25 +26,48 @@ public class RegisterMainScreen extends AppCompatActivity {
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-            private boolean scrollStarted = false;
+            private boolean scrollStop = true;
+            private int positioning = 0;
 
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                if(positionOffsetPixels > 200 && scrollStop)
+                    viewPager.setCurrentItem(position, true);
             }
 
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public void onPageSelected(int position) {
-
+                positioning = position;
             }
 
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public void onPageScrollStateChanged(int state) {
-                if(state == ViewPager.SCROLL_STATE_DRAGGING)
-                    Toast.makeText(RegisterMainScreen.this, "scroling", Toast.LENGTH_SHORT).show();
+                if(state == ViewPager.SCROLL_STATE_DRAGGING){
+                    switch (positioning){
+                        case 0:
+                            RegisterDoi.next();
+                            scrollStop = !RegisterDoi.getDoi();
+                            break;
+                        case 1:
+                            RegisterTrei.next();
+                            scrollStop = !RegisterTrei.getTrei();
+                            break;
+                        case 2:
+                            RegisterFour.next();
+                            scrollStop = !RegisterFour.getPatru();
+                            break;
+                    }
+                }
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
 }

@@ -25,10 +25,10 @@
 
             <ImageButton
                 android:id="@+id/toEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:transitionName="toEditProfile"
-                android:src="@android:drawable/ic_menu_sort_by_size" />
+                android:layout_width="53dp"
+                android:layout_height="51dp"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:transitionName="toEditProfile" />
 
             <LinearLayout
                 android:layout_width="match_parent"

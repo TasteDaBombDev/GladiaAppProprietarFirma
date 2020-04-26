@@ -28,7 +28,7 @@ public class MainScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_screen);
+        setContentView(R.layout.user_screen);
         Bundle extras = getIntent().getExtras();
         userID = extras.getInt("userID");
         username = extras.getString("username");

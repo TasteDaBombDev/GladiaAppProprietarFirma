@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,26 +14,21 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.app.R;
-import com.github.florent37.materialtextfield.MaterialTextField;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Random;
-
-import okhttp3.OkHttpClient;
 
 import static java.lang.Character.isDigit;
 
 public class RegisterFive extends Fragment {
 
-    private EditText cod;
+    private TextInputEditText cod;
     private String trueCode;
     private String method;
-    private OkHttpClient client;
     private Animation make_error;
-    private MaterialTextField code_outline;
     private static boolean cinci = false;
     private static RegisterFive INSTANCE = null;
 
@@ -65,22 +61,12 @@ public class RegisterFive extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_fourth_pannel,container,false);
+        view = inflater.inflate(R.layout.register_p4,container,false);
         make_error = AnimationUtils.loadAnimation(getContext(),R.anim.shake);
-        code_outline = view.findViewById(R.id.code_outline);
 
         cod = view.findViewById(R.id.cod);
         trueCode = generateCode();
         sendCode();
-        client = new OkHttpClient();
-
-        code_outline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!code_outline.hasFocus()) code_outline.setHasFocus(true);
-                else code_outline.setHasFocus(false);
-            }
-        });
 
         Button register = view.findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +76,8 @@ public class RegisterFive extends Fragment {
                 if(cinci)
                 {
                     Intent intent = new Intent(getContext(), Register.class);
-                    startActivity(intent);
+                    Bundle bundle = ActivityOptions.makeCustomAnimation(getContext(), R.anim.fade_in, R.anim.fade_to_black).toBundle();
+                    startActivity(intent, bundle);
                 }
             }
         });
@@ -101,7 +88,7 @@ public class RegisterFive extends Fragment {
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_fourth_pannel);
+//        setContentView(R.layout.register_p4);
 //        make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
 //        code_outline = findViewById(R.id.code_outline);
 //
@@ -150,7 +137,6 @@ public class RegisterFive extends Fragment {
         }
         else
         {
-            code_outline.startAnimation(make_error);
             cod.setError("Nu ai introdus codul corect!");
         }
     }

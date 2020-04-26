@@ -22,7 +22,7 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.register);
         openApp();
     }
 
@@ -68,6 +68,7 @@ public class Register extends AppCompatActivity {
                         intent.putExtra("ziuaDeNastere", ziuaDeNastere);
                         intent.putExtra("sex", sex);
                         intent.putExtra("nrtel", nrtel);
+                        intent.putExtra("pannel",2);
 
                         startActivity(intent);
                     }
