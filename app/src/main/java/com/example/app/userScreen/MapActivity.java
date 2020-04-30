@@ -3,23 +3,35 @@ package com.example.app.userScreen;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.app.R;
+import com.example.app.utils.LocationProviderByMe;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 public class MapActivity extends Fragment implements OnMapReadyCallback {
 
@@ -29,8 +41,9 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
 
     private static GoogleMap map;
     private MapView mapView;
-    private LatLng sydney = new LatLng(43.1, -87.9);
-
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private static final int REQUEST_CODE = 101;
+    private LocationProviderByMe locationProvider;
 
     public MapActivity(){
     }
@@ -48,6 +61,17 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+            return;
+        }
+        locationProvider = new LocationProviderByMe(fusedLocationProviderClient);
+
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -55,7 +79,6 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.map_fragment,container,false);
-
 
         ConstraintLayout aggroZoneProfile = view.findViewById(R.id.toProfile), aggroZoneEvents = view.findViewById(R.id.toEvents);
 
@@ -106,13 +129,16 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
             mapView.onResume();
             mapView.getMapAsync(this);
         }
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
+
         map = googleMap;
 
+        LatLng sydney = new LatLng(locationProvider.getMe().getLatitude(), locationProvider.getMe().getLongitude());
         MarkerOptions markerOptions = new MarkerOptions().position(sydney).title("Me");
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(sydney));
@@ -121,10 +147,12 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
         googleMap.addMarker(markerOptions);
     }
 
-    //    private GoogleMap map;
-//    private Location me;
-//    private FusedLocationProviderClient fusedLocationProviderClient;
-//    private static final int REQUEST_CODE = 101;
+    private void getLastLocation() {
+
+        Toast.makeText(getContext(), "hey...", Toast.LENGTH_SHORT).show();
+
+    }
+
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {

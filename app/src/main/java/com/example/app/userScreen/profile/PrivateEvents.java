@@ -72,9 +72,10 @@ public class PrivateEvents extends Fragment {
     View view;
 
     public PrivateEvents(){
+
     }
 
-    public static PrivateEvents getINSTANCE(){
+    public static PrivateEvents getINSTANCE() {
         if (INSTANCE == null)
             INSTANCE = new PrivateEvents();
         return INSTANCE;
