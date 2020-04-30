@@ -46,6 +46,7 @@ public class MainScreen extends AppCompatActivity {
         EnumFragments enumFragments = new EnumFragments(getSupportFragmentManager(),this);
         viewPager.setAdapter(enumFragments);
         viewPager.setCurrentItem(extras.getInt("pannel"));
+        viewPager.setOffscreenPageLimit(4);
         
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 

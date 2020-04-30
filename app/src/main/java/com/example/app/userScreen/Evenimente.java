@@ -14,9 +14,10 @@ import com.example.app.R;
 
 public class Evenimente extends Fragment {
 
+    @SuppressLint("StaticFieldLeak")
     private static Evenimente INSTANCE = null;
 
-    View view;
+    private View view;
 
     public Evenimente(){
     }

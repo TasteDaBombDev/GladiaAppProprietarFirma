@@ -11,9 +11,12 @@ import android.widget.Toast;
 
 import com.example.app.R;
 
+import java.util.Random;
+
 public class RegisterMainScreen extends AppCompatActivity {
 
     private ViewPager viewPager;
+    private static String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class RegisterMainScreen extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 positioning = position;
+
             }
 
             @SuppressLint("ClickableViewAccessibility")
@@ -63,6 +67,10 @@ public class RegisterMainScreen extends AppCompatActivity {
                 }
             }
         });
+
+        code = generateCode();
+
+//        viewPager.setOffscreenPageLimit(1);
     }
 
     @Override
@@ -70,4 +78,13 @@ public class RegisterMainScreen extends AppCompatActivity {
 
     }
 
+    private String generateCode(){
+        Random r = new Random( System.currentTimeMillis() );
+        int a = 10000 + r.nextInt(20000);
+        return String.valueOf(a);
+    }
+
+    public static String getCode() {
+        return code;
+    }
 }

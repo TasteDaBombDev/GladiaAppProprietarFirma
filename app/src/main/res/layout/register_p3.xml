@@ -38,13 +38,15 @@
                 app:errorEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:hintTextColor="#fff"
+                app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_vpn_key_black_24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Parola" />
+                    android:hint="Parola"
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,18 +67,21 @@
                 app:errorEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:hintTextColor="#fff"
+                app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_vpn_key_black_24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/verif_pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirmare parola" />
+                    android:hint="Confirmare parola"
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -92,10 +97,11 @@
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintHorizontal_bias="0.50"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.29000002" />
+            app:layout_constraintVertical_bias="0.13" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

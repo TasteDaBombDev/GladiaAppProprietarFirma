@@ -1,4 +1,4 @@
-package com.example.app.userScreen;
+package com.example.app.userScreen.profile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
@@ -18,6 +19,10 @@ import android.widget.ImageButton;
 
 
 import com.example.app.R;
+import com.example.app.userScreen.Evenimente;
+import com.example.app.userScreen.MainScreen;
+import com.example.app.userScreen.MapActivity;
+import com.example.app.userScreen.Poze;
 
 public class Profile extends Fragment {
 
@@ -25,17 +30,10 @@ public class Profile extends Fragment {
     private static Profile INSTANCE = null;
 
     private static int ID;
-    private static String username;
-    private static String nume;
-    private static String prenume;
-    private static String password;
-    private static String mail;
-    private static String ziuaDeNastere;
-    private static String sex;
-    private static String nrtel;
-    private ImageButton imageButton;
+    private static String username, nume, prenume, password, mail, ziuaDeNastere, sex, nrtel;
+    private ImageButton imageButton, toEvents;
 
-    View view;
+    private View view;
 
     public Profile(){
     }
@@ -60,9 +58,9 @@ public class Profile extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.profile_fragment,container,false);
+        init();
 
         ConstraintLayout aggroZone = view.findViewById(R.id.profile);
-
         aggroZone.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -74,17 +72,17 @@ public class Profile extends Fragment {
             }
         });
 
-        ID = MainScreen.getUserID();
-        username = MainScreen.getUsername();
-        nume = MainScreen.getNume();
-        prenume = MainScreen.getPrenume();
-        password = MainScreen.getPassword();
-        mail = MainScreen.getMail();
-        ziuaDeNastere = MainScreen.getZiuaDeNastere();
-        sex = MainScreen.getSex();
-        nrtel = MainScreen.getNrtel();
-        imageButton = view.findViewById(R.id.toEdit);
 
+        toEvents = view.findViewById(R.id.createPrivateEvent);
+        toEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileMainClass.getVerticalViewPager().setCurrentItem(1);
+            }
+        });
+
+
+        imageButton = view.findViewById(R.id.toEdit);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,19 +109,19 @@ public class Profile extends Fragment {
             }
         });
 
-//        Toast.makeText(getContext(), nume, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(getContext(), prenume, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(getContext(), password, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(getContext(), mail, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(getContext(), ziuaDeNastere, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(getContext(), sex, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(getContext(), nrtel, Toast.LENGTH_SHORT).show();
-
-        ConstraintLayout constraintLayout = view.findViewById(R.id.bottomSheet);
-//        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(constraintLayout);
-
-
         return view;
+    }
+
+    private void init(){
+        ID = MainScreen.getUserID();
+        username = MainScreen.getUsername();
+        nume = MainScreen.getNume();
+        prenume = MainScreen.getPrenume();
+        password = MainScreen.getPassword();
+        mail = MainScreen.getMail();
+        ziuaDeNastere = MainScreen.getZiuaDeNastere();
+        sex = MainScreen.getSex();
+        nrtel = MainScreen.getNrtel();
     }
 
 //    @Override
