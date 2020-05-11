@@ -2,6 +2,7 @@ package com.example.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,8 @@ import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
 
+    private static ProgressDialog loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +33,18 @@ public class Login extends AppCompatActivity {
 
     }
 
+    private void createDialog(){
+        loading.setCancelable(false);
+        loading.setTitle("Loging in");
+        loading.setMessage("We are loging you in...");
+        loading.show();
+    }
+
     public void login(View view) {
         EditText data = findViewById(R.id.cod);
         EditText pass = findViewById(R.id.login_pass);
+        loading = new ProgressDialog(Login.this);
+        createDialog();
 
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
@@ -92,5 +104,9 @@ public class Login extends AppCompatActivity {
         queue.add(serverRequest);
 
 
+    }
+
+    public static ProgressDialog getLoading() {
+        return loading;
     }
 }

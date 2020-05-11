@@ -2,6 +2,7 @@ package com.example.app.userScreen;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -10,14 +11,20 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.app.Login;
 import com.example.app.R;
 import com.example.app.utils.LocationProviderByMe;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -30,6 +37,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
@@ -43,9 +51,10 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
     private MapView mapView;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
-    private LocationProviderByMe locationProvider;
+    private Location me;
 
     public MapActivity(){
+
     }
 
     public static MapActivity getINSTANCE(){
@@ -61,16 +70,6 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-
-
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-            return;
-        }
-        locationProvider = new LocationProviderByMe(fusedLocationProviderClient);
-
 
     }
 
@@ -115,6 +114,19 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
             }
         });
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        getLastLocation();
+
+        ImageButton imageButton = view.findViewById(R.id.localizeMe);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getLastLocation();
+                localise(map);
+            }
+        });
+
         return view;
     }
 
@@ -133,23 +145,48 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
+
+        Login.getLoading().dismiss();
         MapsInitializer.initialize(getContext());
-
         map = googleMap;
+        localise(googleMap);
+    }
 
-        LatLng sydney = new LatLng(locationProvider.getMe().getLatitude(), locationProvider.getMe().getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(sydney).title("Me");
+    private void localise(final GoogleMap googleMap){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(me != null) {
+                    LatLng myLocation = new LatLng(me.getLatitude(),me.getLongitude());
 
-        googleMap.animateCamera(CameraUpdateFactory.newLatLng(sydney));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney,16));
+                    MarkerOptions markerOptions = new MarkerOptions().position(myLocation).title("Me");
 
-        googleMap.addMarker(markerOptions);
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(myLocation));
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation,15));
+
+                    googleMap.addMarker(markerOptions);
+                }
+            }
+        },500);
     }
 
     private void getLastLocation() {
 
-        Toast.makeText(getContext(), "hey...", Toast.LENGTH_SHORT).show();
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult();
+                if(location != null)
+                    me = location;
+                else
+                    Toast.makeText(getContext(), "Deschide-ti locatia", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

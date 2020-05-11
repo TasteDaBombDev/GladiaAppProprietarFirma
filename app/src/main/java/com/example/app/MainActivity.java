@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TextView welcome = findViewById(R.id.welcome);
         Animation anim = AnimationUtils.loadAnimation(this,R.anim.popin);
+        anim.setDuration(1000);
         welcome.startAnimation(anim);
 //        getWindow().setTransitionBackgroundFadeDuration(2000);
     }

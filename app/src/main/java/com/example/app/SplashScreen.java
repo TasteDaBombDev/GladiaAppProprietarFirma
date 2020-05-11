@@ -27,7 +27,7 @@ public class SplashScreen extends AppCompatActivity {
         name = findViewById(R.id.appName);
 
         new Handler().postDelayed(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
             @Override
             public void run() {
 

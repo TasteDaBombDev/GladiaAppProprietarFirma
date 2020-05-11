@@ -15,4 +15,8 @@
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
     </style>
+
+    <style name="ButtonCustom" parent="Theme.AppCompat.DayNight.NoActionBar">
+
+    </style>
 </resources>

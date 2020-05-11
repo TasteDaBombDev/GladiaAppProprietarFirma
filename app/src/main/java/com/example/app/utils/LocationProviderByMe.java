@@ -17,16 +17,7 @@ public class LocationProviderByMe{
 
     public LocationProviderByMe(FusedLocationProviderClient fusedLocationProviderClient) {
         this.fusedLocationProviderClient = fusedLocationProviderClient;
-        Task<Location> task = this.fusedLocationProviderClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    me = location;
-                    located = true;
-                }
-            }
-        });
+
     }
 
     public Location getMe() {

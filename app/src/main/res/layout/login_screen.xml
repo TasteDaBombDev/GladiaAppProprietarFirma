@@ -8,8 +8,8 @@
     android:background="@drawable/bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="416dp"
-        android:layout_height="775dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -47,6 +47,7 @@
 
         <Button
             android:id="@+id/login_btn"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="190dp"
@@ -54,6 +55,7 @@
             android:onClick="login"
             android:text="@string/title_activity_login"
             android:textColor="#fff"
+            app:icon="@drawable/ic_account_circle_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

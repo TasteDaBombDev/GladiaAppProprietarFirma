@@ -2,20 +2,32 @@ package com.example.app.userScreen.profile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import com.example.app.R;
@@ -24,14 +36,23 @@ import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.MapActivity;
 import com.example.app.userScreen.Poze;
 
+import org.w3c.dom.Text;
+
 public class Profile extends Fragment {
 
 
     private static Profile INSTANCE = null;
 
     private static int ID;
+    private Dialog eDialog;
     private static String username, nume, prenume, password, mail, ziuaDeNastere, sex, nrtel;
-    private ImageButton imageButton, toEvents;
+    private ImageButton toEdit, toEvents;
+    private CardView option1,option2, option3,option4,option5;
+    private LinearLayout menu;
+    private Animation anim, anim2,anim3,anim4,anim5,fadein,fadeout,popin_top;
+    private TextView do4;
+    private boolean opened = false;
+    private ConstraintLayout header,contentMenu;
 
     private View view;
 
@@ -59,6 +80,13 @@ public class Profile extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.profile_fragment,container,false);
         init();
+        TextView usernameTV = view.findViewById(R.id.username_T);
+        usernameTV.setText(username);
+
+        if(MainScreen.getMail().equals("-null-"))
+            do4.setText("Confirm mail");
+        else
+            do4.setText("Confirm phone");
 
         ConstraintLayout aggroZone = view.findViewById(R.id.profile);
         aggroZone.setOnTouchListener(new View.OnTouchListener() {
@@ -72,44 +100,92 @@ public class Profile extends Fragment {
             }
         });
 
-
-        toEvents = view.findViewById(R.id.createPrivateEvent);
-        toEvents.setOnClickListener(new View.OnClickListener() {
+        option1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProfileMainClass.getVerticalViewPager().setCurrentItem(1);
+                eDialog.setContentView(R.layout.edit_profile);
+
+                ImageButton closeBtn = eDialog.findViewById(R.id.closeProfile);
+                closeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        eDialog.dismiss();
+                    }
+                });
+
+
+                EditText usernameT = eDialog.findViewById(R.id.username);
+                usernameT.setText(username);
+
+                eDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                eDialog.show();
             }
         });
 
 
-        imageButton = view.findViewById(R.id.toEdit);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+//        toEvents = view.findViewById(R.id.createPrivateEvent);
+//        toEvents.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ProfileMainClass.getVerticalViewPager().setCurrentItem(1);
+//            }
+//        });
+
+
+        toEdit = view.findViewById(R.id.toEdit);
+        toEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pair[] pairs = new Pair[1];
-                pairs[0] = new Pair<View, String>(imageButton,"toEditProfile");
-
-                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(),pairs);
-
-                Intent intent = new Intent(getContext(), EditProfile.class);
-                intent.putExtra("userID", ID);
-                intent.putExtra("username",username);
-                intent.putExtra("nume", nume);
-                intent.putExtra("prenume", prenume);
-                intent.putExtra("password", password);
-                intent.putExtra("mail", mail);
-                intent.putExtra("ziuaDeNastere", ziuaDeNastere);
-                intent.putExtra("sex", sex);
-                intent.putExtra("nrtel", nrtel);
-                startActivity(intent, activityOptions.toBundle());
-                resetINSTANCE();
-                Poze.resetINSTANCE();
-                MapActivity.resetINSTANCE();
-                Evenimente.resetINSTANCE();
+                if(opened == false)
+                {
+                    opened = true;
+                    menu.setVisibility(View.VISIBLE);
+                    contentMenu.startAnimation(fadein);
+                    circularRevealCard(header);
+                    header.startAnimation(popin_top);
+                    option1.startAnimation(anim);
+                    option2.startAnimation(anim2);
+                    option3.startAnimation(anim3);
+                    option4.startAnimation(anim4);
+                    option5.startAnimation(anim5);
+                    toEdit.setImageResource(R.drawable.ic_close_black_24dp);
+                }
+                else{
+                    opened = false;
+                    circularCloseCard(header);
+                    contentMenu.startAnimation(fadeout);
+                    toEdit.setImageResource(R.drawable.ic_menu_black_24dp);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            menu.setVisibility(View.INVISIBLE);
+                        }
+                    },300);
+                }
             }
         });
 
         return view;
+    }
+
+    private void circularRevealCard(View view){
+        float finalRadius = Math.max(view.getWidth(), view.getHeight());
+
+        Animator circularReveal = ViewAnimationUtils.createCircularReveal(view, 80, 80, 0, finalRadius * 1.1f);
+
+        circularReveal.setDuration(300);
+
+        circularReveal.start();
+    }
+
+    private void circularCloseCard(final View view){
+        float finalRadius = Math.max(view.getWidth(), view.getHeight());
+
+        Animator circularReveal = ViewAnimationUtils.createCircularReveal(view, 80, 80, finalRadius * 1.1f, 0);
+
+        circularReveal.setDuration(300);
+
+        circularReveal.start();
     }
 
     private void init(){
@@ -122,15 +198,46 @@ public class Profile extends Fragment {
         ziuaDeNastere = MainScreen.getZiuaDeNastere();
         sex = MainScreen.getSex();
         nrtel = MainScreen.getNrtel();
-    }
+        menu = view.findViewById(R.id.profileMenu);
+        option1 = view.findViewById(R.id.option1);
+        option2 = view.findViewById(R.id.option2);
+        option3 = view.findViewById(R.id.option3);
+        option4 = view.findViewById(R.id.option4);
+        option5 = view.findViewById(R.id.option5);
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.profile_fragment);
-//
-//        EditText username = findViewById(R.id.usernameProfile);
-//        username.setText(MainScreen.getUsername());
-//
-//    }
+        anim = AnimationUtils.loadAnimation(getContext(),R.anim.popin);
+        anim.setDuration(200);
+
+        anim2 = AnimationUtils.loadAnimation(getContext(),R.anim.popin);
+        anim2.setDuration(200);
+        anim2.setStartOffset(100);
+
+        anim3 = AnimationUtils.loadAnimation(getContext(),R.anim.popin);
+        anim3.setDuration(200);
+        anim3.setStartOffset(200);
+
+        anim4 = AnimationUtils.loadAnimation(getContext(),R.anim.popin);
+        anim4.setDuration(200);
+        anim4.setStartOffset(300);
+
+        anim5 = AnimationUtils.loadAnimation(getContext(),R.anim.popin);
+        anim5.setDuration(200);
+        anim5.setStartOffset(400);
+
+        fadein = AnimationUtils.loadAnimation(getContext(),R.anim.fade_in);
+        fadein.setDuration(300);
+
+        fadeout = AnimationUtils.loadAnimation(getContext(),R.anim.fade_out);
+        fadeout.setDuration(300);
+
+        popin_top = AnimationUtils.loadAnimation(getContext(),R.anim.popin_top);
+        popin_top.setDuration(300);
+
+        do4 = view.findViewById(R.id.do4);
+
+        eDialog = new Dialog(getContext());
+
+        header = view.findViewById(R.id.headerMenu);
+        contentMenu = view.findViewById(R.id.menuContent);
+    }
 }
