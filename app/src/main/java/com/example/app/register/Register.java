@@ -16,8 +16,19 @@ import com.example.app.ServerRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class Register extends AppCompatActivity {
 
+    private static final String FILE_NAME = "data.txt";
+    private String nume = RegisterDoi.getNume();
+    private String prenume = RegisterDoi.getPrenume();
+    private String date = RegisterDoi.getBirthDate();
+    private String username = RegisterTrei.getUsername();
+    private String login = RegisterTrei.getLogin();
+    private String pass = RegisterFour.getPassword();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +39,6 @@ public class Register extends AppCompatActivity {
 
     public void openApp() {
         //register
-        String nume = RegisterDoi.getNume();
-        String prenume = RegisterDoi.getPrenume();
-        String date = RegisterDoi.getBirthDate();
-        String username = RegisterTrei.getUsername();
-        String login = RegisterTrei.getLogin();
-        String pass = RegisterFour.getPassword();
 
 
         Response.Listener<String> responseListener = new Response.Listener<String>(){
@@ -56,6 +61,8 @@ public class Register extends AppCompatActivity {
                     String nrtel = jsonObject.getString("nrtel");
 
                     if(success){
+
+                        createFile();
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Register.this, MainScreen.class);
                         intent.putExtra("idUser", userID);
@@ -74,6 +81,7 @@ public class Register extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+
                     }
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(),"JSON_err",Toast.LENGTH_SHORT).show();
@@ -93,6 +101,27 @@ public class Register extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+
+    private void createFile() {
+        FileOutputStream fos = null;
+        String text = login + "\n" + pass;
+        try {
+            fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
+            fos.write(text.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override

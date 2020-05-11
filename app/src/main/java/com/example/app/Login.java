@@ -2,9 +2,11 @@ package com.example.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,9 +20,15 @@ import com.example.app.userScreen.MainScreen;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class Login extends AppCompatActivity {
 
     private static ProgressDialog loading;
+    private static final String FILE_NAME = "data.txt";
+    private EditText data, pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +49,8 @@ public class Login extends AppCompatActivity {
     }
 
     public void login(View view) {
-        EditText data = findViewById(R.id.cod);
-        EditText pass = findViewById(R.id.login_pass);
+        data = findViewById(R.id.cod);
+        pass = findViewById(R.id.login_pass);
         loading = new ProgressDialog(Login.this);
         createDialog();
 
@@ -56,6 +64,8 @@ public class Login extends AppCompatActivity {
 
                     if(success){
 
+                        createFile();
+
 
                         int ID = jsonObject.getInt("userID");
                         String username = jsonObject.getString("username");
@@ -66,13 +76,6 @@ public class Login extends AppCompatActivity {
                         String ziuaDeNastere = jsonObject.getString("ziuaDeNastere");
                         String sex = jsonObject.getString("sex");
                         String nrtel = jsonObject.getString("nrtel");
-
-                        Button relative = findViewById(R.id.login_btn);
-
-//                        Pair[] pairs = new Pair[1];
-//                        pairs[0] = new Pair<View, String>(relative,"imgTransition");
-//
-//                        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
 
 
                         Intent intent = new Intent(Login.this, MainScreen.class);
@@ -88,7 +91,6 @@ public class Login extends AppCompatActivity {
                         intent.putExtra("pannel", 2);
 
                         startActivity(intent);
-//                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     } else{
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                     }
@@ -104,6 +106,27 @@ public class Login extends AppCompatActivity {
         queue.add(serverRequest);
 
 
+    }
+
+    private void createFile() {
+        FileOutputStream fos = null;
+        String text = (data.getText().toString().trim()) + "\n" + (pass.getText().toString().trim());
+        try {
+            fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
+            fos.write(text.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static ProgressDialog getLoading() {

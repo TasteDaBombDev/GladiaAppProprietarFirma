@@ -147,7 +147,8 @@ public class MapActivity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(final GoogleMap googleMap) {
 
-        Login.getLoading().dismiss();
+        if(Login.getLoading() != null)
+            Login.getLoading().dismiss();
         MapsInitializer.initialize(getContext());
         map = googleMap;
         localise(googleMap);

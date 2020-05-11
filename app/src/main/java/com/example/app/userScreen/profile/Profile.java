@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
 import android.animation.Animator;
@@ -28,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.app.R;
@@ -46,13 +48,14 @@ public class Profile extends Fragment {
     private static int ID;
     private Dialog eDialog;
     private static String username, nume, prenume, password, mail, ziuaDeNastere, sex, nrtel;
-    private ImageButton toEdit, toEvents;
+    private ImageButton toEdit, toEvents, more;
     private CardView option1,option2, option3,option4,option5;
     private LinearLayout menu;
-    private Animation anim, anim2,anim3,anim4,anim5,fadein,fadeout,popin_top;
+    private Animation anim, anim2,anim3,anim4,anim5,fadein,fadeout,popin_top, popout_top;
     private TextView do4;
-    private boolean opened = false;
+    private boolean opened = false, colapedHeader = false;
     private ConstraintLayout header,contentMenu;
+    private ConstraintSet constraintSet;
 
     private View view;
 
@@ -78,7 +81,7 @@ public class Profile extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.profile_fragment,container,false);
+        view = inflater.inflate(R.layout.user_screen_dashboard,container,false);
         init();
         TextView usernameTV = view.findViewById(R.id.username_T);
         usernameTV.setText(username);
@@ -123,25 +126,16 @@ public class Profile extends Fragment {
         });
 
 
-//        toEvents = view.findViewById(R.id.createPrivateEvent);
-//        toEvents.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ProfileMainClass.getVerticalViewPager().setCurrentItem(1);
-//            }
-//        });
-
-
         toEdit = view.findViewById(R.id.toEdit);
         toEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(opened == false)
+                if(!opened)
                 {
                     opened = true;
                     menu.setVisibility(View.VISIBLE);
                     contentMenu.startAnimation(fadein);
-                    circularRevealCard(header);
+//                    circularRevealCard(header);
                     header.startAnimation(popin_top);
                     option1.startAnimation(anim);
                     option2.startAnimation(anim2);
@@ -152,7 +146,8 @@ public class Profile extends Fragment {
                 }
                 else{
                     opened = false;
-                    circularCloseCard(header);
+//                    circularCloseCard(header);
+                    header.startAnimation(popout_top);
                     contentMenu.startAnimation(fadeout);
                     toEdit.setImageResource(R.drawable.ic_menu_black_24dp);
                     new Handler().postDelayed(new Runnable() {
@@ -162,6 +157,29 @@ public class Profile extends Fragment {
                         }
                     },300);
                 }
+            }
+        });
+
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!colapedHeader){
+                    colapedHeader = true;
+                    more.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                    constraintSet.constrainPercentHeight(header.getId(),1.0f);
+                    header.setConstraintSet(constraintSet);
+                    header.setBackgroundResource(R.drawable.full_screen_bg);
+                }
+                else
+                {
+                    colapedHeader = false;
+                    more.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                    constraintSet.constrainPercentHeight(header.getId(),0.4f);
+                    header.setConstraintSet(constraintSet);
+                    header.setBackgroundResource(R.drawable.circle_profile);
+
+                }
+                Toast.makeText(getContext(), "" + colapedHeader, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -204,6 +222,8 @@ public class Profile extends Fragment {
         option3 = view.findViewById(R.id.option3);
         option4 = view.findViewById(R.id.option4);
         option5 = view.findViewById(R.id.option5);
+        more = view.findViewById(R.id.more);
+        constraintSet = new ConstraintSet();
 
         anim = AnimationUtils.loadAnimation(getContext(),R.anim.popin);
         anim.setDuration(200);
@@ -232,6 +252,9 @@ public class Profile extends Fragment {
 
         popin_top = AnimationUtils.loadAnimation(getContext(),R.anim.popin_top);
         popin_top.setDuration(300);
+
+        popout_top = AnimationUtils.loadAnimation(getContext(),R.anim.popout_top);
+        popout_top.setDuration(300);
 
         do4 = view.findViewById(R.id.do4);
 
