@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.app.userScreen.profile.Profile;
 import com.example.app.userScreen.profile.ProfileMainClass;
 
 public class EnumFragments extends FragmentPagerAdapter {
@@ -26,7 +25,7 @@ public class EnumFragments extends FragmentPagerAdapter {
         if(position == 1)
             return ProfileMainClass.getINSTANCE();
         else if(position == 0)
-            return Poze.getINSTANCE();
+            return Groups.getINSTANCE();
         else if(position == 2)
             return MapActivity.getINSTANCE();
         else if(position == 3)

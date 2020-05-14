@@ -16,7 +16,8 @@
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
     </style>
 
-    <style name="ButtonCustom" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="ButtonCustom" parent="Widget.AppCompat.Button">
+        <item name="background">@drawable/circle</item>
 
     </style>
 </resources>

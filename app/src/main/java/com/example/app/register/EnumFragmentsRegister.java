@@ -17,17 +17,17 @@ public class EnumFragmentsRegister extends FragmentPagerAdapter {
         this.context = context;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position){
         if(position == 0)
-            return RegisterDoi.getINSTANCE();
+            return Register1.getINSTANCE();
         else if(position == 1)
-            return RegisterTrei.getINSTANCE();
+            return Register2.getINSTANCE();
         else if(position == 2)
-            return RegisterFour.getINSTANCE();
+            return Register3.getINSTANCE();
         else
-            return RegisterFive.getINSTANCE();
-//        return null;
+            return Register4.getINSTANCE();
     }
 
     @Override

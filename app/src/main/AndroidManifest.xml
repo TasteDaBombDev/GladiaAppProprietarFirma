@@ -15,18 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".register.RegisterMainScreen" />
         <activity android:name=".userScreen.profile.EditProfile" />
-        <activity android:name=".userScreen.Poze" />
+        <activity android:name=".userScreen.Groups" />
         <activity android:name=".userScreen.Evenimente" />
         <activity android:name=".userScreen.profile.Profile" />
         <activity android:name=".userScreen.MapActivity" />
-        <activity android:name=".register.RegisterTrei" />
+        <activity android:name=".register.Register2" />
+        <activity android:name=".register.Register4" />
         <activity android:name=".Login" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,10 +36,10 @@
             android:value="@string/map_key" />
 
         <activity android:name=".userScreen.MainScreen" />
-        <activity android:name=".register.RegisterFive" />
-        <activity android:name=".register.RegisterFour" />
-        <activity android:name=".register.RegisterDoi" />
+        <activity android:name=".register.Register3" />
+        <activity android:name=".register.Register1" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".register.RegisterMainScreen" />
     </application>
 
 </manifest>

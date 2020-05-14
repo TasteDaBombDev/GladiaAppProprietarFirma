@@ -23,12 +23,12 @@ import java.io.IOException;
 public class Register extends AppCompatActivity {
 
     private static final String FILE_NAME = "data.txt";
-    private String nume = RegisterDoi.getNume();
-    private String prenume = RegisterDoi.getPrenume();
-    private String date = RegisterDoi.getBirthDate();
-    private String username = RegisterTrei.getUsername();
-    private String login = RegisterTrei.getLogin();
-    private String pass = RegisterFour.getPassword();
+    private String nume = Register1.getNume() + "";
+    private String prenume = Register1.getPrenume() + "";
+    private String date = Register1.getBirthDate() + "";
+    private String username = Register2.getUsername() + "";
+    private String login = Register2.getLogin() + "";
+    private String pass = Register3.getPassword() + "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

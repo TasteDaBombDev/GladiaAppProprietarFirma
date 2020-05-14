@@ -4,30 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_4"
-    tools:context=".register.RegisterFive">
+    android:background="@drawable/background"
+    tools:context=".register.Register4">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#60000000">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:text="@string/register"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.92">
+            app:layout_constraintVertical_bias="0.92" />
 
-            <Button
-                android:id="@+id/register"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/register" />
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,25 +47,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ti-am trimis un cod"
-            android:textColor="#063852"
+            android:textColor="#fff"
             android:textSize="40sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.13" />
+            app:layout_constraintVertical_bias="0.30" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Introdu codul trimis in caseta de mai jos"
+            android:textColor="#fff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/anouncement"
-            app:layout_constraintVertical_bias="0.01999998" />
+            app:layout_constraintVertical_bias="0.100000024" />
 
         <LinearLayout
             android:id="@+id/coder"
@@ -73,8 +75,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.29000002"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintVertical_bias="0.19"
             app:layout_constraintWidth_percent="0.7">
 
             <EditText
@@ -82,11 +84,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:digits="123456789"
+                android:digits="0123456789"
                 android:ems="10"
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="1"
+                android:textColor="#fff"
                 android:textSize="12sp" />
 
             <EditText
@@ -94,9 +97,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:digits="0123456789"
                 android:ems="10"
                 android:gravity="center"
                 android:inputType="number"
+                android:textColor="#fff"
                 android:textSize="12sp" />
 
             <EditText
@@ -109,6 +114,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="1"
+                android:textColor="#fff"
                 android:textSize="12sp" />
 
             <EditText
@@ -121,6 +127,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="1"
+                android:textColor="#fff"
                 android:textSize="12sp" />
 
             <EditText
@@ -128,11 +135,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:digits="123456789"
+                android:digits="0123456789"
                 android:ems="10"
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="1"
+                android:textColor="#fff"
                 android:textSize="12sp" />
 
         </LinearLayout>

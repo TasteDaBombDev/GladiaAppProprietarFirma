@@ -9,15 +9,12 @@ import androidx.fragment.app.Fragment;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Pair;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,16 +26,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.example.app.R;
-import com.example.app.userScreen.Evenimente;
 import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.MapActivity;
-import com.example.app.userScreen.Poze;
-
-import org.w3c.dom.Text;
 
 public class Profile extends Fragment {
 
@@ -82,9 +74,10 @@ public class Profile extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.user_screen_dashboard,container,false);
+        final ConstraintLayout master = view.findViewById(R.id.masterMenuProfile);
+
+
         init();
-        TextView usernameTV = view.findViewById(R.id.username_T);
-        usernameTV.setText(username);
 
         if(MainScreen.getMail().equals("-null-"))
             do4.setText("Confirm mail");
@@ -131,31 +124,11 @@ public class Profile extends Fragment {
             @Override
             public void onClick(View v) {
                 if(!opened)
+                    openMenu();
+                else
                 {
-                    opened = true;
-                    menu.setVisibility(View.VISIBLE);
-                    contentMenu.startAnimation(fadein);
-//                    circularRevealCard(header);
-                    header.startAnimation(popin_top);
-                    option1.startAnimation(anim);
-                    option2.startAnimation(anim2);
-                    option3.startAnimation(anim3);
-                    option4.startAnimation(anim4);
-                    option5.startAnimation(anim5);
-                    toEdit.setImageResource(R.drawable.ic_close_black_24dp);
-                }
-                else{
-                    opened = false;
-//                    circularCloseCard(header);
-                    header.startAnimation(popout_top);
-                    contentMenu.startAnimation(fadeout);
-                    toEdit.setImageResource(R.drawable.ic_menu_black_24dp);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            menu.setVisibility(View.INVISIBLE);
-                        }
-                    },300);
+                    closeMenu();
+                    closeSelector(master);
                 }
             }
         });
@@ -163,27 +136,62 @@ public class Profile extends Fragment {
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!colapedHeader){
-                    colapedHeader = true;
-                    more.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
-                    constraintSet.constrainPercentHeight(header.getId(),1.0f);
-                    header.setConstraintSet(constraintSet);
-                    header.setBackgroundResource(R.drawable.full_screen_bg);
-                }
-                else
-                {
-                    colapedHeader = false;
-                    more.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
-                    constraintSet.constrainPercentHeight(header.getId(),0.4f);
-                    header.setConstraintSet(constraintSet);
-                    header.setBackgroundResource(R.drawable.circle_profile);
 
-                }
-                Toast.makeText(getContext(), "" + colapedHeader, Toast.LENGTH_SHORT).show();
+                TransitionManager.beginDelayedTransition(header);
+                if(!colapedHeader)
+                    openSelector(master);
+                else
+                    closeSelector(master);
             }
         });
 
         return view;
+    }
+
+    private void openMenu(){
+        opened = true;
+        menu.setVisibility(View.VISIBLE);
+        contentMenu.startAnimation(fadein);
+//      circularRevealCard(header);
+        header.startAnimation(popin_top);
+        option1.startAnimation(anim);
+        option2.startAnimation(anim2);
+        option3.startAnimation(anim3);
+        option4.startAnimation(anim4);
+        option5.startAnimation(anim5);
+        toEdit.setImageResource(R.drawable.ic_close_black_24dp);
+    }
+
+    private void closeMenu(){
+        opened = false;
+//                    circularCloseCard(header);
+        header.startAnimation(popout_top);
+        contentMenu.startAnimation(fadeout);
+        toEdit.setImageResource(R.drawable.ic_menu_black_24dp);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                menu.setVisibility(View.INVISIBLE);
+            }
+        },300);
+    }
+
+    private void openSelector(ConstraintLayout master){
+        colapedHeader = true;
+        more.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+        constraintSet.clone(master);
+        constraintSet.constrainPercentHeight(R.id.headerMenu,1.0f);
+        constraintSet.applyTo(master);
+        header.setBackgroundResource(R.drawable.full_screen_bg);
+    }
+
+    private void closeSelector(ConstraintLayout master){
+        colapedHeader = false;
+        more.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+        constraintSet.clone(master);
+        constraintSet.constrainPercentHeight(R.id.headerMenu,0.4f);
+        constraintSet.applyTo(master);
+        header.setBackgroundResource(R.drawable.circle_profile);
     }
 
     private void circularRevealCard(View view){
@@ -224,6 +232,9 @@ public class Profile extends Fragment {
         option5 = view.findViewById(R.id.option5);
         more = view.findViewById(R.id.more);
         constraintSet = new ConstraintSet();
+        TextView usernameTV = view.findViewById(R.id.username_T);
+        usernameTV.setText(username);
+
 
         anim = AnimationUtils.loadAnimation(getContext(),R.anim.popin);
         anim.setDuration(200);

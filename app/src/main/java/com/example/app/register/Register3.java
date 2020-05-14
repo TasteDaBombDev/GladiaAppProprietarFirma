@@ -2,6 +2,7 @@ package com.example.app.register;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
@@ -16,23 +17,24 @@ import com.example.app.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class RegisterFour extends Fragment {
+public class Register3 extends Fragment {
 
     private static TextInputEditText pass,verifPassword;
     private static TextInputLayout pass_layout, verif_pass_layout;
     private static String password,verifpass;
     private static Animation make_error;
-    private static RegisterFour INSTANCE = null;
-    private static boolean patru = false;
+    private static Register3 INSTANCE = null;
+    private static boolean trei = false;
+    private static ConstraintLayout pass_layout_cl, verif_pass_layout_cl;
     View view;
 
-    public RegisterFour(){
+    public Register3(){
 
     }
 
-    public static RegisterFour getINSTANCE(){
+    public static Register3 getINSTANCE(){
         if (INSTANCE == null)
-            INSTANCE = new RegisterFour();
+            INSTANCE = new Register3();
         return INSTANCE;
     }
 
@@ -44,8 +46,8 @@ public class RegisterFour extends Fragment {
         return password;
     }
 
-    public static boolean getPatru(){
-        return patru;
+    public static boolean getTrei(){
+        return trei;
     }
 
     @Override
@@ -62,50 +64,13 @@ public class RegisterFour extends Fragment {
         verifPassword = view.findViewById(R.id.verif_pass);
         pass_layout = view.findViewById(R.id.pass_layout);
         verif_pass_layout = view.findViewById(R.id.verif_pass_layout);
+        pass_layout_cl = view.findViewById(R.id.pass_layout_cl);
+        verif_pass_layout_cl = view.findViewById(R.id.verif_pass_layout_cl);
 
         make_error = AnimationUtils.loadAnimation(getContext(),R.anim.shake);
 
         return view;
     }
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.register_p3);
-//        pass = (EditText)findViewById(R.id.pass);
-//        verifpass = (EditText)findViewById(R.id.verif_pass);
-//        make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
-//
-//        pass_outline = findViewById(R.id.pass_outline);
-//        verif_pass_outline = findViewById(R.id.verif_pass_outline);
-//
-//        pass_outline.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(!pass_outline.hasFocus()){
-//                    pass_outline.setHasFocus(true);
-//                    verif_pass_outline.setHasFocus(false);
-//                }
-//                else pass_outline.setHasFocus(false);
-//            }
-//        });
-//
-//        verif_pass_outline.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(!verif_pass_outline.hasFocus()){
-//                    pass_outline.setHasFocus(false);
-//                    verif_pass_outline.setHasFocus(true);
-//                }
-//                else verif_pass_outline.setHasFocus(false);
-//            }
-//        });
-//    }
-//
-//    @Override
-//    public void onBackPressed() {
-//
-//    }
 
     public static void next() {
         password = pass.getText().toString().trim();
@@ -115,7 +80,8 @@ public class RegisterFour extends Fragment {
         {
             pass_layout.setErrorEnabled(true);
             pass_layout.setError("Campul este gol");
-            pass_layout.startAnimation(make_error);
+            pass_layout_cl.startAnimation(make_error);
+            trei = false;
             return;
         }
         else{
@@ -124,9 +90,10 @@ public class RegisterFour extends Fragment {
 
         if (verifpass.length() == 0)
         {
+            trei = false;
             verif_pass_layout.setErrorEnabled(true);
             verif_pass_layout.setError("Campul este gol");
-            verif_pass_layout.startAnimation(make_error);
+            verif_pass_layout_cl.startAnimation(make_error);
             return;
         }
         else{
@@ -136,9 +103,10 @@ public class RegisterFour extends Fragment {
         if (!password.isEmpty() && !verifpass.isEmpty() && password.compareTo(verifpass) == 0) {
             if (password.length() < 8)
             {
+                trei = false;
                 pass_layout.setErrorEnabled(true);
                 pass_layout.setError("Parola trebuie sa fie de cel putin de 8 caractere");
-                pass_layout.startAnimation(make_error);
+                pass_layout_cl.startAnimation(make_error);
                 return;
             }
             else {
@@ -156,21 +124,23 @@ public class RegisterFour extends Fragment {
                         digit = true;
                 }
                 if (letterBig && letterSmall && digit) {
-                    patru = true;
+                    trei = true;
                 } else
                 {
+                    trei = false;
                     pass_layout.setErrorEnabled(true);
                     pass_layout.setError("Parola trebuie sa contina minim litere mari, mici si cifre");
-                    pass_layout.startAnimation(make_error);
+                    pass_layout_cl.startAnimation(make_error);
                     return;
                 }
             }
         }
         else
         {
+            trei = false;
             verif_pass_layout.setErrorEnabled(true);
             verif_pass_layout.setError("Parolele nu coincid!");
-            verif_pass_layout.startAnimation(make_error);
+            verif_pass_layout_cl.startAnimation(make_error);
             return;
         }
 

@@ -18,7 +18,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,38 +29,36 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import static java.lang.Character.isDigit;
 
-public class RegisterFive extends Fragment {
+public class Register4 extends Fragment {
 
-    private TextInputEditText cod;
     private String trueCode;
     private String method;
     private Animation make_error;
-    private static boolean cinci = false;
-    private static RegisterFive INSTANCE = null;
+    private static boolean patru = false;
+    private static Register4 INSTANCE = null;
     private EditText d1,d2,d3,d4,d5;
     private ProgressDialog loading;
+    private boolean sent = true;
     private String urlUpload = "http://gladiaholdings.com/PHP/send_mail.php";
 
     View view;
 
-    public RegisterFive(){
+    public Register4(){
 
     }
 
-    public static RegisterFive getINSTANCE(){
+    public static Register4 getINSTANCE(){
         if (INSTANCE == null)
-            INSTANCE = new RegisterFive();
+            INSTANCE = new Register4();
         return INSTANCE;
     }
 
@@ -69,8 +66,8 @@ public class RegisterFive extends Fragment {
         INSTANCE = null;
     }
 
-    public static boolean getCinci(){
-        return cinci;
+    public static boolean getPatru(){
+        return patru;
     }
 
     @Override
@@ -85,7 +82,6 @@ public class RegisterFive extends Fragment {
         view = inflater.inflate(R.layout.register_p4,container,false);
         make_error = AnimationUtils.loadAnimation(getContext(),R.anim.shake);
 
-        cod = view.findViewById(R.id.cod);
         d1 = view.findViewById(R.id.d1);
         d2 = view.findViewById(R.id.d2);
         d3 = view.findViewById(R.id.d3);
@@ -94,14 +90,18 @@ public class RegisterFive extends Fragment {
         loading = new ProgressDialog(getContext());
 
         trueCode = RegisterMainScreen.getCode();
-        sendCode();
+
+        if(sent) {
+            sendCode();
+            sent = false;
+        }
 
         Button register = view.findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registerUser();
-                if(cinci)
+                if(patru)
                 {
                     Intent intent = new Intent(getContext(), Register.class);
                     Bundle bundle = ActivityOptions.makeCustomAnimation(getContext(), R.anim.fade_in, R.anim.fade_to_black).toBundle();
@@ -109,6 +109,8 @@ public class RegisterFive extends Fragment {
                 }
             }
         });
+
+        register.setBackgroundResource(R.drawable.circle);
 
 
         //Request Focus
@@ -206,29 +208,8 @@ public class RegisterFive extends Fragment {
         return view;
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.register_p4);
-//        make_error = AnimationUtils.loadAnimation(this,R.anim.shake);
-//        code_outline = findViewById(R.id.code_outline);
-//
-//        cod = findViewById(R.id.cod);
-//        trueCode = generateCode();
-//        sendCode();
-//        client = new OkHttpClient();
-//
-//        code_outline.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(!code_outline.hasFocus()) code_outline.setHasFocus(true);
-//                else code_outline.setHasFocus(false);
-//            }
-//        });
-//    }
-
     private void sendCode(){
-        method = RegisterTrei.getLogin();
+        method = Register2.getLogin();
         String regex = "[0-9]+";
         if(method.matches(regex)){
             //is a phone number
@@ -262,9 +243,9 @@ public class RegisterFive extends Fragment {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String,String> params = new HashMap<>();
-                    params.put("mail",RegisterTrei.getLogin());
+                    params.put("mail", Register2.getLogin());
                     params.put("code",trueCode);
-                    params.put("username",RegisterTrei.getUsername());
+                    params.put("username", Register2.getUsername());
 
                     return params;
                 }
@@ -283,11 +264,11 @@ public class RegisterFive extends Fragment {
 
     public void registerUser() {
         if(check()){
-            cinci = true;
+            patru = true;
         }
         else
         {
-            cod.setError("Nu ai introdus codul corect!");
+            Toast.makeText(getContext(), "Nu ai introdus codul corect!", Toast.LENGTH_SHORT).show();
         }
     }
 

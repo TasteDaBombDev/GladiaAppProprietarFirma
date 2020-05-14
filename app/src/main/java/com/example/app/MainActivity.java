@@ -4,13 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.app.register.RegisterDoi;
 import com.example.app.register.RegisterMainScreen;
 
 
@@ -23,10 +23,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextView welcome = findViewById(R.id.welcome);
-        Animation anim = AnimationUtils.loadAnimation(this,R.anim.popin);
+        final Button login = findViewById(R.id.login_start), register = findViewById(R.id.register_start);
+        login.setVisibility(View.INVISIBLE);
+        register.setVisibility(View.INVISIBLE);
+        final Animation anim = AnimationUtils.loadAnimation(this,R.anim.popin), popin = AnimationUtils.loadAnimation(this,R.anim.fade_in);
         anim.setDuration(1000);
+        popin.setDuration(500);
         welcome.startAnimation(anim);
-//        getWindow().setTransitionBackgroundFadeDuration(2000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                login.setVisibility(View.VISIBLE);
+                register.setVisibility(View.VISIBLE);
+                login.startAnimation(popin);
+                register.startAnimation(popin);
+            }
+        },2000);
+        login.setBackgroundResource(R.drawable.circle);
+        register.setBackgroundResource(R.drawable.circle);
+
     }
 
 
@@ -35,25 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    public boolean onTouchEvent(MotionEvent touchEvent){
-//        switch (touchEvent.getAction()){
-//            case MotionEvent.ACTION_DOWN:{
-//                x1 = touchEvent.getX();
-//                y1 = touchEvent.getY();
-//            } break;
-//            case MotionEvent.ACTION_UP:{
-//                x2 = touchEvent.getX();
-//                y2 = touchEvent.getY();
-//                if(x1 < x2)
-//                    login();
-//                else if (x1 > x2)
-//                    openSecondScreen();
-//
-//            } break;
-//        }
-////        Toast.makeText(getApplicationContext(),x1 + " " + x2 + " " + y1 + " " + y2, Toast.LENGTH_SHORT).show();
-//        return false;
-//    }
 
 
     public void openSecondScreen(View view) {

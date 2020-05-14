@@ -36,11 +36,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login_screen);
     }
 
-    @Override
-    public void onBackPressed() {
-
-    }
-
     private void createDialog(){
         loading.setCancelable(false);
         loading.setTitle("Loging in");

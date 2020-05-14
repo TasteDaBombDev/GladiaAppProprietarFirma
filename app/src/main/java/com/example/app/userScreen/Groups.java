@@ -9,22 +9,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.example.app.R;
 
-public class Poze extends Fragment {
+public class Groups extends Fragment {
 
-    private static Poze INSTANCE = null;
+    private static Groups INSTANCE = null;
 
     View view;
 
-    public Poze(){
+    public Groups(){
     }
 
-    public static Poze getINSTANCE(){
+    public static Groups getINSTANCE(){
 
         if (INSTANCE == null)
-            INSTANCE = new Poze();
+            INSTANCE = new Groups();
         return INSTANCE;
     }
 
@@ -37,11 +39,21 @@ public class Poze extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    private WebView chat;
     @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_poze,container,false);
+        view = inflater.inflate(R.layout.groups_fragment,container,false);
+
+        chat = (WebView) view.findViewById(R.id.webview);
+        chat.setWebViewClient(new WebViewClient());
+        String login = "";
+        if(MainScreen.getMail().equals("-null-"))
+            login = MainScreen.getNrtel();
+        else
+            login = MainScreen.getMail();
+        chat.loadUrl("http://www.gladiaholdings.com/PHP/chat.php?login=" + login + "&pass=" + MainScreen.getPassword());
 
         return view;
     }
