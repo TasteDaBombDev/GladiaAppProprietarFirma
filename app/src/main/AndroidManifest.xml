@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".register.termsAndConditions.Terms3"></activity>
+        <activity android:name=".register.termsAndConditions.Terms2" />
+        <activity android:name=".register.termsAndConditions.Terms1" />
+        <activity android:name=".register.termsAndConditions.TermsAndConditionsMain" />
         <activity android:name=".userScreen.profile.EditProfile" />
         <activity android:name=".userScreen.Groups" />
         <activity android:name=".userScreen.Evenimente" />
@@ -26,6 +30,7 @@
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
