@@ -63,6 +63,7 @@ public class Register extends AppCompatActivity {
                     if(success){
 
                         createFile();
+
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Register.this, MainScreen.class);
                         intent.putExtra("idUser", userID);
@@ -76,6 +77,7 @@ public class Register extends AppCompatActivity {
                         intent.putExtra("sex", sex);
                         intent.putExtra("nrtel", nrtel);
                         intent.putExtra("pannel",2);
+                        intent.putExtra("fromRegister", true);
 
                         startActivity(intent);
                     }

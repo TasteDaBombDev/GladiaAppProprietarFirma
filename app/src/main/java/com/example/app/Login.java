@@ -84,9 +84,11 @@ public class Login extends AppCompatActivity {
                         intent.putExtra("sex", sex);
                         intent.putExtra("nrtel", nrtel);
                         intent.putExtra("pannel", 2);
+                        intent.putExtra("fromRegister",false);
 
                         startActivity(intent);
                     } else{
+                        loading.dismiss();
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                     }
 

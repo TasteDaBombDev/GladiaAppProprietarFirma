@@ -15,8 +15,7 @@ public class MainScreen extends AppCompatActivity {
     private ViewPager viewPager;
 
     private static int userID;
-    private GoogleMap googleMap;
-//    private int actualPos = 0;
+    private static boolean tutorial;
     private static String nume;
     private static String prenume;
     private static String password;
@@ -41,6 +40,7 @@ public class MainScreen extends AppCompatActivity {
         ziuaDeNastere = extras.getString("ziuaDeNastere");
         sex = extras.getString("sex");
         nrtel = extras.getString("nrtel");
+        tutorial = extras.getBoolean("fromRegister");
 
 
         viewPager = findViewById(R.id.mainSlider);
@@ -79,26 +79,6 @@ public class MainScreen extends AppCompatActivity {
         });
     }
 
-//    public boolean theSame(){
-//        if(viewPager.getCurrentItem() == actualPos)
-//            return true;
-//        return false;
-//    }
-//
-//    public void swipeRight(int x){
-//        if(x < 2){
-//            viewPager.setCurrentItem(x + 1);
-//            actualPos = x;
-//        }
-//    }
-//
-//    public void swipeLeft(int x){
-//        if(x > 0){
-//            viewPager.setCurrentItem(x - 1);
-//            actualPos = x;
-//        }
-//    }
-
     public static int getUserID() {
         return userID;
     }
@@ -133,6 +113,10 @@ public class MainScreen extends AppCompatActivity {
 
     public static String getNrtel() {
         return nrtel;
+    }
+
+    public static boolean startTutorial(){
+        return tutorial;
     }
 
     @Override

@@ -44,24 +44,6 @@ public class Terms3 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.terms3, container, false);
 
-        Button toRegister = view.findViewById(R.id.toRegister), cancelRegister = view.findViewById(R.id.cancelRegister);
-
-        toRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RegisterMainScreen.class);
-                startActivity(intent);
-            }
-        });
-
-        cancelRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
         return view;
     }
 }
