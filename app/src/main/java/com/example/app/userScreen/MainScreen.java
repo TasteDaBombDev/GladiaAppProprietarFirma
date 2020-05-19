@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.app.Login;
 import com.example.app.R;
@@ -43,6 +44,8 @@ public class MainScreen extends AppCompatActivity {
         events = extras.getInt("nrEvents");
         nrtel = extras.getString("nrtel");
         tutorial = extras.getBoolean("fromRegister");
+
+        Toast.makeText(this, "" + events, Toast.LENGTH_SHORT).show();
 
 
         viewPager = findViewById(R.id.mainSlider);

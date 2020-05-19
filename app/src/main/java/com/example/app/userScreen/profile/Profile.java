@@ -47,6 +47,7 @@ public class Profile extends Fragment {
     private ImageView bussinesPic1, bussinesPic2, bussinesPic3;
     private LinearLayout jobLayout1, jobLayout2, jobLayout3;
     private TextView bussinesText1, bussinesText2, bussinesText3;
+    private ImageButton createBussines;
 
 
     // USER DATA
@@ -97,6 +98,7 @@ public class Profile extends Fragment {
         jobLayout1 = new LinearLayout(getContext());
         bussinesPic1 = new ImageView(getContext());
         bussinesText1 = new TextView(getContext());
+        createBussines = new ImageButton(getContext());
 
         profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +177,9 @@ public class Profile extends Fragment {
         });
     }
 
+
+
+
     private void openMenu(){
         opened = true;
         menu.setVisibility(View.VISIBLE);
@@ -221,6 +226,9 @@ public class Profile extends Fragment {
         header.setBackgroundResource(R.drawable.circle_profile);
     }
 
+
+
+
     /**
      * THIS IS THE LAYOUT_ADDER
      */
@@ -235,18 +243,18 @@ public class Profile extends Fragment {
         ConstraintLayout selectorMaster = view.findViewById(R.id.selectorMaster);
         selectorMaster.setBackgroundResource(R.drawable.top_border);
 
-
-        if(MainScreen.getAfaceri() <= 3) {
-            //display +
-        }
-
         switch (MainScreen.getAfaceri()){
+            case 0:
+                createAddingButton(rootLayout);
+                break;
             case 1:
                 buildBussines1(rootLayout);
+                createAddingButton(rootLayout);
                 break;
             case 2:
                 buildBussines1(rootLayout);
                 buildBussines2(rootLayout);
+                createAddingButton(rootLayout);
                 break;
             case 3:
                 buildBussines1(rootLayout);
@@ -254,6 +262,19 @@ public class Profile extends Fragment {
                 buildBussines3(rootLayout);
                 break;
         }
+    }
+
+    private void createAddingButton(LinearLayout rootLayout){
+        float height = getResources().getDimension(R.dimen.add_height);
+        float width = getResources().getDimension(R.dimen.add_height);
+        LinearLayout.LayoutParams set = new LinearLayout.LayoutParams((int) height, (int) width);
+        set.gravity = Gravity.CENTER;
+        set.setMargins(0,20,0,0);
+        createBussines.setImageResource(R.drawable.plus);
+        createBussines.setLayoutParams(set);
+        createBussines.setBackgroundResource(R.drawable.circle);
+
+        rootLayout.addView(createBussines);
     }
 
     private void buildBussines1(LinearLayout rootLayout){
@@ -301,12 +322,17 @@ public class Profile extends Fragment {
         TransitionManager.beginDelayedTransition(head);
 
         switch (MainScreen.getAfaceri()){
+            case 0:
+                removeAddingButton();
+                break;
             case 1:
                 removeBussines1();
+                removeAddingButton();
                 break;
             case 2:
                 removeBussines1();
                 removeBussines2();
+                removeAddingButton();
                 break;
             case 3:
                 removeBussines1();
@@ -322,6 +348,11 @@ public class Profile extends Fragment {
                 selectorMaster.setBackgroundResource(R.drawable.aggro_zone);
             }
         },700);
+    }
+
+    private void removeAddingButton(){
+        LinearLayout rootLayout = view.findViewById(R.id.selector);
+        rootLayout.removeView(createBussines);
     }
 
     private void removeBussines1(){
@@ -348,6 +379,10 @@ public class Profile extends Fragment {
         jobLayout3.removeView(bussinesPic3);
         jobLayout3.removeView(bussinesText3);
     }
+
+
+
+
 
     private void circularRevealCard(View view){
         float finalRadius = Math.max(view.getWidth(), view.getHeight());
@@ -389,10 +424,10 @@ public class Profile extends Fragment {
         profileImg = view.findViewById(R.id.profilePicHeader);
 
         TextView events = view.findViewById(R.id.nrEvents);
-        events.setText(MainScreen.getEvents());
+        events.setText("22 \n Events");//MainScreen.getEvents());
 
         TextView nothing = view.findViewById(R.id.nothingHere);
-        nothing.setText("0");
+        nothing.setText("0 \n Friends");
 
         afaceri = MainScreen.getAfaceri();
 
