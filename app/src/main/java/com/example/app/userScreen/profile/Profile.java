@@ -42,16 +42,24 @@ public class Profile extends Fragment {
 
     private static Profile INSTANCE = null;
 
+
+    //BUSSINESS DATA
+    private ImageView bussinesPic1, bussinesPic2, bussinesPic3;
+    private LinearLayout jobLayout1, jobLayout2, jobLayout3;
+    private TextView bussinesText1, bussinesText2, bussinesText3;
+
+
+    // USER DATA
     private static int ID, afaceri;
-    private ImageView profileImg, bussines1;
-    private TextView events, bss1, nothing;
-    private Dialog eDialog;
     private static String username, nume, prenume, password, mail, ziuaDeNastere, sex, nrtel;
+
+    private ImageView profileImg;
+    private Dialog eDialog;
     private ImageButton toEdit, toEvents, more;
     private CardView option1,option2, option3,option4,option5;
-    private LinearLayout menu, job1;
+    private LinearLayout menu;
     private Animation anim, anim2,anim3,anim4,anim5,fadein,fadeout,popin_top, popout_top;
-    private TextView do4, usernameProfile;
+    private TextView usernameProfile;
     private boolean opened = false, colapedHeader = false;
     private ConstraintLayout header,contentMenu;
     private ConstraintSet constraintSet;
@@ -86,9 +94,9 @@ public class Profile extends Fragment {
         init();
 
 
-        job1 = new LinearLayout(getContext());
-        bussines1 = new ImageView(getContext());
-        bss1 = new TextView(getContext());
+        jobLayout1 = new LinearLayout(getContext());
+        bussinesPic1 = new ImageView(getContext());
+        bussinesText1 = new TextView(getContext());
 
         profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,6 +221,9 @@ public class Profile extends Fragment {
         header.setBackgroundResource(R.drawable.circle_profile);
     }
 
+    /**
+     * THIS IS THE LAYOUT_ADDER
+     */
     private void addToLayout(){
 
         LinearLayout rootLayout = view.findViewById(R.id.selector);
@@ -229,58 +240,113 @@ public class Profile extends Fragment {
             //display +
         }
 
-        if(MainScreen.getAfaceri() <= 3)
-        {
-            //The Layout
-            LinearLayout.LayoutParams set = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            set.setMargins(0,20,0,20);
-            job1.setLayoutParams(set);
-
-            //The pic
-            bussines1.setImageResource(R.drawable.default_pic_foirma);
-            float height = getResources().getDimension(R.dimen.pic_height);
-            float width = getResources().getDimension(R.dimen.pic_height);
-            bussines1.setLayoutParams(new LinearLayout.LayoutParams((int) width,(int) height));
-            bussines1.setAdjustViewBounds(true);
-            bussines1.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-
-            //The text
-            bss1.setText("First Bussiness");
-            bss1.setGravity(Gravity.CENTER_VERTICAL);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
-            params.setMargins(20,0,0,0);
-            bss1.setLayoutParams(params);
-
-
-            rootLayout.addView(job1);
-            job1.addView(bussines1);
-            job1.addView(bss1);
+        switch (MainScreen.getAfaceri()){
+            case 1:
+                buildBussines1(rootLayout);
+                break;
+            case 2:
+                buildBussines1(rootLayout);
+                buildBussines2(rootLayout);
+                break;
+            case 3:
+                buildBussines1(rootLayout);
+                buildBussines2(rootLayout);
+                buildBussines3(rootLayout);
+                break;
         }
     }
 
+    private void buildBussines1(LinearLayout rootLayout){
+        //The Layout
+        LinearLayout.LayoutParams set = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        set.setMargins(0,20,0,20);
+        jobLayout1.setLayoutParams(set);
+
+        //The pic
+        bussinesPic1.setImageResource(R.drawable.default_pic_foirma);
+        float height = getResources().getDimension(R.dimen.pic_height);
+        float width = getResources().getDimension(R.dimen.pic_height);
+        bussinesPic1.setLayoutParams(new LinearLayout.LayoutParams((int) width,(int) height));
+        bussinesPic1.setAdjustViewBounds(true);
+        bussinesPic1.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+
+        //The text
+        bussinesText1.setText("First Bussiness");
+        bussinesText1.setGravity(Gravity.CENTER_VERTICAL);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        params.setMargins(20,0,0,0);
+        bussinesText1.setLayoutParams(params);
+
+
+        rootLayout.addView(jobLayout1);
+        jobLayout1.addView(bussinesPic1);
+        jobLayout1.addView(bussinesText1);
+    }
+
+    private void buildBussines2(LinearLayout rootLayout){}
+
+    private void buildBussines3(LinearLayout rootLayout){}
+
+
+    /**
+     * THIS IS THE LAYOUT_REMOVER
+     */
     private void removeFromLayout(){
-        LinearLayout rootLayout = view.findViewById(R.id.selector);
 
         ConstraintLayout head = view.findViewById(R.id.profile_selector);
         TransitionManager.beginDelayedTransition(head);
 
+        switch (MainScreen.getAfaceri()){
+            case 1:
+                removeBussines1();
+                break;
+            case 2:
+                removeBussines1();
+                removeBussines2();
+                break;
+            case 3:
+                removeBussines1();
+                removeBussines2();
+                removeBussines3();
+                break;
+        }
+
         final ConstraintLayout selectorMaster = view.findViewById(R.id.selectorMaster);
-
-        rootLayout.removeView(job1);
-        job1.removeView(bussines1);
-        job1.removeView(bss1);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 selectorMaster.setBackgroundResource(R.drawable.aggro_zone);
             }
         },700);
+    }
 
+    private void removeBussines1(){
+        LinearLayout rootLayout = view.findViewById(R.id.selector);
+
+        rootLayout.removeView(jobLayout1);
+        jobLayout1.removeView(bussinesPic1);
+        jobLayout1.removeView(bussinesText1);
+
+    }
+
+    private void removeBussines2(){
+        LinearLayout rootLayout = view.findViewById(R.id.selector);
+
+        rootLayout.removeView(jobLayout2);
+        jobLayout2.removeView(bussinesPic2);
+        jobLayout2.removeView(bussinesText2);
+    }
+
+    private void removeBussines3(){
+        LinearLayout rootLayout = view.findViewById(R.id.selector);
+
+        rootLayout.removeView(jobLayout3);
+        jobLayout3.removeView(bussinesPic3);
+        jobLayout3.removeView(bussinesText3);
     }
 
     private void circularRevealCard(View view){
@@ -321,11 +387,15 @@ public class Profile extends Fragment {
         option5 = view.findViewById(R.id.option5);
         usernameProfile = view.findViewById(R.id.username_profile_header);
         profileImg = view.findViewById(R.id.profilePicHeader);
-        events = view.findViewById(R.id.nrEvents);
-        events.setText(MainScreen.getEvents() + " Events");
+
+        TextView events = view.findViewById(R.id.nrEvents);
+        events.setText(MainScreen.getEvents());
+
+        TextView nothing = view.findViewById(R.id.nothingHere);
+        nothing.setText("0");
+
         afaceri = MainScreen.getAfaceri();
-        nothing = view.findViewById(R.id.nothingHere);
-        nothing.setText("0 Friends");
+
         constraintSet = new ConstraintSet();
 
         TextView usernameTV = view.findViewById(R.id.username_T);
@@ -363,7 +433,7 @@ public class Profile extends Fragment {
         popout_top = AnimationUtils.loadAnimation(getContext(),R.anim.popout_top);
         popout_top.setDuration(300);
 
-        do4 = view.findViewById(R.id.do4);
+        TextView do4 = view.findViewById(R.id.do4);
 
         eDialog = new Dialog(getContext());
 
