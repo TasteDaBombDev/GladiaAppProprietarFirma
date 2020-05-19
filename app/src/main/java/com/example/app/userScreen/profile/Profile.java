@@ -15,6 +15,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.transition.TransitionManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,29 +23,35 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.example.app.MainActivity;
 import com.example.app.R;
 import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.MapActivity;
+import com.squareup.picasso.Picasso;
 
 public class Profile extends Fragment {
 
 
     private static Profile INSTANCE = null;
 
-    private static int ID;
+    private static int ID, afaceri;
+    private ImageView profileImg, bussines1;
+    private TextView events, bss1, nothing;
     private Dialog eDialog;
     private static String username, nume, prenume, password, mail, ziuaDeNastere, sex, nrtel;
     private ImageButton toEdit, toEvents, more;
     private CardView option1,option2, option3,option4,option5;
-    private LinearLayout menu;
+    private LinearLayout menu, job1;
     private Animation anim, anim2,anim3,anim4,anim5,fadein,fadeout,popin_top, popout_top;
-    private TextView do4;
+    private TextView do4, usernameProfile;
     private boolean opened = false, colapedHeader = false;
     private ConstraintLayout header,contentMenu;
     private ConstraintSet constraintSet;
@@ -74,15 +81,33 @@ public class Profile extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.user_screen_dashboard,container,false);
-        final ConstraintLayout master = view.findViewById(R.id.masterMenuProfile);
 
 
         init();
 
-        if(MainScreen.getMail().equals("-null-"))
-            do4.setText("Confirm mail");
-        else
-            do4.setText("Confirm phone");
+
+        job1 = new LinearLayout(getContext());
+        bussines1 = new ImageView(getContext());
+        bss1 = new TextView(getContext());
+
+        profileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!colapedHeader)
+                {
+                    colapedHeader = true;
+                    addToLayout();
+                }
+                else
+                {
+                    colapedHeader = false;
+                    removeFromLayout();
+                }
+            }
+        });
+
+        usernameProfile.setText(MainScreen.getUsername());
+
 
         ConstraintLayout aggroZone = view.findViewById(R.id.profile);
         aggroZone.setOnTouchListener(new View.OnTouchListener() {
@@ -96,6 +121,14 @@ public class Profile extends Fragment {
             }
         });
 
+        editProfile();
+
+        toMenu();
+
+        return view;
+    }
+
+    private void editProfile(){
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,8 +150,9 @@ public class Profile extends Fragment {
                 eDialog.show();
             }
         });
+    }
 
-
+    private void toMenu(){
         toEdit = view.findViewById(R.id.toEdit);
         toEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,24 +162,9 @@ public class Profile extends Fragment {
                 else
                 {
                     closeMenu();
-                    closeSelector(master);
                 }
             }
         });
-
-        more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                TransitionManager.beginDelayedTransition(header);
-                if(!colapedHeader)
-                    openSelector(master);
-                else
-                    closeSelector(master);
-            }
-        });
-
-        return view;
     }
 
     private void openMenu(){
@@ -194,6 +213,74 @@ public class Profile extends Fragment {
         header.setBackgroundResource(R.drawable.circle_profile);
     }
 
+    private void addToLayout(){
+
+        LinearLayout rootLayout = view.findViewById(R.id.selector);
+
+
+        ConstraintLayout head = view.findViewById(R.id.profile_selector);
+        TransitionManager.beginDelayedTransition(head);
+
+        ConstraintLayout selectorMaster = view.findViewById(R.id.selectorMaster);
+        selectorMaster.setBackgroundResource(R.drawable.top_border);
+
+
+        if(MainScreen.getAfaceri() <= 3) {
+            //display +
+        }
+
+        if(MainScreen.getAfaceri() <= 3)
+        {
+            //The Layout
+            job1.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            //The pic
+            bussines1.setImageResource(R.drawable.default_pic_foirma);
+            float height = getResources().getDimension(R.dimen.pic_height);
+            float width = getResources().getDimension(R.dimen.pic_height);
+            bussines1.setLayoutParams(new LinearLayout.LayoutParams((int) width,(int) height));
+            bussines1.setAdjustViewBounds(true);
+            bussines1.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+
+            //The text
+            bss1.setText("First Bussiness");
+            bss1.setGravity(Gravity.CENTER_VERTICAL);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            params.setMargins(20,0,0,0);
+            bss1.setLayoutParams(params);
+
+
+            rootLayout.addView(job1);
+            job1.addView(bussines1);
+            job1.addView(bss1);
+        }
+    }
+
+    private void removeFromLayout(){
+        LinearLayout rootLayout = view.findViewById(R.id.selector);
+
+        ConstraintLayout head = view.findViewById(R.id.profile_selector);
+        TransitionManager.beginDelayedTransition(head);
+
+        final ConstraintLayout selectorMaster = view.findViewById(R.id.selectorMaster);
+
+        rootLayout.removeView(job1);
+        job1.removeView(bussines1);
+        job1.removeView(bss1);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                selectorMaster.setBackgroundResource(R.drawable.aggro_zone);
+            }
+        },700);
+
+    }
+
     private void circularRevealCard(View view){
         float finalRadius = Math.max(view.getWidth(), view.getHeight());
 
@@ -230,8 +317,15 @@ public class Profile extends Fragment {
         option3 = view.findViewById(R.id.option3);
         option4 = view.findViewById(R.id.option4);
         option5 = view.findViewById(R.id.option5);
-        more = view.findViewById(R.id.more);
+        usernameProfile = view.findViewById(R.id.username_profile_header);
+        profileImg = view.findViewById(R.id.profilePicHeader);
+        events = view.findViewById(R.id.nrEvents);
+        events.setText(MainScreen.getEvents() + " Events");
+        afaceri = MainScreen.getAfaceri();
+        nothing = view.findViewById(R.id.nothingHere);
+        nothing.setText("0 Friends");
         constraintSet = new ConstraintSet();
+
         TextView usernameTV = view.findViewById(R.id.username_T);
         usernameTV.setText(username);
 

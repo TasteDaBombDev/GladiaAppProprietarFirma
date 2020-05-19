@@ -14,7 +14,7 @@ public class MainScreen extends AppCompatActivity {
     private static String username;
     private ViewPager viewPager;
 
-    private static int userID;
+    private static int userID, afaceri, events;
     private static boolean tutorial;
     private static String nume;
     private static String prenume;
@@ -39,6 +39,8 @@ public class MainScreen extends AppCompatActivity {
         mail = extras.getString("mail");
         ziuaDeNastere = extras.getString("ziuaDeNastere");
         sex = extras.getString("sex");
+        afaceri = extras.getInt("nrAfaceri");
+        events = extras.getInt("nrEvents");
         nrtel = extras.getString("nrtel");
         tutorial = extras.getBoolean("fromRegister");
 
@@ -117,6 +119,14 @@ public class MainScreen extends AppCompatActivity {
 
     public static boolean startTutorial(){
         return tutorial;
+    }
+
+    public static int getAfaceri(){
+        return afaceri;
+    }
+
+    public static int getEvents(){
+        return events;
     }
 
     @Override

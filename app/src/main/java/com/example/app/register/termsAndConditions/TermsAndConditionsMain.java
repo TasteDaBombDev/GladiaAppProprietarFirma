@@ -22,6 +22,11 @@ public class TermsAndConditionsMain extends AppCompatActivity {
     private ViewPager viewPager;
 
     @Override
+    public void onBackPressed() {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.terms_and_conditions_main);
@@ -94,6 +99,8 @@ public class TermsAndConditionsMain extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 }

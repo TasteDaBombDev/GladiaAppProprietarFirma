@@ -80,6 +80,8 @@ public class SplashScreen extends AppCompatActivity {
                             intent.putExtra("ziuaDeNastere", ziuaDeNastere);
                             intent.putExtra("sex", sex);
                             intent.putExtra("nrtel", nrtel);
+                            intent.putExtra("nrAfaceri",jsonObject.getInt("nrAfaceri"));
+                            intent.putExtra("nrEvents",jsonObject.getInt("nrEvents"));
                             intent.putExtra("pannel", 2);
 
 

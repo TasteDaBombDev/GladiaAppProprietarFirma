@@ -56,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
     public void openSecondScreen(View view) {
         Intent intent = new Intent(this, TermsAndConditionsMain.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 
     public void login(View view) {
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 }
