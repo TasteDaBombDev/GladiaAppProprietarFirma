@@ -232,9 +232,11 @@ public class Profile extends Fragment {
         if(MainScreen.getAfaceri() <= 3)
         {
             //The Layout
-            job1.setLayoutParams(new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams set = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            set.setMargins(0,20,0,20);
+            job1.setLayoutParams(set);
 
             //The pic
             bussines1.setImageResource(R.drawable.default_pic_foirma);
