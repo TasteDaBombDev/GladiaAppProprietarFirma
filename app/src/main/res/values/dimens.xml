@@ -9,4 +9,7 @@
     <dimen name="pic_width">200dp</dimen>
     <dimen name="add_height">40dp</dimen>
     <dimen name="add_width">40dp</dimen>
+    <dimen name="after_closing_bussiness">125dp</dimen>
+    <dimen name="after_opening_bussiness">205dp</dimen>
+    <dimen name="initial_pos">-50dp</dimen>
 </resources>

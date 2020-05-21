@@ -17,8 +17,6 @@ import com.example.app.register.termsAndConditions.TermsAndConditionsMain;
 
 public class MainActivity extends AppCompatActivity {
 
-    private float x1,x2,y1,y2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

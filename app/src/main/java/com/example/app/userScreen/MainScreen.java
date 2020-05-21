@@ -45,8 +45,6 @@ public class MainScreen extends AppCompatActivity {
         nrtel = extras.getString("nrtel");
         tutorial = extras.getBoolean("fromRegister");
 
-        Toast.makeText(this, "" + events, Toast.LENGTH_SHORT).show();
-
 
         viewPager = findViewById(R.id.mainSlider);
 

@@ -10,10 +10,13 @@ import androidx.fragment.app.Fragment;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,19 +26,17 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-import com.example.app.MainActivity;
 import com.example.app.R;
 import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.MapActivity;
-import com.squareup.picasso.Picasso;
 
 public class Profile extends Fragment {
 
@@ -56,13 +57,14 @@ public class Profile extends Fragment {
 
     private ImageView profileImg;
     private Dialog eDialog;
+    private LinearLayout headerProfile;
     private ImageButton toEdit, toEvents, more;
     private CardView option1,option2, option3,option4,option5;
     private LinearLayout menu;
     private Animation anim, anim2,anim3,anim4,anim5,fadein,fadeout,popin_top, popout_top;
     private TextView usernameProfile;
     private boolean opened = false, colapedHeader = false;
-    private ConstraintLayout header,contentMenu;
+    private ConstraintLayout header,contentMenu,fadeLayer;
     private ConstraintSet constraintSet;
 
     private View view;
@@ -95,10 +97,11 @@ public class Profile extends Fragment {
         init();
 
 
+
         jobLayout1 = new LinearLayout(getContext());
         bussinesPic1 = new ImageView(getContext());
         bussinesText1 = new TextView(getContext());
-        createBussines = new ImageButton(getContext());
+        createBussines = view.findViewById(R.id.addBussiness);
 
         profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +187,6 @@ public class Profile extends Fragment {
         opened = true;
         menu.setVisibility(View.VISIBLE);
         contentMenu.startAnimation(fadein);
-//      circularRevealCard(header);
         header.startAnimation(popin_top);
         option1.startAnimation(anim);
         option2.startAnimation(anim2);
@@ -196,7 +198,6 @@ public class Profile extends Fragment {
 
     private void closeMenu(){
         opened = false;
-//                    circularCloseCard(header);
         header.startAnimation(popout_top);
         contentMenu.startAnimation(fadeout);
         toEdit.setImageResource(R.drawable.ic_menu_black_24dp);
@@ -236,27 +237,35 @@ public class Profile extends Fragment {
 
         LinearLayout rootLayout = view.findViewById(R.id.selector);
 
-
-        ConstraintLayout head = view.findViewById(R.id.profile_selector);
+        final ConstraintLayout head = view.findViewById(R.id.profile_selector);
         TransitionManager.beginDelayedTransition(head);
 
-        ConstraintLayout selectorMaster = view.findViewById(R.id.selectorMaster);
-        selectorMaster.setBackgroundResource(R.drawable.top_border);
+        final ConstraintLayout selectorMaster = view.findViewById(R.id.selectorMaster);
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) selectorMaster.getLayoutParams();
+        params.topMargin = 0;
+
+        selectorMaster.setBackgroundResource(R.drawable.top_bottom_border);
+
+        TransitionManager.beginDelayedTransition(fadeLayer);
+        fadeLayer.setVisibility(View.VISIBLE);
+
 
         switch (MainScreen.getAfaceri()){
             case 0:
-                createAddingButton(rootLayout);
+                createBussines.setVisibility(View.VISIBLE);
+                selectorMaster.setMinHeight(20);
                 break;
             case 1:
+                createBussines.setVisibility(View.VISIBLE);
                 buildBussines1(rootLayout);
-                createAddingButton(rootLayout);
                 break;
             case 2:
+                createBussines.setVisibility(View.VISIBLE);
                 buildBussines1(rootLayout);
                 buildBussines2(rootLayout);
-                createAddingButton(rootLayout);
                 break;
             case 3:
+                createBussines.setVisibility(View.INVISIBLE);
                 buildBussines1(rootLayout);
                 buildBussines2(rootLayout);
                 buildBussines3(rootLayout);
@@ -269,10 +278,10 @@ public class Profile extends Fragment {
         float width = getResources().getDimension(R.dimen.add_height);
         LinearLayout.LayoutParams set = new LinearLayout.LayoutParams((int) height, (int) width);
         set.gravity = Gravity.CENTER;
-        set.setMargins(0,20,0,0);
+        createBussines.setScaleType(ImageView.ScaleType.FIT_XY);
         createBussines.setImageResource(R.drawable.plus);
         createBussines.setLayoutParams(set);
-        createBussines.setBackgroundResource(R.drawable.circle);
+        createBussines.setBackgroundResource(R.drawable.around_add_button);
 
         rootLayout.addView(createBussines);
     }
@@ -318,21 +327,29 @@ public class Profile extends Fragment {
      */
     private void removeFromLayout(){
 
-        ConstraintLayout head = view.findViewById(R.id.profile_selector);
+        final ConstraintLayout head = view.findViewById(R.id.profile_selector);
         TransitionManager.beginDelayedTransition(head);
+
+        final ConstraintLayout selectorMaster = view.findViewById(R.id.selectorMaster);
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) selectorMaster.getLayoutParams();
+        float topMinus = getResources().getDimension(R.dimen.initial_pos);
+        params.topMargin = (int) topMinus;
+
+
+        TransitionManager.beginDelayedTransition(fadeLayer);
+        fadeLayer.setVisibility(View.INVISIBLE);
+
 
         switch (MainScreen.getAfaceri()){
             case 0:
-                removeAddingButton();
+                selectorMaster.setMinHeight(0);
                 break;
             case 1:
                 removeBussines1();
-                removeAddingButton();
                 break;
             case 2:
                 removeBussines1();
                 removeBussines2();
-                removeAddingButton();
                 break;
             case 3:
                 removeBussines1();
@@ -341,18 +358,18 @@ public class Profile extends Fragment {
                 break;
         }
 
-        final ConstraintLayout selectorMaster = view.findViewById(R.id.selectorMaster);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                selectorMaster.setMinHeight(0);
                 selectorMaster.setBackgroundResource(R.drawable.aggro_zone);
             }
-        },700);
+        },650);
     }
 
     private void removeAddingButton(){
         LinearLayout rootLayout = view.findViewById(R.id.selector);
-        rootLayout.removeView(createBussines);
+        headerProfile.removeView(createBussines);
     }
 
     private void removeBussines1(){
@@ -422,12 +439,21 @@ public class Profile extends Fragment {
         option5 = view.findViewById(R.id.option5);
         usernameProfile = view.findViewById(R.id.username_profile_header);
         profileImg = view.findViewById(R.id.profilePicHeader);
+        fadeLayer = view.findViewById(R.id.fadeLayer);
 
         TextView events = view.findViewById(R.id.nrEvents);
-        events.setText("22 \n Events");//MainScreen.getEvents());
+        String text = "" + MainScreen.getEvents() + "\nEvents";
+        events.setText(text);
 
         TextView nothing = view.findViewById(R.id.nothingHere);
-        nothing.setText("0 \n Friends");
+        nothing.setText("0\nFriends");
+        nothing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FriendsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         afaceri = MainScreen.getAfaceri();
 
@@ -468,9 +494,11 @@ public class Profile extends Fragment {
         popout_top = AnimationUtils.loadAnimation(getContext(),R.anim.popout_top);
         popout_top.setDuration(300);
 
-        TextView do4 = view.findViewById(R.id.do4);
-
         eDialog = new Dialog(getContext());
+
+        headerProfile = view.findViewById(R.id.headerProfile);
+
+        Toast.makeText(getContext(), "" + headerProfile.getHeight(),Toast.LENGTH_SHORT).show();
 
         header = view.findViewById(R.id.headerMenu);
         contentMenu = view.findViewById(R.id.menuContent);
