@@ -270,7 +270,7 @@ public class Profile extends Fragment {
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) selectorMaster.getLayoutParams();
         params.topMargin = 0;
 
-        selectorMaster.setBackgroundResource(R.drawable.top_bottom_border);
+//        selectorMaster.setBackgroundResource(R.drawable.top_bottom_border);
 
         TransitionManager.beginDelayedTransition(fadeLayer);
         fadeLayer.setVisibility(View.VISIBLE);
@@ -357,10 +357,10 @@ public class Profile extends Fragment {
         TransitionManager.beginDelayedTransition(head);
 
         final ConstraintLayout selectorMaster = view.findViewById(R.id.selectorMaster);
+
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) selectorMaster.getLayoutParams();
         float topMinus = getResources().getDimension(R.dimen.initial_pos);
         params.topMargin = (int) topMinus;
-
 
         TransitionManager.beginDelayedTransition(fadeLayer);
         fadeLayer.setVisibility(View.INVISIBLE);
@@ -388,7 +388,7 @@ public class Profile extends Fragment {
             @Override
             public void run() {
                 selectorMaster.setMinHeight(0);
-                selectorMaster.setBackgroundResource(R.drawable.aggro_zone);
+//                selectorMaster.setBackgroundResource(R.drawable.aggro_zone);
             }
         },650);
     }
