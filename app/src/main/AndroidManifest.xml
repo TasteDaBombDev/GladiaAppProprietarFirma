@@ -10,24 +10,19 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_stars_black_24dp"
-        android:label="Zone"
+        android:label="Zone For Business"
         android:roundIcon="@drawable/ic_stars_black_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".userScreen.profile.FriendsActivity"></activity>
-        <activity android:name=".register.termsAndConditions.Terms3" />
-        <activity android:name=".register.termsAndConditions.Terms2" />
-        <activity android:name=".register.termsAndConditions.Terms1" />
-        <activity android:name=".register.termsAndConditions.TermsAndConditionsMain" />
+        <activity android:name=".userScreen.profile.FriendsActivity" />
+        <activity android:name=".termsAndConditions.Terms3" />
+        <activity android:name=".termsAndConditions.Terms2" />
+        <activity android:name=".termsAndConditions.Terms1" />
+        <activity android:name=".termsAndConditions.TermsAndConditionsMain" />
         <activity android:name=".userScreen.profile.EditProfile" />
-        <activity android:name=".userScreen.Groups" />
         <activity android:name=".userScreen.Evenimente" />
         <activity android:name=".userScreen.profile.Profile" />
-        <activity android:name=".userScreen.MapActivity" />
-        <activity android:name=".register.Register2" />
-        <activity android:name=".register.Register4" />
-        <activity android:name=".Login" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,17 +30,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".register.Register" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
         <activity android:name=".userScreen.MainScreen" />
-        <activity android:name=".register.Register3" />
-        <activity android:name=".register.Register1" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".register.RegisterMainScreen" />
     </application>
 
 </manifest>

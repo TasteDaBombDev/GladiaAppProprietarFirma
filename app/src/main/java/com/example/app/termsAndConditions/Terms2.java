@@ -1,8 +1,7 @@
-package com.example.app.register.termsAndConditions;
+package com.example.app.termsAndConditions;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
@@ -13,18 +12,18 @@ import android.view.ViewGroup;
 
 import com.example.app.R;
 
-public class Terms1 extends Fragment {
+public class Terms2 extends Fragment {
 
-    private static Terms1 INSTANCE = null;
+    private static Terms2 INSTANCE = null;
     private View view;
 
-    public Terms1(){
+    public Terms2(){
 
     }
 
-    public static Terms1 getINSTANCE() {
+    public static Terms2 getINSTANCE() {
         if(INSTANCE == null)
-            return new Terms1();
+            return new Terms2();
         return INSTANCE;
     }
 
@@ -37,8 +36,9 @@ public class Terms1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.terms1, container, false);
+        view = inflater.inflate(R.layout.terms2, container, false);
 
         return view;
     }
+
 }

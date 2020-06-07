@@ -1,6 +1,5 @@
-package com.example.app.register.termsAndConditions;
+package com.example.app.termsAndConditions;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.app.MainActivity;
 import com.example.app.R;
-import com.example.app.register.RegisterMainScreen;
 
 public class TermsAndConditionsMain extends AppCompatActivity {
 
@@ -44,8 +42,8 @@ public class TermsAndConditionsMain extends AppCompatActivity {
         toRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RegisterMainScreen.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), RegisterMainScreen.class);
+//                startActivity(intent);
             }
         });
 

@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.example.app.Login;
 import com.example.app.R;
-import com.google.android.gms.maps.GoogleMap;
 
 public class MainScreen extends AppCompatActivity {
 
@@ -51,36 +48,7 @@ public class MainScreen extends AppCompatActivity {
 
         EnumFragments enumFragments = new EnumFragments(getSupportFragmentManager(),this);
         viewPager.setAdapter(enumFragments);
-        viewPager.setCurrentItem(extras.getInt("pannel"));
-        viewPager.setOffscreenPageLimit(4);
-        
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-            private boolean scrollStarted = false;
-
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if(position == 0)
-                    MapActivity.getMap().getUiSettings().setScrollGesturesEnabled(true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                if (!scrollStarted && state == ViewPager.SCROLL_STATE_DRAGGING) {
-                    scrollStarted = true;
-                    MapActivity.getMap().getUiSettings().setScrollGesturesEnabled(false);
-                } else {
-                    scrollStarted = false;
-                    MapActivity.getMap().getUiSettings().setScrollGesturesEnabled(true);
-                }
-            }
-        });
     }
 
     public static int getUserID() {

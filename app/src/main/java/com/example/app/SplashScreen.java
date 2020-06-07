@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,6 +44,18 @@ public class SplashScreen extends AppCompatActivity {
         name = findViewById(R.id.appName);
 
         FileInputStream fis = null;
+
+        /**
+         * UNCOMMENT IN CASE OF REAL EMERGENCY
+         */
+//        File fdelete = new File(getFilesDir() + "/" + FILE_NAME);
+//        if (fdelete.exists()) {
+//            boolean t = fdelete.delete();
+//            if(t)
+//                Toast.makeText(getApplicationContext(),"true" + getFilesDir() + "/" + FILE_NAME,Toast.LENGTH_LONG).show();
+//            else
+//                Toast.makeText(getApplicationContext(),"false" + getFilesDir() + "/" + FILE_NAME,Toast.LENGTH_LONG).show();
+//        }
         try {
             fis = openFileInput(FILE_NAME);
             InputStreamReader isr = new InputStreamReader(fis);
@@ -83,8 +96,7 @@ public class SplashScreen extends AppCompatActivity {
                             intent.putExtra("nrAfaceri",jsonObject.getInt("nrAfaceri"));
                             intent.putExtra("nrEvents",jsonObject.getInt("nrEvents"));
                             intent.putExtra("friends", jsonObject.getInt("friends"));
-                            intent.putExtra("pannel", 2);
-
+                            intent.putExtra("fromRegister",false);
 
                             startActivity(intent);
                         } else{

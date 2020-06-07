@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="-5dp"
-    tools:context=".register.termsAndConditions.Terms1">
+    tools:context=".termsAndConditions.Terms1">
 
     <ImageView
         android:id="@+id/imageView9"

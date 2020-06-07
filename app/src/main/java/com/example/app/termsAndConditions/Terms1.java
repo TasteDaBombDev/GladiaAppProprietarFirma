@@ -1,35 +1,29 @@
-package com.example.app.register.termsAndConditions;
+package com.example.app.termsAndConditions;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.example.app.MainActivity;
 import com.example.app.R;
-import com.example.app.register.RegisterMainScreen;
-import com.example.app.userScreen.MainScreen;
 
-public class Terms3 extends Fragment {
+public class Terms1 extends Fragment {
 
-    private static Terms3 INSTANCE = null;
+    private static Terms1 INSTANCE = null;
     private View view;
 
-    public Terms3(){
+    public Terms1(){
 
     }
 
-    public static Terms3 getINSTANCE() {
+    public static Terms1 getINSTANCE() {
         if(INSTANCE == null)
-            return new Terms3();
+            return new Terms1();
         return INSTANCE;
     }
 
@@ -42,7 +36,7 @@ public class Terms3 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.terms3, container, false);
+        view = inflater.inflate(R.layout.terms1, container, false);
 
         return view;
     }

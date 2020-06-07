@@ -13,10 +13,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,7 +41,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
 import com.example.app.userScreen.MainScreen;
-import com.example.app.userScreen.MapActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -146,19 +143,6 @@ public class Profile extends Fragment {
         });
 
         usernameProfile.setText(MainScreen.getUsername());
-
-
-        ConstraintLayout aggroZone = view.findViewById(R.id.profile);
-        aggroZone.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                    MapActivity.getMap().getUiSettings().setScrollGesturesEnabled(true);
-                return true;
-            }
-        });
 
         editProfile();
 
@@ -529,8 +513,6 @@ public class Profile extends Fragment {
         eDialog = new Dialog(getContext());
 
         headerProfile = view.findViewById(R.id.headerProfile);
-
-        Toast.makeText(getContext(), "" + headerProfile.getHeight(),Toast.LENGTH_SHORT).show();
 
         header = view.findViewById(R.id.headerMenu);
         contentMenu = view.findViewById(R.id.menuContent);

@@ -1,4 +1,4 @@
-package com.example.app.register.termsAndConditions;
+package com.example.app.termsAndConditions;
 
 import android.content.Context;
 
