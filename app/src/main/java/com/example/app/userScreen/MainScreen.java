@@ -10,7 +10,7 @@ import com.example.app.R;
 public class MainScreen extends AppCompatActivity {
 
     private static String username;
-    private ViewPager viewPager;
+    private static ViewPager viewPager;
 
     private static int userID, afaceri, events, friends;
     private static boolean tutorial;
@@ -101,6 +101,10 @@ public class MainScreen extends AppCompatActivity {
 
     public static int getFriends(){
         return friends;
+    }
+
+    public static ViewPager getViewPager(){
+        return viewPager;
     }
 
     @Override

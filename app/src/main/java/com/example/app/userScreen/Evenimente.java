@@ -4,18 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.app.R;
+import com.example.app.userScreen.profile.petreceriFiles.EnumFragmentsPetreceri;
 
 public class Evenimente extends Fragment {
 
@@ -23,10 +28,10 @@ public class Evenimente extends Fragment {
     private static Evenimente INSTANCE = null;
 
     private View view;
-    private Button closePL;
     private boolean openPL = false;
-    private ConstraintLayout petrecere,concert,deschidere,festival,vernisaj,spectacol;
-    private ConstraintLayout layoutRoot,petrecere_layout,concert_layout,deschidere_layout,festival_layout,vernisaj_layout,spectacol_layout;
+    private ConstraintLayout rootSelector;
+    private ConstraintLayout layoutRoot;
+    private ViewPager petreceriForm;
 
     public Evenimente(){
     }
@@ -57,24 +62,29 @@ public class Evenimente extends Fragment {
         openingTabs();
         closingTabs();
 
+        assert getFragmentManager() != null;
+        EnumFragmentsPetreceri enumFragmentsPetreceri = new EnumFragmentsPetreceri(getFragmentManager(),getContext());
+        petreceriForm.setAdapter(enumFragmentsPetreceri);
+
+
 
         return view;
     }
 
-    private void circularRevealCard(View view, int startX, int startY){
+    private void circularRevealCard(View view, int startX, int startY, int startRadius){
         float finalRadius = Math.max(view.getWidth(), view.getHeight());
 
-        Animator circularReveal = ViewAnimationUtils.createCircularReveal(view, startX, startY, 0, finalRadius * 1.1f);
+        Animator circularReveal = ViewAnimationUtils.createCircularReveal(view, startX, startY, startRadius, finalRadius * 1.1f);
 
         circularReveal.setDuration(700);
 
         circularReveal.start();
     }
 
-    private void circularCloseCard(final View view, int startX, int startY){
+    private void circularCloseCard(final View view, int startX, int startY, int endRadius){
         float finalRadius = Math.max(view.getWidth(), view.getHeight());
 
-        Animator circularReveal = ViewAnimationUtils.createCircularReveal(view, startX, startY, finalRadius * 1.1f, 0);
+        Animator circularReveal = ViewAnimationUtils.createCircularReveal(view, startX, startY, finalRadius * 1.1f, endRadius);
 
         circularReveal.setDuration(700);
 
@@ -82,113 +92,78 @@ public class Evenimente extends Fragment {
     }
 
     private void openingTabs(){
-        petrecere.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!openPL){
-                    for (int i = 0; i < layoutRoot.getChildCount(); i++) {
-                        layoutRoot.getChildAt(i).setVisibility(View.INVISIBLE);
+
+        for (int i = 1; i < rootSelector.getChildCount(); i++) {
+            final int finalI = i;
+            rootSelector.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("ClickableViewAccessibility")
+                @Override
+                public void onClick(View v) {
+                    if(!openPL){
+                        for (int j = 0; j < layoutRoot.getChildCount(); j++) {
+                            layoutRoot.getChildAt(j).setVisibility(View.INVISIBLE);
+                        }
+                        layoutRoot.getChildAt(finalI - 1).setVisibility(View.VISIBLE);
+
+                        int startX = (int) (rootSelector.getChildAt(finalI).getX() + rootSelector.getChildAt(finalI).getWidth()/2);
+                        int startY = (int) (rootSelector.getChildAt(finalI).getY() + rootSelector.getChildAt(finalI).getHeight()/2);
+
+                        circularRevealCard(layoutRoot.getChildAt(finalI - 1), startX, startY, rootSelector.getChildAt(finalI).getWidth()/2);
+
+                        openPL = true;
                     }
-                    petrecere_layout.setVisibility(View.VISIBLE);
-
-                    int startX = (int) (petrecere.getX() + petrecere.getWidth()/2);
-                    int startY = (int) (petrecere.getY() + petrecere.getHeight()/2);
-
-                    circularRevealCard(petrecere_layout,startX,startY);
-                    openPL = true;
                 }
-            }
-        });
-
-
-        concert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < layoutRoot.getChildCount(); i++) {
-                    layoutRoot.getChildAt(i).setVisibility(View.INVISIBLE);
-                }
-                concert_layout.setVisibility(View.VISIBLE);
-            }
-        });
-
-        deschidere.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < layoutRoot.getChildCount(); i++) {
-                    layoutRoot.getChildAt(i).setVisibility(View.INVISIBLE);
-                }
-                deschidere_layout.setVisibility(View.VISIBLE);
-            }
-        });
-
-
-        festival.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < layoutRoot.getChildCount(); i++) {
-                    layoutRoot.getChildAt(i).setVisibility(View.INVISIBLE);
-                }
-                festival_layout.setVisibility(View.VISIBLE);
-            }
-        });
-
-        vernisaj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < layoutRoot.getChildCount(); i++) {
-                    layoutRoot.getChildAt(i).setVisibility(View.INVISIBLE);
-                }
-                vernisaj_layout.setVisibility(View.VISIBLE);
-            }
-        });
-
-        spectacol.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < layoutRoot.getChildCount(); i++) {
-                    layoutRoot.getChildAt(i).setVisibility(View.INVISIBLE);
-                }
-                spectacol_layout.setVisibility(View.VISIBLE);
-            }
-        });
+            });
+        }
     }
 
     private void closingTabs(){
-        closePL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int startX = (int) (petrecere.getX() + petrecere.getWidth()/2);
-                int startY = (int) (petrecere.getY() + petrecere.getHeight()/2);
 
-                circularCloseCard(petrecere_layout,startX,startY);
-                openPL = false;
+        for (int i = 0; i < layoutRoot.getChildCount(); i++) {
+            final int finalI = i;
+            final ConstraintLayout child = (ConstraintLayout) layoutRoot.getChildAt(i);
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        petrecere_layout.setVisibility(View.INVISIBLE);
+            child.getChildAt(1).setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("ClickableViewAccessibility")
+                @Override
+                public void onClick(View v) {
+                    if(openPL)
+                    {
+                        int startX = (int) (rootSelector.getChildAt(finalI + 1).getX() + rootSelector.getChildAt(finalI + 1).getWidth()/2);
+                        int startY = (int) (rootSelector.getChildAt(finalI + 1).getY() + rootSelector.getChildAt(finalI + 1).getHeight()/2);
+
+                        circularCloseCard(child,startX,startY,rootSelector.getChildAt(finalI + 1).getWidth()/2);
+                        openPL = false;
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                child.setVisibility(View.INVISIBLE);
+                            }
+                        },700);
                     }
-                },700);
-            }
-        });
+                }
+            });
+        }
     }
 
     private void init(){
-        petrecere = view.findViewById(R.id.petrecere);
-        concert = view.findViewById(R.id.concert);
-        deschidere = view.findViewById(R.id.deschidere);
-        festival = view.findViewById(R.id.festival);
-        vernisaj = view.findViewById(R.id.vernisaj);
-        spectacol = view.findViewById(R.id.spectacol);
+        rootSelector = view.findViewById(R.id.rootSelector);
+//        petrecere = view.findViewById(R.id.petrecere);
+//        concert = view.findViewById(R.id.concert);
+//        deschidere = view.findViewById(R.id.deschidere);
+//        festival = view.findViewById(R.id.festival);
+//        vernisaj = view.findViewById(R.id.vernisaj);
+//        spectacol = view.findViewById(R.id.spectacol);
 
         layoutRoot = view.findViewById(R.id.layoutsRoot);
-        petrecere_layout = view.findViewById(R.id.petrecere_layout);
-        concert_layout = view.findViewById(R.id.concert_layout);
-        deschidere_layout = view.findViewById(R.id.deschidere_layout);
-        festival_layout = view.findViewById(R.id.festival_layout);
-        vernisaj_layout = view.findViewById(R.id.vernisaj_layout);
-        spectacol_layout = view.findViewById(R.id.spectacol_layout);
+//        petrecere_layout = view.findViewById(R.id.petrecere_layout);
+//        concert_layout = view.findViewById(R.id.concert_layout);
+//        deschidere_layout = view.findViewById(R.id.deschidere_layout);
+//        festival_layout = view.findViewById(R.id.festival_layout);
+//        vernisaj_layout = view.findViewById(R.id.vernisaj_layout);
+//        spectacol_layout = view.findViewById(R.id.spectacol_layout);
 
-        closePL = view.findViewById(R.id.closePL);
+        petreceriForm = view.findViewById(R.id.petreceriForm);
     }
 }
