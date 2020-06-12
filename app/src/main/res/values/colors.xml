@@ -5,4 +5,5 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="error">#990f02</color>
     <color name="mtrl_textinput_default_box_stroke_color">#006200EE</color>
+    <color name="tinted">#000</color>
 </resources>
