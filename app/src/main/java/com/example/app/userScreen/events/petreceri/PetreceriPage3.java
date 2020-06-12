@@ -20,6 +20,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.app.R;
 import com.wefika.flowlayout.FlowLayout;
 
+import java.util.ArrayList;
+
 public class PetreceriPage3 extends Fragment {
 
     private static PetreceriPage3 INSTANCE = null;
@@ -53,6 +55,7 @@ public class PetreceriPage3 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.petreceri_page3,container,false);
         init();
+        final ArrayList<String> displaymusic = new ArrayList<>();
 
         final boolean[] toggle = new boolean[doriane.getChildCount()];
         for (int i = 0; i < toggle.length; i++) {
@@ -69,14 +72,25 @@ public class PetreceriPage3 extends Fragment {
                         child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.tinted));
                         toggle[finalI] = true;
                         searchKey = searchKey + "_" + child.getText();
+                        displaymusic.add((String) child.getText());
                     }
                     else {
                         child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
                         toggle[finalI] = false;
                         searchKey = searchKey.replace("_" + child.getText(),"");
+                        displaymusic.remove(child.getText());
                     }
 
-                    genuriMuzicale.setText(searchKey);
+                    String s = "";
+                    for (int j = 0; j < displaymusic.size(); j++) {
+                        s = s + displaymusic.get(j) + ", ";
+                    }
+                    //s = s + displaymusic.get(displaymusic.size() - 1 );
+                    if ( !s.isEmpty() ){
+                        s = s.substring(0, s.length() - 2);
+                    }
+                    genuriMuzicale.setText(s);
+
 
                 }
             });
