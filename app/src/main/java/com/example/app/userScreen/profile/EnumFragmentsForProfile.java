@@ -7,8 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.app.userScreen.profile.petreceriFiles.PetreceriPage1;
-
 public class EnumFragmentsForProfile extends FragmentPagerAdapter {
 
 

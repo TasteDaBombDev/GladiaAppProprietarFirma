@@ -11,16 +11,12 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.app.R;
-import com.example.app.userScreen.profile.petreceriFiles.EnumFragmentsPetreceri;
+import com.example.app.userScreen.events.petreceri.EnumFragmentsPetreceri;
 
 public class Evenimente extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.app.userScreen.profile.petreceriFiles;
+package com.example.app.userScreen.events.petreceri;
 
 import android.content.Context;
 
@@ -23,11 +23,13 @@ public class EnumFragmentsPetreceri extends FragmentPagerAdapter {
             return PetreceriPage1.getINSTANCE();
         else if(position == 1)
             return PetreceriPage2.getINSTANCE();
+        else if(position == 2)
+            return PetreceriPage3.getINSTANCE();
         return null;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

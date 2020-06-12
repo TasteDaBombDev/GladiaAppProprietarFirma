@@ -16,9 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".userScreen.profile.petreceriFiles.SelectLocation"></activity>
-        <activity android:name=".userScreen.profile.petreceriFiles.PetreceriPage2" />
-        <activity android:name=".userScreen.profile.petreceriFiles.SelectPic" />
+        <activity android:name=".userScreen.events.petreceri.SelectLocation"></activity>
+        <activity android:name=".userScreen.events.petreceri.PetreceriPage2" />
+        <activity android:name=".userScreen.events.petreceri.SelectPic" />
         <activity android:name=".userScreen.profile.FriendsActivity" />
         <activity android:name=".termsAndConditions.Terms3" />
         <activity android:name=".termsAndConditions.Terms2" />

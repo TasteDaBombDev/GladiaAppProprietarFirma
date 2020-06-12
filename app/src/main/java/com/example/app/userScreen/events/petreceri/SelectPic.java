@@ -1,4 +1,4 @@
-package com.example.app.userScreen.profile.petreceriFiles;
+package com.example.app.userScreen.events.petreceri;
 
 import androidx.appcompat.app.AppCompatActivity;
 
