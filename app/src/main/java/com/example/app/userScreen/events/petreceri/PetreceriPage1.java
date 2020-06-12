@@ -84,8 +84,8 @@ public class PetreceriPage1 extends Fragment {
         setLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getContext(),SelectLocation.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getContext(),SelectLocation.class);
+                startActivity(intent);
             }
         });
 

@@ -27,6 +27,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import static android.app.Activity.RESULT_OK;
 
 public class PetreceriPage2 extends Fragment {
+
     @SuppressLint("StaticFieldLeak")
     private static PetreceriPage2 INSTANCE = null;
     private ImageView vedetaPic;

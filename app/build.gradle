@@ -30,6 +30,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     compile "com.wefika:flowlayout:0.3.0"
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 
 //    implementation 'com.airbnb.android:lottie:3.0.1'
 

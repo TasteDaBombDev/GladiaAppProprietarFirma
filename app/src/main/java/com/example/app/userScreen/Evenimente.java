@@ -17,6 +17,9 @@ import android.view.ViewGroup;
 
 import com.example.app.R;
 import com.example.app.userScreen.events.petreceri.EnumFragmentsPetreceri;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 public class Evenimente extends Fragment {
 
@@ -28,6 +31,7 @@ public class Evenimente extends Fragment {
     private ConstraintLayout rootSelector;
     private ConstraintLayout layoutRoot;
     private ViewPager petreceriForm;
+    private WormDotsIndicator dotsIndicatorPetreceri;
 
     public Evenimente(){
     }
@@ -61,22 +65,34 @@ public class Evenimente extends Fragment {
         assert getFragmentManager() != null;
         EnumFragmentsPetreceri enumFragmentsPetreceri = new EnumFragmentsPetreceri(getFragmentManager(),getContext());
         petreceriForm.setAdapter(enumFragmentsPetreceri);
-        petreceriForm.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        dotsIndicatorPetreceri.setViewPager(petreceriForm);
 
-            }
+        for (int i = 0; i < layoutRoot.getChildCount(); i++) {
+            final ConstraintLayout child = (ConstraintLayout) layoutRoot.getChildAt(i);
+            final ViewPager childViewPager = (ViewPager) child.getChildAt(0);
+//            WormDotsIndicator dotsIndicator = (WormDotsIndicator) child.getChildAt(2);
+//            dotsIndicator.setViewPager(childViewPager);
+            childViewPager.setOffscreenPageLimit(4);
+            childViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    if(position != 0)
+                        child.getChildAt(1).setVisibility(View.INVISIBLE);
+                    else
+                        child.getChildAt(1).setVisibility(View.VISIBLE);
+                }
 
-            @Override
-            public void onPageSelected(int position) {
+                @Override
+                public void onPageSelected(int position) {
 
-            }
+                }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+                @Override
+                public void onPageScrollStateChanged(int state) {
 
-            }
-        });
+                }
+            });
+        }
 
 
         return view;
@@ -176,5 +192,6 @@ public class Evenimente extends Fragment {
 //        spectacol_layout = view.findViewById(R.id.spectacol_layout);
 
         petreceriForm = view.findViewById(R.id.petreceriForm);
+        dotsIndicatorPetreceri = view.findViewById(R.id.dotIndicator);
     }
 }
