@@ -6,9 +6,12 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.GetChars;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -28,6 +31,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class SelectLocation extends AppCompatActivity implements OnMapReadyCallback {
 
     private Location currentLocation;
@@ -37,6 +44,7 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
     private static double lng = 0, lat = 0;
     private static boolean visited = false;
     private GoogleMap map;
+    private static String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +53,14 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
         done = findViewById(R.id.done);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        getLastLocation();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                getLastLocation();
                 done.setClickable(true);
             }
-        },500);
+        },300);
 
     }
 
@@ -66,28 +74,45 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
             public void onSuccess(Location location) {
                 if(location != null)
                     currentLocation = location;
+                else
+                    Toast.makeText(SelectLocation.this, "Deschide-ti locatia", Toast.LENGTH_SHORT).show();
                 SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                 supportMapFragment.getMapAsync(SelectLocation.this);
             }
         });
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-        LatLng loc = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-        googleMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,14));
 
-        done.setOnClickListener(new View.OnClickListener() {
+
+    @Override
+    public void onMapReady(final GoogleMap googleMap) {
+        map = googleMap;
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                lat = map.getCameraPosition().target.latitude;
-                lng = map.getCameraPosition().target.longitude;
-                visited = true;
-                onBackPressed();
+            public void run() {
+                LatLng loc = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+                googleMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,14));
+
+                done.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        lat = map.getCameraPosition().target.latitude;
+                        lng = map.getCameraPosition().target.longitude;
+                        visited = true;
+                        Geocoder geocoder = new Geocoder(SelectLocation.this, Locale.getDefault());
+                        try {
+                            List<Address> addresses = geocoder.getFromLocation(lat,lng,1);
+                            address = addresses.get(0).getAddressLine(0);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        PetreceriPage1.updateValue();
+                        onBackPressed();
+                    }
+                });
             }
-        });
+        },300);
     }
 
     @Override
@@ -111,5 +136,9 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
 
     public static boolean getVisited(){
         return visited;
+    }
+
+    public static String getAddress() {
+        return address;
     }
 }
