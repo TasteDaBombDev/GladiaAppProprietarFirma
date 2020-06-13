@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.GetChars;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,12 +47,36 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
     private static boolean visited = false;
     private GoogleMap map;
     private static String address;
+    private ListView addressList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_location);
         done = findViewById(R.id.done);
+        addressList = findViewById(R.id.addressList);
+        ArrayList<String> addressesList = new ArrayList<>();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.list_item,R.id.addressName,addressesList);
+        addressList.setAdapter(arrayAdapter);
+
+        addressesList.add("mama");
+        addressesList.add("tata");
+        addressesList.add("Petru e prost");
+        addressesList.add("mama");
+        addressesList.add("tata");
+        addressesList.add("Petru e prost");
+        addressesList.add("mama");
+        addressesList.add("tata");
+        addressesList.add("Petru e prost");
+        addressesList.add("mama");
+        addressesList.add("tata");
+        addressesList.add("Petru e prost");
+        addressesList.add("mama");
+        addressesList.add("tata");
+        addressesList.add("Petru e prost");
+        addressesList.add("mama");
+        addressesList.add("tata");
+        addressesList.add("Petru e prost");
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -90,9 +116,15 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                LatLng loc = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-                googleMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,14));
+                if(currentLocation == null) {
+                    LatLng loc = new LatLng(0.0f,0.0f);
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,4));
+                } else {
+                    LatLng loc = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,14));
+                }
 
                 done.setOnClickListener(new View.OnClickListener() {
                     @Override

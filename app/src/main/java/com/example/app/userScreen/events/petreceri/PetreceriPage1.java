@@ -179,7 +179,7 @@ public class PetreceriPage1 extends Fragment {
     }
 
     public static void updateValue(){
-        setLocation.setEnabled(false);
+//        setLocation.setEnabled(false);
         address.setText(SelectLocation.getAddress());
     }
 }
