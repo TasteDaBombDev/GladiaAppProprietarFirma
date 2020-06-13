@@ -48,6 +48,7 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
     private GoogleMap map;
     private static String address;
     private ListView addressList;
+    private ArrayList<String> addressesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,28 +56,10 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
         setContentView(R.layout.select_location);
         done = findViewById(R.id.done);
         addressList = findViewById(R.id.addressList);
-        ArrayList<String> addressesList = new ArrayList<>();
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.list_item,R.id.addressName,addressesList);
         addressList.setAdapter(arrayAdapter);
 
-        addressesList.add("mama");
-        addressesList.add("tata");
-        addressesList.add("Petru e prost");
-        addressesList.add("mama");
-        addressesList.add("tata");
-        addressesList.add("Petru e prost");
-        addressesList.add("mama");
-        addressesList.add("tata");
-        addressesList.add("Petru e prost");
-        addressesList.add("mama");
-        addressesList.add("tata");
-        addressesList.add("Petru e prost");
-        addressesList.add("mama");
-        addressesList.add("tata");
-        addressesList.add("Petru e prost");
-        addressesList.add("mama");
-        addressesList.add("tata");
-        addressesList.add("Petru e prost");
+        geoLocation("Olimpiadei");
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -155,6 +138,27 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
                     getLastLocation();
                 }
                 break;
+        }
+    }
+
+    public void geoLocation(String searchAddress){
+        Geocoder geocoder = new Geocoder(SelectLocation.this);
+
+        List<Address> list = new ArrayList<>();
+        try {
+            list = geocoder.getFromLocationName(searchAddress, 6);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),"mdaaaaa",Toast.LENGTH_SHORT).show();
+        }
+
+        if(list.size() > 0){
+            for (int i = 0; i < list.size() ; i++) {
+                addressesList.add(list.get(i).toString());
+            }
+        } else
+        {
+            addressesList.add("Adresa nu a fost gasita.");
         }
     }
 
