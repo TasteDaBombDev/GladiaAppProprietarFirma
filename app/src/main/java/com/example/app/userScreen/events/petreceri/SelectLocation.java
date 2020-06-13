@@ -2,7 +2,9 @@ package com.example.app.userScreen.events.petreceri;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.inputmethod.EditorInfoCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -11,14 +13,25 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.GetChars;
+import android.text.TextWatcher;
+import android.transition.TransitionManager;
+import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app.R;
+import com.example.app.utils.Pairs;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -47,19 +60,56 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
     private static boolean visited = false;
     private GoogleMap map;
     private static String address;
+    private EditText searchLocation;
     private ListView addressList;
-    private ArrayList<String> addressesList = new ArrayList<>();
+    private ConstraintLayout root;
+    private LinearLayout completeResults;
+    private ArrayAdapter arrayAdapter;
+    private Pairs<String,LatLng> addressesList = new Pairs<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_location);
         done = findViewById(R.id.done);
-        addressList = findViewById(R.id.addressList);
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.list_item,R.id.addressName,addressesList);
-        addressList.setAdapter(arrayAdapter);
+        completeResults = findViewById(R.id.completeResults);
+        root = findViewById(R.id.root);
+        TransitionManager.beginDelayedTransition(root);
 
-        geoLocation("Olimpiadei");
+        addressList = findViewById(R.id.addressList);
+        arrayAdapter = new ArrayAdapter(this, R.layout.list_item,R.id.addressName,addressesList.getKey());
+        addressList.setAdapter(arrayAdapter);
+        addressList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LatLng pos = addressesList.getOneVal(position);
+                map.animateCamera(CameraUpdateFactory.newLatLng(pos));
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,14));
+                completeResults.setVisibility(View.INVISIBLE);
+                addressesList.clear();
+                arrayAdapter.notifyDataSetChanged();
+            }
+        });
+
+        searchLocation = findViewById(R.id.searchLocation);
+        searchLocation.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                addressesList.clear();
+                arrayAdapter.notifyDataSetChanged();
+                completeResults.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -109,6 +159,23 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,14));
                 }
 
+                searchLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if(actionId == EditorInfo.IME_ACTION_SEARCH ||
+                                event.getAction() == KeyEvent.ACTION_DOWN ||
+                                event.getAction() == KeyEvent.KEYCODE_ENTER){
+                            addressesList.clear();
+                            arrayAdapter.notifyDataSetChanged();
+                            completeResults.setVisibility(View.INVISIBLE);
+                            geoLocation(searchLocation.getText().toString().trim());
+                            arrayAdapter.notifyDataSetChanged();
+                            completeResults.setVisibility(View.VISIBLE);
+                        }
+                        return false;
+                    }
+                });
+
                 done.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -146,19 +213,16 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
 
         List<Address> list = new ArrayList<>();
         try {
-            list = geocoder.getFromLocationName(searchAddress, 6);
+            list = geocoder.getFromLocationName(searchAddress, 10);
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(getApplicationContext(),"mdaaaaa",Toast.LENGTH_SHORT).show();
         }
-
         if(list.size() > 0){
-            for (int i = 0; i < list.size() ; i++) {
-                addressesList.add(list.get(i).toString());
+            for (int i = 0; i < list.size(); i++) {
+                addressesList.add(list.get(i).getAddressLine(0),new LatLng(list.get(i).getLatitude(),list.get(i).getLongitude()));
             }
-        } else
-        {
-            addressesList.add("Adresa nu a fost gasita.");
+        } else {
+            addressesList.add("Adresa nu a fost gasita.", null);
         }
     }
 

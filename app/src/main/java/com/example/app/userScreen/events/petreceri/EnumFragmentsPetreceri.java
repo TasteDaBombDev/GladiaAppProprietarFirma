@@ -25,11 +25,13 @@ public class EnumFragmentsPetreceri extends FragmentPagerAdapter {
             return PetreceriPage2.getINSTANCE();
         else if(position == 2)
             return PetreceriPage3.getINSTANCE();
+        else if(position == 3)
+            return PetreceriPage4.getINSTANCE();
         return null;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 }
