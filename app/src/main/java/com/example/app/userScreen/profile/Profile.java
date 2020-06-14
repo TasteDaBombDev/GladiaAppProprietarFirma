@@ -77,8 +77,6 @@ public class Profile extends Fragment {
     private ConstraintLayout header,contentMenu,fadeLayer;
     private ConstraintSet constraintSet;
     private int timesPressed = 0;
-    private static String[] names = new String[MainScreen.getFriends()];
-    private static String[] paths = new String[MainScreen.getFriends()];
 
     private View view;
 
@@ -95,15 +93,6 @@ public class Profile extends Fragment {
         INSTANCE = null;
     }
 
-    public static String[] getNames(){
-        return names;
-    }
-
-    public static String[] getPaths(){
-        return paths;
-    }
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,8 +106,6 @@ public class Profile extends Fragment {
 
 
         init();
-        serverRun();
-
 
 
         jobLayout1 = new LinearLayout(getContext());
@@ -516,42 +503,5 @@ public class Profile extends Fragment {
 
         header = view.findViewById(R.id.headerMenu);
         contentMenu = view.findViewById(R.id.menuContent);
-    }
-
-    private void serverRun(){
-
-        String urlUpload = "http://gladiaholdings.com/PHP/countFriends.php";
-
-        StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    int rec = 1;
-                    JSONObject jsonObject = new JSONObject(response);
-                    for (int i = 0; i < jsonObject.getInt("noOfFriends"); i++) {
-                        names[i] = jsonObject.getString("nume" + (i + 1));
-                        paths[i] = jsonObject.getString("poza" + (i + 1));
-                    }
-                } catch (JSONException e) {
-                    Toast.makeText(getContext(), "Error loading your friends", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("userID","" + MainScreen.getUserID());
-                return params;
-            }
-        };
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        queue.add(stringRequest);
     }
 }

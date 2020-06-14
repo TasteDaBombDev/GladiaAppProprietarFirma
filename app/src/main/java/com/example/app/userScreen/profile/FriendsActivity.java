@@ -20,8 +20,6 @@ import com.squareup.picasso.Picasso;
 
 public class FriendsActivity extends AppCompatActivity {
 
-    ListView friendsListing;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,37 +32,7 @@ public class FriendsActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
-        friendsListing = findViewById(R.id.listview);
-        Adapter adapter = new Adapter(FriendsActivity.this,Profile.getNames(),Profile.getPaths());
-        friendsListing.setAdapter(adapter);
     }
 
-    class Adapter extends ArrayAdapter<String>{
 
-        Context context;
-        String names[];
-        String paths[];
-
-        Adapter(Context c, String names[], String paths[]){
-            super(c, R.layout.firend_item,R.id.friendName, names);
-            this.context = c;
-            this.names = names;
-            this.paths = paths;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-            View item = layoutInflater.inflate(R.layout.firend_item,parent,false);
-            TextView name = item.findViewById(R.id.friendName);
-            ImageView image = item.findViewById(R.id.friendPic);
-            name.setText(names[position]);
-            Picasso.get().load(paths[position]).into(image);
-
-            return item;
-        }
-    }
 }

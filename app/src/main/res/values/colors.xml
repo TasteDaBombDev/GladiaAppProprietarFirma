@@ -3,7 +3,14 @@
     <color name="colorPrimary">#006264</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="textHint">#7A7A7A</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
     <color name="error">#990f02</color>
     <color name="mtrl_textinput_default_box_stroke_color">#006200EE</color>
     <color name="tinted">#000</color>
+    <color name="offwhite">#fef3e2</color>
+    <color name="rubyred">#fa4032</color>
+    <color name="grapefruit">#fa812f</color>
+    <color name="citrus">#faaf08</color>
 </resources>

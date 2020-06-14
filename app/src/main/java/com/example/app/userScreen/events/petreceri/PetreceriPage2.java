@@ -9,20 +9,25 @@ import androidx.fragment.app.Fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -31,8 +36,8 @@ public class PetreceriPage2 extends Fragment {
     @SuppressLint("StaticFieldLeak")
     private static PetreceriPage2 INSTANCE = null;
     private ImageView vedetaPic;
-    private EditText vedetaName;
-
+    private static Bitmap bitmap;
+    private static EditText tematica,vedetaName;
     private View view;
 
 
@@ -89,19 +94,48 @@ public class PetreceriPage2 extends Fragment {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
-                vedetaPic.setImageURI(resultUri);
-                setImageRounded();
+                InputStream inputStream = null;
+                try {
+                    inputStream = getActivity().getApplicationContext().getContentResolver().openInputStream(resultUri);
+                    bitmap = BitmapFactory.decodeStream(inputStream);
+                    vedetaPic.setImageBitmap(bitmap);
+                    setImageRounded();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
-                Toast.makeText(getContext(), "Please try again!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please try again!" + error, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-
     private void init(){
         vedetaPic = view.findViewById(R.id.vedetaPic);
         vedetaName = view.findViewById(R.id.vedetaName);
+        tematica = view.findViewById(R.id.tematica);
+    }
 
+    private static String imgToString(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+
+        String encodeImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodeImage;
+    }
+
+    public static String getTematica() {
+        return tematica.getText().toString();
+    }
+
+    public static String getVedetaName() {
+        return vedetaName.getText().toString();
+    }
+
+    public static String getVedetaPic() {
+        String data = imgToString(bitmap);
+        return data;
     }
 }

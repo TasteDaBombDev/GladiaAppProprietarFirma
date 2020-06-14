@@ -26,7 +26,7 @@ public class PetreceriPage3 extends Fragment {
 
     private static PetreceriPage3 INSTANCE = null;
     private FlowLayout doriane;
-    private String searchKey = "";
+    private static String searchKey = "";
     private TextView genuriMuzicale;
 
     private View view;
@@ -71,7 +71,7 @@ public class PetreceriPage3 extends Fragment {
                     if(!toggle[finalI]) {
                         child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.tinted));
                         toggle[finalI] = true;
-                        searchKey = searchKey + "_" + child.getText();
+                        searchKey = searchKey + "#" + child.getText();
                         displaymusic.add((String) child.getText());
                     }
                     else {
@@ -103,5 +103,9 @@ public class PetreceriPage3 extends Fragment {
     private void init(){
         doriane = view.findViewById(R.id.doriane);
         genuriMuzicale = view.findViewById(R.id.genuriMuzicale);
+    }
+
+    public static String getGenuri(){
+        return searchKey;
     }
 }

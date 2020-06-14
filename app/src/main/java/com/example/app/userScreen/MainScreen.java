@@ -6,11 +6,13 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 import com.example.app.R;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainScreen extends AppCompatActivity {
 
     private static String username;
     private static ViewPager viewPager;
+    private TabLayout tabLayout;
 
     private static int userID, afaceri, events, friends;
     private static boolean tutorial;
@@ -43,11 +45,18 @@ public class MainScreen extends AppCompatActivity {
         nrtel = extras.getString("nrtel");
         tutorial = extras.getBoolean("fromRegister");
 
-
         viewPager = findViewById(R.id.mainSlider);
 
         EnumFragments enumFragments = new EnumFragments(getSupportFragmentManager(),this);
         viewPager.setAdapter(enumFragments);
+        viewPager.setOffscreenPageLimit(3);
+
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_black_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.plus);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_perm_contact_calendar_black_24dp);
 
     }
 

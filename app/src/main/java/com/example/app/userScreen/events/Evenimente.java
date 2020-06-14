@@ -1,4 +1,4 @@
-package com.example.app.userScreen;
+package com.example.app.userScreen.events;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,12 +14,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.app.R;
 import com.example.app.userScreen.events.petreceri.EnumFragmentsPetreceri;
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
-import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
+import com.example.app.userScreen.events.petreceri.PetreceriPage1;
+import com.example.app.userScreen.events.petreceri.PetreceriPage2;
+import com.example.app.userScreen.events.petreceri.PetreceriPage3;
+import com.example.app.userScreen.events.petreceri.PetreceriPage4;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Evenimente extends Fragment {
 
@@ -31,6 +48,7 @@ public class Evenimente extends Fragment {
     private ConstraintLayout rootSelector;
     private ConstraintLayout layoutRoot;
     private ViewPager petreceriForm;
+    private Button addP;
     private WormDotsIndicator dotsIndicatorPetreceri;
 
     public Evenimente(){
@@ -61,6 +79,7 @@ public class Evenimente extends Fragment {
 
         openingTabs();
         closingTabs();
+        serverListeners();
 
         assert getFragmentManager() != null;
         EnumFragmentsPetreceri enumFragmentsPetreceri = new EnumFragmentsPetreceri(getFragmentManager(),getContext());
@@ -176,22 +195,66 @@ public class Evenimente extends Fragment {
 
     private void init(){
         rootSelector = view.findViewById(R.id.rootSelector);
-//        petrecere = view.findViewById(R.id.petrecere);
-//        concert = view.findViewById(R.id.concert);
-//        deschidere = view.findViewById(R.id.deschidere);
-//        festival = view.findViewById(R.id.festival);
-//        vernisaj = view.findViewById(R.id.vernisaj);
-//        spectacol = view.findViewById(R.id.spectacol);
-
         layoutRoot = view.findViewById(R.id.layoutsRoot);
-//        petrecere_layout = view.findViewById(R.id.petrecere_layout);
-//        concert_layout = view.findViewById(R.id.concert_layout);
-//        deschidere_layout = view.findViewById(R.id.deschidere_layout);
-//        festival_layout = view.findViewById(R.id.festival_layout);
-//        vernisaj_layout = view.findViewById(R.id.vernisaj_layout);
-//        spectacol_layout = view.findViewById(R.id.spectacol_layout);
-
         petreceriForm = view.findViewById(R.id.petreceriForm);
         dotsIndicatorPetreceri = view.findViewById(R.id.dotIndicator);
+        addP = view.findViewById(R.id.addP);
+    }
+
+    private void serverListeners(){
+        addP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String urlUpload = "http://gladiaholdings.com/PHP/addPetrecere.php";
+
+                StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String msg = jsonObject.getString("message");
+                            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            Toast.makeText(getContext(), "Error on receiving data from server" + response, Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error: check tour internet connection", Toast.LENGTH_SHORT).show();
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("poza", PetreceriPage1.getPoza());
+                        params.put("numeEvent", PetreceriPage1.getTitle());
+                        params.put("data",PetreceriPage1.getData());
+                        params.put("oraStart",PetreceriPage1.getOraStart());
+                        params.put("oraEnd",PetreceriPage1.getOraEnd());
+                        params.put("longitudine", String.valueOf(PetreceriPage1.getLongitudine()));
+                        params.put("latitudine", String.valueOf(PetreceriPage1.getLatitudine()));
+                        params.put("adresa",PetreceriPage1.getAdresa());
+                        params.put("tematica", PetreceriPage2.getTematica());
+                        params.put("pozaArtist",PetreceriPage2.getVedetaPic());
+                        params.put("numeArtist",PetreceriPage2.getVedetaName());
+                        params.put("genuriMuzicale", PetreceriPage3.getGenuri());
+                        params.put("descriere", PetreceriPage4.getDescriere());
+                        params.put("tinuta",PetreceriPage4.getTinuta());
+                        params.put("mancare", String.valueOf(PetreceriPage4.getMancare()));
+                        params.put("pretMancare",PetreceriPage4.getMancarePret());
+                        params.put("bautura", String.valueOf(PetreceriPage4.getBautura()));
+                        params.put("pretBautura",PetreceriPage4.getBauturaPret());
+                        params.put("pretBilet",PetreceriPage4.getBiletPret());
+                        params.put("IDorganizator","23");
+
+                        return params;
+                    }
+                };
+                RequestQueue queue = Volley.newRequestQueue(getContext());
+                queue.add(stringRequest);
+            }
+        });
     }
 }

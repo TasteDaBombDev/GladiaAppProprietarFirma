@@ -6,12 +6,14 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,21 +35,33 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.example.app.R;
+import com.google.gson.JsonElement;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
 
 public class PetreceriPage1 extends Fragment {
-    @SuppressLint("StaticFieldLeak")
     private static PetreceriPage1 INSTANCE = null;
 
     private View view;
-    private ImageView selectImg;
-    private EditText title,data,oraStart,oraEnd;
+    private static Bitmap bitmap;
+
+    @SuppressLint("StaticFieldLeak")
+    private static ImageView selectImg;
+
+    @SuppressLint("StaticFieldLeak")
+    private static EditText title,data,oraStart,oraEnd;
+
+    @SuppressLint("StaticFieldLeak")
     private static Button setLocation;
+
+    @SuppressLint("StaticFieldLeak")
     private static TextView address;
 
     public PetreceriPage1(){
@@ -123,8 +137,15 @@ public class PetreceriPage1 extends Fragment {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
-                selectImg.setImageURI(resultUri);
-                setImageRounded();
+                InputStream inputStream = null;
+                try {
+                    inputStream = getActivity().getApplicationContext().getContentResolver().openInputStream(resultUri);
+                    bitmap = BitmapFactory.decodeStream(inputStream);
+                    selectImg.setImageBitmap(bitmap);
+                    setImageRounded();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
                 Toast.makeText(getContext(), "Please try again!", Toast.LENGTH_SHORT).show();
@@ -187,29 +208,52 @@ public class PetreceriPage1 extends Fragment {
 
     @SuppressLint("SetTextI18n")
     public static void updateValue(){
-//        setLocation.setEnabled(false);
         if(SelectLocation.getAddress() == null)
             address.setText("Adresa nestiuta, coordonatele retinute");
         else
             address.setText(SelectLocation.getAddress());
     }
 
-    public static Boolean isLocationEnabled(Context context) {
-        int locationMode = 0;
-        String locationProviders;
+    private static String imgToString(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            try {
-                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
 
-            } catch (Settings.SettingNotFoundException e) {
-                e.printStackTrace();
-                return false;
-            }
-            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
-        }else{
-            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-            return !TextUtils.isEmpty(locationProviders);
-        }
+        String encodeImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodeImage;
+    }
+
+    public static String getPoza() {
+        String imageData = imgToString(bitmap);
+        return imageData;
+    }
+
+    public static String getTitle(){
+        return title.getText().toString();
+    }
+
+    public static String getData(){
+        return data.getText().toString();
+    }
+
+    public static String getOraStart(){
+        return oraStart.getText().toString();
+    }
+
+    public static String getOraEnd(){
+        return  oraEnd.getText().toString();
+    }
+
+    public static double getLatitudine(){
+        return SelectLocation.getLat();
+    }
+
+    public static double getLongitudine(){
+        return SelectLocation.getLng();
+    }
+
+    public static String getAdresa(){
+        return address.getText().toString();
     }
 }

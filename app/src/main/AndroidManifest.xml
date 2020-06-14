@@ -26,7 +26,7 @@
         <activity android:name=".termsAndConditions.Terms1" />
         <activity android:name=".termsAndConditions.TermsAndConditionsMain" />
         <activity android:name=".userScreen.profile.EditProfile" />
-        <activity android:name=".userScreen.Evenimente" />
+        <activity android:name=".userScreen.events.Evenimente" />
         <activity android:name=".userScreen.profile.Profile" />
         <activity android:name=".SplashScreen">
             <intent-filter>

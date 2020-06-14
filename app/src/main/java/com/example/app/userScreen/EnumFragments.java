@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.app.userScreen.events.Evenimente;
 import com.example.app.userScreen.profile.ProfileMainClass;
 
 public class EnumFragments extends FragmentPagerAdapter {
@@ -26,12 +27,14 @@ public class EnumFragments extends FragmentPagerAdapter {
             return ProfileMainClass.getINSTANCE();
         else if(position == 1)
             return Evenimente.getINSTANCE();
+        else if(position == 2)
+            return ListEvents.getINSTANCE();
         return null;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 //
 //    @Override

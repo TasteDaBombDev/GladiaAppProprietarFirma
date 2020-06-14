@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".userScreen.Evenimente">
+    tools:context=".userScreen.events.Evenimente">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootSelector"
@@ -185,7 +185,7 @@
             android:id="@+id/petrecere_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#fff"
+            android:background="@color/offwhite"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -231,7 +231,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/petreceriForm"
-                app:layout_constraintVertical_bias="0.03" />
+                app:layout_constraintVertical_bias="0.03">
+
+            </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
+
+            <Button
+                android:id="@+id/addP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adauga Petrecere!"
+                app:layout_constraintBottom_toBottomOf="@+id/petreceriForm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.98" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

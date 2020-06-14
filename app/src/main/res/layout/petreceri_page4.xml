@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.07999998" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/descriere"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -46,11 +46,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/descriere"
         app:layout_constraintVertical_bias="0.050000012" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/tinuta"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -76,7 +76,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3"
+        app:layout_constraintTop_toBottomOf="@+id/tinuta"
         app:layout_constraintVertical_bias="0.07999998" />
 
     <LinearLayout
@@ -144,7 +144,7 @@
                 android:textColor="#000" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/biletPret"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
