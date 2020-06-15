@@ -194,9 +194,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/open_sans_semibold"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="0\nFriends"
-                android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="normal"
@@ -451,6 +450,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/logout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"

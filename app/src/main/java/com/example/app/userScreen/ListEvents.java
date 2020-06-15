@@ -2,12 +2,14 @@ package com.example.app.userScreen;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -61,6 +63,9 @@ public class ListEvents extends Fragment {
     }
 
     public static void resetINSTANCE(){
+        names.clear();
+        paths.clear();
+        ids.clear();
         INSTANCE = null;
     }
 
@@ -77,6 +82,15 @@ public class ListEvents extends Fragment {
 
         serverRun();
         eventsListing = view.findViewById(R.id.myEvents);
+
+        eventsListing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(),PrevizEvent.class);
+                intent.putExtra("ID",ids.get(position));
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

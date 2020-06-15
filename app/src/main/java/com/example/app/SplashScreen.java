@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
@@ -61,7 +62,7 @@ public class SplashScreen extends AppCompatActivity {
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
 
-            String login = br.readLine(), pass = br.readLine();
+            final String login = br.readLine(), pass = br.readLine(), path = br.readLine();
 
             Response.Listener<String> listener = new Response.Listener<String>() {
                 @Override
@@ -71,7 +72,6 @@ public class SplashScreen extends AppCompatActivity {
                         boolean success = jsonObject.getBoolean("success");
 
                         if(success){
-
                             int ID = jsonObject.getInt("userID");
                             String username = jsonObject.getString("username");
                             String nume = jsonObject.getString("nume");
@@ -97,6 +97,7 @@ public class SplashScreen extends AppCompatActivity {
                             intent.putExtra("nrEvents",jsonObject.getInt("nrEvents"));
                             intent.putExtra("friends", jsonObject.getInt("friends"));
                             intent.putExtra("fromRegister",false);
+                            intent.putExtra("logoutPath",path);
 
                             startActivity(intent);
                         } else{

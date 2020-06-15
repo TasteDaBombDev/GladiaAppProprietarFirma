@@ -39,12 +39,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.app.MainActivity;
 import com.example.app.R;
+import com.example.app.userScreen.ListEvents;
 import com.example.app.userScreen.MainScreen;
+import com.example.app.userScreen.events.Evenimente;
+import com.google.gson.internal.$Gson$Preconditions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,7 +72,7 @@ public class Profile extends Fragment {
 
     private ImageView profileImg;
     private Dialog eDialog;
-    private LinearLayout headerProfile;
+    private LinearLayout headerProfile,logout;
     private ImageButton toEdit, toEvents, more;
     private CardView option1,option2, option3,option4,option5;
     private LinearLayout menu;
@@ -107,6 +112,25 @@ public class Profile extends Fragment {
 
         init();
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                File fdelete = new File(MainScreen.getPath());
+                if (fdelete.exists()) {
+                    boolean t = fdelete.delete();
+                    if(t)
+                    {
+                        Profile.resetINSTANCE();
+                        Evenimente.resetINSTANCE();
+                        ListEvents.resetINSTANCE();
+                        startActivity(intent);
+                    }
+                    else
+                        Toast.makeText(getContext(),"Failed to logout",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         jobLayout1 = new LinearLayout(getContext());
         bussinesPic1 = new ImageView(getContext());
@@ -419,6 +443,7 @@ public class Profile extends Fragment {
     }
 
     private void init(){
+        logout = view.findViewById(R.id.logout);
         ID = MainScreen.getUserID();
         username = MainScreen.getUsername();
         nume = MainScreen.getNume();

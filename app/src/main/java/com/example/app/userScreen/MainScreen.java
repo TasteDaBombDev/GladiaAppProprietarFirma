@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.app.R;
 import com.google.android.material.tabs.TabLayout;
@@ -23,7 +24,7 @@ public class MainScreen extends AppCompatActivity {
     private static String ziuaDeNastere;
     private static String sex;
     private static String nrtel;
-
+    private static String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class MainScreen extends AppCompatActivity {
         friends = extras.getInt("friends");
         nrtel = extras.getString("nrtel");
         tutorial = extras.getBoolean("fromRegister");
+        path = extras.getString("logoutPath");
 
         viewPager = findViewById(R.id.mainSlider);
 
@@ -110,6 +112,10 @@ public class MainScreen extends AppCompatActivity {
 
     public static int getFriends(){
         return friends;
+    }
+
+    public static String getPath() {
+        return path;
     }
 
     public static ViewPager getViewPager(){

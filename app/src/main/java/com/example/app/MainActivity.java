@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private static ProgressDialog loading;
     private static final String FILE_NAME = "data.txt";
     private EditText data, pass;
+    private static String FILE_PATH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("nrAfaceri",jsonObject.getInt("nrAfaceri"));
                         intent.putExtra("nrEvents",jsonObject.getInt("nrEvents"));
                         intent.putExtra("friends", jsonObject.getInt("friends"));
-                        intent.putExtra("pannel", 2);
                         intent.putExtra("fromRegister",false);
+                        intent.putExtra("logoutPath",FILE_PATH);
 
                         startActivity(intent);
                         loading.dismiss();
@@ -130,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
         String text = (data.getText().toString().trim()) + "\n" + (pass.getText().toString().trim());
         try {
             fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
+            FILE_PATH = getFilesDir() + "/" + FILE_NAME;
+            text = text + "\n" + FILE_PATH;
             fos.write(text.getBytes());
         } catch (FileNotFoundException e) {
             e.printStackTrace();

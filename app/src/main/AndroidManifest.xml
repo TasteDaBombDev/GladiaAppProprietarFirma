@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".userScreen.events.petreceri.PetreceriPage4"></activity>
+        <activity android:name=".userScreen.PrevizEvent"></activity>
+        <activity android:name=".userScreen.events.petreceri.PetreceriPage4" />
         <activity android:name=".userScreen.events.petreceri.SelectLocation" />
         <activity android:name=".userScreen.events.petreceri.PetreceriPage2" />
         <activity android:name=".userScreen.events.petreceri.SelectPic" />
