@@ -25,9 +25,11 @@ import java.util.ArrayList;
 public class PetreceriPage3 extends Fragment {
 
     private static PetreceriPage3 INSTANCE = null;
-    private FlowLayout doriane;
+    private static FlowLayout doriane;
     private static String searchKey = "";
-    private TextView genuriMuzicale;
+    private static TextView genuriMuzicale;
+    private static ArrayList<String> displaymusic;
+    private static boolean[] toggle;
 
     private View view;
 
@@ -55,9 +57,8 @@ public class PetreceriPage3 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.petreceri_page3,container,false);
         init();
-        final ArrayList<String> displaymusic = new ArrayList<>();
-
-        final boolean[] toggle = new boolean[doriane.getChildCount()];
+        displaymusic = new ArrayList<>();
+        toggle = new boolean[doriane.getChildCount()];
         for (int i = 0; i < toggle.length; i++) {
             toggle[i] = false;
         }
@@ -77,7 +78,7 @@ public class PetreceriPage3 extends Fragment {
                     else {
                         child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
                         toggle[finalI] = false;
-                        searchKey = searchKey.replace("_" + child.getText(),"");
+                        searchKey = searchKey.replace("#" + child.getText(),"");
                         displaymusic.remove(child.getText());
                     }
 
@@ -107,5 +108,16 @@ public class PetreceriPage3 extends Fragment {
 
     public static String getGenuri(){
         return searchKey;
+    }
+
+    public static void reset(){
+        genuriMuzicale.setText("");
+        displaymusic.clear();
+        for (int i = 0; i < toggle.length; i++) {
+            toggle[i] = false;
+        }
+    }
+    public static FlowLayout getDoriane(){
+        return doriane;
     }
 }

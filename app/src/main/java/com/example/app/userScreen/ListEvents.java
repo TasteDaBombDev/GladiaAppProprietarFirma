@@ -3,10 +3,8 @@ package com.example.app.userScreen;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,15 +28,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
-import com.example.app.userScreen.profile.Profile;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,9 +45,10 @@ public class ListEvents extends Fragment {
     private static ListEvents INSTANCE = null;
     private ListView eventsListing;
     private View view;
-    private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<String> paths = new ArrayList<>();
-    private ArrayList<Integer> ids = new ArrayList<>();
+    private static Adapter adapter;
+    private static ArrayList<String> names = new ArrayList<>();
+    private static ArrayList<String> paths = new ArrayList<>();
+    private static ArrayList<Integer> ids = new ArrayList<>();
 
 
     public ListEvents(){
@@ -137,7 +132,7 @@ public class ListEvents extends Fragment {
                         names.add(jsonObject.getString("nume" + i));
                         paths.add(jsonObject.getString("poza" + i));
                     }
-                    Adapter adapter = new Adapter(getContext(), names, paths);
+                    adapter = new Adapter(getContext(), names, paths);
                     eventsListing.setAdapter(adapter);
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Error loading your friends", Toast.LENGTH_LONG).show();
@@ -160,6 +155,22 @@ public class ListEvents extends Fragment {
         };
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(stringRequest);
+    }
+
+    public static void addNames(String s){
+        names.add(0,s);
+    }
+
+    public static void addPaths(String s){
+        paths.add(0,s);
+    }
+
+    public static void addIds(Integer i){
+        ids.add(0,i);
+    }
+
+    public static void change(){
+        adapter.notifyDataSetChanged();
     }
 
 }

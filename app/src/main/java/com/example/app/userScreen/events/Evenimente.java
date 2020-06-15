@@ -3,6 +3,7 @@ package com.example.app.userScreen.events;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
+import com.example.app.userScreen.ListEvents;
 import com.example.app.userScreen.events.petreceri.EnumFragmentsPetreceri;
 import com.example.app.userScreen.events.petreceri.PetreceriPage1;
 import com.example.app.userScreen.events.petreceri.PetreceriPage2;
@@ -212,7 +215,41 @@ public class Evenimente extends Fragment {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
                             String msg = jsonObject.getString("message");
+                            if(success){
+                                String path = jsonObject.getString("path");
+                                Integer id = jsonObject.getInt("id");
+
+
+                                ListEvents.addNames(PetreceriPage1.getTitle());
+                                ListEvents.addPaths(path);
+                                ListEvents.addIds(id);
+                                ListEvents.change();
+
+
+                                PetreceriPage1.reset();
+
+                                PetreceriPage2.reset();
+
+                                PetreceriPage3.reset();
+                                for (int i = 0; i < PetreceriPage3.getDoriane().getChildCount() ; i++) {
+                                    final Button child = (Button) PetreceriPage3.getDoriane().getChildAt(i);
+                                    child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+                                }
+
+                                PetreceriPage4.reset();
+                                PetreceriPage4.getBauturaButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+                                PetreceriPage4.getMancareButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+
+
+                                ConstraintLayout c = (ConstraintLayout) layoutRoot.getChildAt(0);
+                                ViewPager v = (ViewPager) c.getChildAt(0);
+
+                                v.setCurrentItem(0);
+                                ImageButton btn = (ImageButton) c.getChildAt(1);
+                                btn.callOnClick();
+                            }
                             Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             Toast.makeText(getContext(), "Error on receiving data from server" + response, Toast.LENGTH_LONG).show();
@@ -222,7 +259,7 @@ public class Evenimente extends Fragment {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "Error: check tour internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Error: check your internet connection" + error, Toast.LENGTH_SHORT).show();
                     }
                 }){
                     @Override

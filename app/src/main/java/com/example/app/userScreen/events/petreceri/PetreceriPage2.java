@@ -35,7 +35,7 @@ public class PetreceriPage2 extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     private static PetreceriPage2 INSTANCE = null;
-    private ImageView vedetaPic;
+    private static ImageView vedetaPic;
     private static Bitmap bitmap;
     private static EditText tematica,vedetaName;
     private View view;
@@ -137,5 +137,11 @@ public class PetreceriPage2 extends Fragment {
     public static String getVedetaPic() {
         String data = imgToString(bitmap);
         return data;
+    }
+
+    public static void reset(){
+        tematica.setText("");
+        vedetaName.setText("");
+        vedetaPic.setImageResource(R.drawable.nopic_round);
     }
 }

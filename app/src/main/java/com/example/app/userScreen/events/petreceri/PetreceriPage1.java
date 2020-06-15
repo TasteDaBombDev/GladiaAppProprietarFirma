@@ -256,4 +256,13 @@ public class PetreceriPage1 extends Fragment {
     public static String getAdresa(){
         return address.getText().toString();
     }
+
+    public static void reset(){
+        selectImg.setImageResource(R.drawable.nopic_round);
+        title.setText("");
+        data.setText("");
+        oraEnd.setText("");
+        oraStart.setText("");
+        address.setText("");
+    }
 }

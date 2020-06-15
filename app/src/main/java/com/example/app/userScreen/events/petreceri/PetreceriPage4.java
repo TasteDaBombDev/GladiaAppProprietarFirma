@@ -18,7 +18,7 @@ import com.example.app.R;
 public class PetreceriPage4 extends Fragment {
 
     private static PetreceriPage4 INSTANCE = null;
-    private Button mancare, bautura;
+    private static Button mancare, bautura;
     private static boolean mancareB = false, bauturaB = false;
     private static EditText mancarePret, bauturaPret, biletPret, tinuta, descriere;
     private View view;
@@ -124,13 +124,31 @@ public class PetreceriPage4 extends Fragment {
     public static String getMancarePret(){
         if(mancareB)
             return mancarePret.getText().toString();
-        return "";
+        return "-";
     }
 
     public static String getBauturaPret(){
         if(bauturaB)
             return bauturaPret.getText().toString();
-        return "";
+        return "-";
+    }
+
+    public static void reset(){
+        descriere.setText("");
+        tinuta.setText("");
+        bauturaPret.setText("");
+        bauturaB = false;
+        mancareB = false;
+        mancarePret.setText("");
+        biletPret.setText("");
+    }
+
+    public static Button getBauturaButton(){
+        return bautura;
+    }
+
+    public static Button getMancareButton(){
+        return mancare;
     }
 
 }
