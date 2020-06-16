@@ -23,17 +23,22 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:pointerIcon="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="1.0"
+        app:tabIconTint="@color/icon_colors_for_tabs"
+        app:tabIndicatorColor="@color/orange"
+        app:tabRippleColor="@color/icon_colors_ripple">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_home_black_24dp" />
+            android:icon="@drawable/ic_home_black_24dp"
+            android:pointerIcon="none" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/createEvent"
