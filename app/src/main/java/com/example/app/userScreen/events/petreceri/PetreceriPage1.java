@@ -141,6 +141,10 @@ public class PetreceriPage1 extends Fragment {
                 try {
                     inputStream = getActivity().getApplicationContext().getContentResolver().openInputStream(resultUri);
                     bitmap = BitmapFactory.decodeStream(inputStream);
+
+                    Bitmap scaledBitmap = scaleDown(bitmap, 600, true);
+                    bitmap = scaledBitmap;
+
                     selectImg.setImageBitmap(bitmap);
                     setImageRounded();
                 } catch (FileNotFoundException e) {
@@ -151,6 +155,16 @@ public class PetreceriPage1 extends Fragment {
                 Toast.makeText(getContext(), "Please try again!", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize, boolean filter) {
+        float ratio = Math.min((float) maxImageSize / realImage.getWidth(), (float) maxImageSize / realImage.getHeight());
+        int width = Math.round((float) ratio * realImage.getWidth());
+        int height = Math.round((float) ratio * realImage.getHeight());
+
+        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+                height, filter);
+        return newBitmap;
     }
 
     private void timePikers(){

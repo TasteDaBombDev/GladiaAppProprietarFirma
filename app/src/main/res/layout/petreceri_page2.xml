@@ -61,7 +61,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:cropToPadding="false"
-                android:scaleType="centerInside"
+                android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.03"

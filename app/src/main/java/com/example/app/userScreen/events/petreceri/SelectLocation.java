@@ -84,7 +84,7 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LatLng pos = addressesList.getOneVal(position);
                 map.animateCamera(CameraUpdateFactory.newLatLng(pos));
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,14));
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,19));
                 completeResults.setVisibility(View.INVISIBLE);
                 addressesList.clear();
                 arrayAdapter.notifyDataSetChanged();

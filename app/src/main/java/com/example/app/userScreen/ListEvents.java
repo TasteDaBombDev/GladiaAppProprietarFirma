@@ -141,23 +141,24 @@ public class ListEvents extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    for (int i = 0; i < (jsonObject.length() / 3); i++) {
-                        ids.add(jsonObject.getInt("id" + i));
-                        names.add(jsonObject.getString("nume" + i));
-                        paths.add(jsonObject.getString("poza" + i));
+                    if(jsonObject.getBoolean("existance")){
+                        for (int i = 0; i < (jsonObject.length() / 3); i++) {
+                            ids.add(jsonObject.getInt("id" + i));
+                            names.add(jsonObject.getString("nume" + i));
+                            paths.add(jsonObject.getString("poza" + i));
+                        }
                     }
                     adapter = new Adapter(getContext(), names, paths);
                     eventsListing.setAdapter(adapter);
                 } catch (JSONException e) {
-                    Toast.makeText(getContext(), "Error loading your friends", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error loading your events", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Connection Timeout", Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
