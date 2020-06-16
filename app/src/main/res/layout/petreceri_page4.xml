@@ -150,6 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mancare"
+                    android:textColor="#fff"
                     app:cornerRadius="20dp" />
 
                 <Button
@@ -159,6 +160,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_weight="1"
                     android:text="Bautura"
+                    android:textColor="#fff"
                     app:cornerRadius="20dp" />
 
                 <Button
@@ -168,6 +170,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_weight="1"
                     android:text="Bilet"
+                    android:textColor="#fff"
                     app:cornerRadius="20dp" />
             </LinearLayout>
 

@@ -62,6 +62,8 @@ public class PetreceriPage3 extends Fragment {
         for (int i = 0; i < toggle.length; i++) {
             toggle[i] = false;
             doriane.getChildAt(i).setBackgroundResource(R.drawable.circle);
+            Button btn = (Button) doriane.getChildAt(i);
+            btn.setTextColor(Color.WHITE);
         }
 
         for (int i = 0; i < doriane.getChildCount() ; i++) {
