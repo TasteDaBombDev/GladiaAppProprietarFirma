@@ -11,10 +11,13 @@ import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -28,6 +31,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
 import com.example.app.userScreen.ListEvents;
+import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.events.petreceri.EnumFragmentsPetreceri;
 import com.example.app.userScreen.events.petreceri.PetreceriPage1;
 import com.example.app.userScreen.events.petreceri.PetreceriPage2;
@@ -48,6 +52,7 @@ public class Evenimente extends Fragment {
 
     private View view;
     private boolean openPL = false;
+    private boolean[] hasAppeared;
     private ConstraintLayout rootSelector;
     private ConstraintLayout layoutRoot;
     private ViewPager petreceriForm;
@@ -79,10 +84,17 @@ public class Evenimente extends Fragment {
         view = inflater.inflate(R.layout.events,container,false);
 
         init();
+        hasAppeared  = new boolean[layoutRoot.getChildCount()];
+        for (int i = 0; i < hasAppeared.length; i++) {
+            hasAppeared[i] = false;
+        }
 
         openingTabs();
         closingTabs();
         serverListeners();
+
+        final Animation popin = AnimationUtils.loadAnimation(getContext(),R.anim.fade_in);
+        popin.setDuration(500);
 
         assert getFragmentManager() != null;
         EnumFragmentsPetreceri enumFragmentsPetreceri = new EnumFragmentsPetreceri(getFragmentManager(),getContext());
@@ -92,9 +104,14 @@ public class Evenimente extends Fragment {
         for (int i = 0; i < layoutRoot.getChildCount(); i++) {
             final ConstraintLayout child = (ConstraintLayout) layoutRoot.getChildAt(i);
             final ViewPager childViewPager = (ViewPager) child.getChildAt(0);
+
+
 //            WormDotsIndicator dotsIndicator = (WormDotsIndicator) child.getChildAt(2);
 //            dotsIndicator.setViewPager(childViewPager);
+
+
             childViewPager.setOffscreenPageLimit(4);
+            final int finalI = i;
             childViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -106,7 +123,15 @@ public class Evenimente extends Fragment {
 
                 @Override
                 public void onPageSelected(int position) {
-
+                    if(position == (MainScreen.getViewPagerCountPage(finalI) - 1) && !hasAppeared[finalI])
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                addP.setVisibility(View.VISIBLE);
+                                addP.startAnimation(popin);
+                                hasAppeared[finalI] = true;
+                            }
+                        },3000);
                 }
 
                 @Override
@@ -283,6 +308,7 @@ public class Evenimente extends Fragment {
                         params.put("pretMancare",PetreceriPage4.getMancarePret());
                         params.put("bautura", String.valueOf(PetreceriPage4.getBautura()));
                         params.put("pretBautura",PetreceriPage4.getBauturaPret());
+                        params.put("bilet",String.valueOf(PetreceriPage4.getBilet()));
                         params.put("pretBilet",PetreceriPage4.getBiletPret());
                         params.put("IDorganizator","23");
 

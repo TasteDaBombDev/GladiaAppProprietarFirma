@@ -15,6 +15,8 @@ public class MainScreen extends AppCompatActivity {
     private static ViewPager viewPager;
     private TabLayout tabLayout;
 
+    private static int[] viewPagersPages = {4,0,0,0,0,0};
+
     private static int userID, afaceri, events, friends;
     private static boolean tutorial;
     private static String nume;
@@ -120,6 +122,10 @@ public class MainScreen extends AppCompatActivity {
 
     public static ViewPager getViewPager(){
         return viewPager;
+    }
+
+    public static int getViewPagerCountPage(int i){
+        return viewPagersPages[i];
     }
 
     @Override

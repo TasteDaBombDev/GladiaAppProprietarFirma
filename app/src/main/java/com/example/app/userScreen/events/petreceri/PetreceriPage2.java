@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.app.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -37,7 +39,8 @@ public class PetreceriPage2 extends Fragment {
     private static PetreceriPage2 INSTANCE = null;
     private static ImageView vedetaPic;
     private static Bitmap bitmap;
-    private static EditText tematica,vedetaName;
+    private static TextInputLayout tematicaLayout, vedetaNameLayout;
+    private static TextInputEditText tematica, vedetaName;
     private View view;
 
 
@@ -66,6 +69,7 @@ public class PetreceriPage2 extends Fragment {
         view = inflater.inflate(R.layout.petreceri_page2,container,false);
         init();
         setImageRounded();
+        focusListener();
 
         vedetaPic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,8 +120,30 @@ public class PetreceriPage2 extends Fragment {
 
     private void init(){
         vedetaPic = view.findViewById(R.id.vedetaPic);
+
+//        vedetaNameLayout = view.findViewById(R.id.vedetaNameLayout);
         vedetaName = view.findViewById(R.id.vedetaName);
+
+        tematicaLayout = view.findViewById(R.id.tematicaLayout);
         tematica = view.findViewById(R.id.tematica);
+    }
+
+    private void focusListener(){
+        tematica.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    tematicaLayout.setCounterEnabled(true);
+                    tematicaLayout.setCounterMaxLength(20);
+                }
+                else
+                {
+                    tematicaLayout.setCounterEnabled(false);
+                    tematicaLayout.setCounterMaxLength(0);
+                }
+            }
+        });
     }
 
     private static String imgToString(Bitmap bitmap){

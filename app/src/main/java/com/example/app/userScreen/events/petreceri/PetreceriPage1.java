@@ -59,8 +59,9 @@ public class PetreceriPage1 extends Fragment {
     private static ImageView selectImg;
 
     @SuppressLint("StaticFieldLeak")
-    private static TextInputEditText title;
-    private static EditText data,oraStart,oraEnd;
+    private TextInputLayout titleLayout,dateLayout;
+    private static TextInputEditText title,data;
+    private static EditText oraStart,oraEnd;
 
     @SuppressLint("StaticFieldLeak")
     private static Button setLocation;
@@ -95,23 +96,7 @@ public class PetreceriPage1 extends Fragment {
         init();
         setImageRounded();
         timePikers();
-
-        final TextInputLayout t = view.findViewById(R.id.petrecereTitle);
-        title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                {
-                    t.setCounterEnabled(true);
-                    t.setCounterMaxLength(20);
-                }
-                else
-                {
-                    t.setCounterEnabled(false);
-                    t.setCounterMaxLength(0);
-                }
-            }
-        });
+        focusListener();
 
         selectImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,12 +122,37 @@ public class PetreceriPage1 extends Fragment {
 
     private void init(){
         selectImg = view.findViewById(R.id.selectImgPetrecere);
+
+        titleLayout = view.findViewById(R.id.petrecereTitle);
         title = view.findViewById(R.id.petrecereT);
-        data = view.findViewById(R.id.petrecereData);
+
+
+        dateLayout = view.findViewById(R.id.petrecereData);
+        data = view.findViewById(R.id.petrecereD);
+
+
         oraStart = view.findViewById(R.id.oraStart);
         oraEnd = view.findViewById(R.id.oraEnd);
         setLocation = view.findViewById(R.id.setLocation);
         address = view.findViewById(R.id.addressPlace);
+    }
+
+    private void focusListener(){
+        title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    titleLayout.setCounterEnabled(true);
+                    titleLayout.setCounterMaxLength(20);
+                }
+                else
+                {
+                    titleLayout.setCounterEnabled(false);
+                    titleLayout.setCounterMaxLength(0);
+                }
+            }
+        });
     }
 
     private void setImageRounded(){
@@ -195,6 +205,7 @@ public class PetreceriPage1 extends Fragment {
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
         final int hour = calendar.get(Calendar.HOUR_OF_DAY);
         final int minute = calendar.get(Calendar.MINUTE);
+
         data.setFocusable(false);
         data.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,7 +213,7 @@ public class PetreceriPage1 extends Fragment {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        String date = day + "/" + (month + 1) + "/" + year;
+                        String date = String.valueOf(day) + "/" + String.valueOf(month + 1) + "/" + year;
                         data.setText(date);
                     }
                 },year,month,day);
@@ -217,7 +228,9 @@ public class PetreceriPage1 extends Fragment {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        String time = hourOfDay + ":" + minute;
+                        String min = String.valueOf(minute);
+                        String h = String.valueOf(hourOfDay);
+                        String time = h + ":" + min;
                         oraStart.setText(time);
                     }
                 },hour,minute,android.text.format.DateFormat.is24HourFormat(getContext()));
@@ -232,7 +245,9 @@ public class PetreceriPage1 extends Fragment {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        String time = hourOfDay + ":" + minute;
+                        String min = String.valueOf(minute);
+                        String h = String.valueOf(hourOfDay);
+                        String time = h + ":" + min;
                         oraEnd.setText(time);
                     }
                 },hour,minute,android.text.format.DateFormat.is24HourFormat(getContext()));

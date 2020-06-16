@@ -57,20 +57,39 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/petrecereData"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:gravity="center_horizontal"
         android:hint="Data petrecerii"
         android:inputType="textPersonName"
+        android:textColorHint="@color/textHint"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:counterEnabled="false"
+        app:endIconMode="none"
+        app:errorEnabled="false"
+        app:helperTextEnabled="false"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        app:hintTextColor="@color/colorSecundary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/petrecereTitle"
         app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintWidth_percent="0.7" />
+        app:layout_constraintWidth_percent="0.7">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/petrecereD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textCursorDrawable="@drawable/color_cursor" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -94,6 +113,18 @@
             android:hint="Ora start"
             android:inputType="textPersonName" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="18dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@android:color/black" />
+        </LinearLayout>
+
         <EditText
             android:id="@+id/oraEnd"
             android:layout_width="wrap_content"
@@ -111,6 +142,7 @@
         android:layout_height="wrap_content"
         android:text="Set Location"
         android:textColor="#fff"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

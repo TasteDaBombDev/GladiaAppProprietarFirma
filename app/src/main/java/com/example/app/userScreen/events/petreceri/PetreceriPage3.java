@@ -61,6 +61,7 @@ public class PetreceriPage3 extends Fragment {
         toggle = new boolean[doriane.getChildCount()];
         for (int i = 0; i < toggle.length; i++) {
             toggle[i] = false;
+            doriane.getChildAt(i).setBackgroundResource(R.drawable.circle);
         }
 
         for (int i = 0; i < doriane.getChildCount() ; i++) {
@@ -70,7 +71,7 @@ public class PetreceriPage3 extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if(!toggle[finalI]) {
-                        child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.tinted));
+                        child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.orange));
                         toggle[finalI] = true;
                         searchKey = searchKey + "#" + child.getText();
                         displaymusic.add((String) child.getText());

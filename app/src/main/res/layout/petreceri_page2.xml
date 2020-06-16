@@ -7,20 +7,41 @@
     android:scrollbars="vertical"
     tools:context=".userScreen.events.petreceri.PetreceriPage2">
 
-    <EditText
-        android:id="@+id/tematica"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tematicaLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="center|start|top"
+        android:gravity="center_horizontal"
         android:hint="Tematica"
-        android:inputType="text"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/textHint"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:counterEnabled="false"
+        app:endIconDrawable="@drawable/rounded_x"
+        app:endIconMode="clear_text"
+        app:errorEnabled="false"
+        app:helperText="Sample"
+        app:helperTextEnabled="false"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        app:hintTextColor="@color/colorSecundary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView16"
         app:layout_constraintVertical_bias="0.03"
-        app:layout_constraintWidth_percent="0.7" />
+        app:layout_constraintWidth_percent="0.7">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tematica"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textCursorDrawable="@drawable/color_cursor" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textView14"
@@ -33,7 +54,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tematica"
+        app:layout_constraintTop_toBottomOf="@+id/tematicaLayout"
         app:layout_constraintVertical_bias="0.3" />
 
     <LinearLayout
@@ -69,7 +90,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/nopic" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/vedetaName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -80,6 +101,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintStart_toEndOf="@+id/vedetaPic"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

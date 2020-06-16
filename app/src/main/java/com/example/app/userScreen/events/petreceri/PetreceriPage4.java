@@ -14,13 +14,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.app.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class PetreceriPage4 extends Fragment {
 
     private static PetreceriPage4 INSTANCE = null;
-    private static Button mancare, bautura;
-    private static boolean mancareB = false, bauturaB = false;
-    private static EditText mancarePret, bauturaPret, biletPret, tinuta, descriere;
+    private static Button mancare, bautura, bilet;
+    private static boolean mancareB = false, bauturaB = false, biletB = false;
+    private TextInputLayout tinutaLayout, descriereLayout;
+    private static TextInputEditText tinuta, descriere;
+    private static EditText biletPret, mancarePret, bauturaPret;
     private View view;
 
     public PetreceriPage4(){
@@ -47,8 +51,11 @@ public class PetreceriPage4 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.petreceri_page4, container, false);
         init();
+        focusListener();
+
         mancarePret.setEnabled(false);
         bauturaPret.setEnabled(false);
+        biletPret.setEnabled(false);
 
         mancare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +63,7 @@ public class PetreceriPage4 extends Fragment {
                 if(!mancareB)
                 {
                     mancareB = true;
-                    mancare.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.tinted));
+                    mancare.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.orange));
                     mancarePret.setEnabled(true);
                 }
                 else{
@@ -67,13 +74,30 @@ public class PetreceriPage4 extends Fragment {
             }
         });
 
+        bilet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!biletB)
+                {
+                    biletB = true;
+                    bilet.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.orange));
+                    biletPret.setEnabled(true);
+                }
+                else{
+                    bilet.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+                    biletB = false;
+                    biletPret.setEnabled(false);
+                }
+            }
+        });
+
         bautura.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!bauturaB)
                 {
                     bauturaB = true;
-                    bautura.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.tinted));
+                    bautura.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.orange));
                     bauturaPret.setEnabled(true);
                 }
                 else{
@@ -87,13 +111,54 @@ public class PetreceriPage4 extends Fragment {
         return view;
     }
 
+
+    private void focusListener(){
+        tinuta.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    tinutaLayout.setCounterEnabled(true);
+                    tinutaLayout.setCounterMaxLength(100);
+                }
+                else
+                {
+                    tinutaLayout.setCounterEnabled(false);
+                    tinutaLayout.setCounterMaxLength(0);
+                }
+            }
+        });
+
+        descriere.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    descriereLayout.setCounterEnabled(true);
+                    descriereLayout.setCounterMaxLength(500);
+                }
+                else
+                {
+                    descriereLayout.setCounterEnabled(false);
+                    descriereLayout.setCounterMaxLength(0);
+                }
+            }
+        });
+    }
+
     private void init(){
         bautura = view.findViewById(R.id.bautura);
         mancare = view.findViewById(R.id.mancare);
+        bilet = view.findViewById(R.id.bilet);
+
         mancarePret = view.findViewById(R.id.mancarePret);
         bauturaPret = view.findViewById(R.id.bauturaPret);
         biletPret = view.findViewById(R.id.biletPret);
+
+        tinutaLayout = view.findViewById(R.id.tinutaLayout);
         tinuta = view.findViewById(R.id.tinuta);
+
+        descriereLayout = view.findViewById(R.id.descriereLayout);
         descriere = view.findViewById(R.id.descriere);
     }
 
@@ -117,20 +182,28 @@ public class PetreceriPage4 extends Fragment {
         return 0;
     }
 
+    public static int getBilet() {
+        if(biletB)
+            return 1;
+        return 0;
+    }
+
     public static String getBiletPret(){
-        return biletPret.getText().toString();
+        if(biletB)
+            return biletPret.getText().toString();
+        return "";
     }
 
     public static String getMancarePret(){
         if(mancareB)
             return mancarePret.getText().toString();
-        return "-";
+        return "";
     }
 
     public static String getBauturaPret(){
         if(bauturaB)
             return bauturaPret.getText().toString();
-        return "-";
+        return "";
     }
 
     public static void reset(){
