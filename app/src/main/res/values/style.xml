@@ -10,6 +10,7 @@
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowSwipeToDismiss">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+<!--        <item name="android:textColorHint">@color/textHint</item>-->
     </style>
 
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">

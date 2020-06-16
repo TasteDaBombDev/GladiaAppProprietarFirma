@@ -28,14 +28,18 @@
         android:gravity="center_horizontal"
         android:hint="Titlul petrecerii"
         android:inputType="textPersonName"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
+        android:textColorHint="@color/textHint"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:counterEnabled="false"
         app:endIconDrawable="@drawable/rounded_x"
         app:endIconMode="clear_text"
-        app:helperText="Tasta"
-        app:helperTextEnabled="true"
+        app:errorEnabled="false"
+        app:helperTextEnabled="false"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
+        app:hintTextColor="@color/colorSecundary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +51,9 @@
             android:id="@+id/petrecereT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="3" />
+            android:maxLines="3"
+            android:textColorHint="#fff"
+            android:textCursorDrawable="@drawable/color_cursor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,4 +131,5 @@
         app:layout_constraintTop_toBottomOf="@+id/setLocation"
         app:layout_constraintVertical_bias="0.08"
         app:layout_constraintWidth_percent="0.7" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
