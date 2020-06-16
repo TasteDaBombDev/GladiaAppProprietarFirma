@@ -20,35 +20,45 @@
         app:layout_constraintVertical_bias="0.13999999"
         app:srcCompat="@drawable/nopic" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/petrecereTitle"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/focused_edit_text"
-        android:ems="10"
         android:gravity="center_horizontal"
         android:hint="Titlul petrecerii"
         android:inputType="textPersonName"
-        android:textColor="@color/grapefruit"
-        android:textColorHint="@color/citrus"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:endIconDrawable="@drawable/rounded_x"
+        app:endIconMode="clear_text"
+        app:helperText="Tasta"
+        app:helperTextEnabled="true"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectImgPetrecere"
         app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintWidth_percent="0.7" />
+        app:layout_constraintWidth_percent="0.7">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/petrecereT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
         android:id="@+id/petrecereData"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/focused_edit_text"
         android:ems="10"
         android:gravity="center_horizontal"
         android:hint="Data petrecerii"
         android:inputType="textPersonName"
-        android:textColor="@color/grapefruit"
-        android:textColorHint="@color/citrus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

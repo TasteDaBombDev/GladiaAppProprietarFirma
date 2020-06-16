@@ -35,6 +35,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.example.app.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonElement;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -56,7 +57,8 @@ public class PetreceriPage1 extends Fragment {
     private static ImageView selectImg;
 
     @SuppressLint("StaticFieldLeak")
-    private static EditText title,data,oraStart,oraEnd;
+    private static TextInputEditText title;
+    private static EditText data,oraStart,oraEnd;
 
     @SuppressLint("StaticFieldLeak")
     private static Button setLocation;
@@ -116,7 +118,7 @@ public class PetreceriPage1 extends Fragment {
 
     private void init(){
         selectImg = view.findViewById(R.id.selectImgPetrecere);
-        title = view.findViewById(R.id.petrecereTitle);
+        title = view.findViewById(R.id.petrecereT);
         data = view.findViewById(R.id.petrecereData);
         oraStart = view.findViewById(R.id.oraStart);
         oraEnd = view.findViewById(R.id.oraEnd);
