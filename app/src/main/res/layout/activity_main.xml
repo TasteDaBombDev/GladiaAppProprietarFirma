@@ -27,7 +27,7 @@
             android:hint="E-mail sau telefon"
             android:inputType="text"
             android:text="0761664890"
-            app:layout_constraintBottom_toTopOf="@+id/login_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +36,6 @@
             android:id="@+id/login_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
             android:ems="10"
             android:hint="Parola"
             android:inputType="textPassword"
@@ -45,7 +44,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cod"
-            app:layout_constraintVertical_bias="0.060000002" />
+            app:layout_constraintVertical_bias="0.29000002" />
 
         <Button
             android:id="@+id/login_btn"
@@ -60,7 +59,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_pass" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7" />
 
         <TextView
             android:id="@+id/welcome"

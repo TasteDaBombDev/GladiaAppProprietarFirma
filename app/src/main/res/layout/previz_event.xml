@@ -8,6 +8,7 @@
     tools:context=".userScreen.PrevizEvent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#f1f1f1"
@@ -55,5 +56,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.04000002"
         app:srcCompat="@drawable/nopic_round" />
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle"
+        android:backgroundTint="@color/colorPrimary"
+        android:tint="#fff"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04"
+        app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

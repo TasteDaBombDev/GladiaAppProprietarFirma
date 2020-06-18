@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.app.R;
@@ -30,9 +32,11 @@ public class MainScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_screen);
+        getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+
+
         Bundle extras = getIntent().getExtras();
         userID = extras.getInt("userID");
         username = extras.getString("username");

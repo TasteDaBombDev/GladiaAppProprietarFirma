@@ -8,6 +8,8 @@ import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +37,7 @@ public class PrevizEvent extends AppCompatActivity {
     private String imgPath, title;
     private ImageView profPic;
     private TextView titleTV,adresa;
-
+    private ImageButton back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,15 @@ public class PrevizEvent extends AppCompatActivity {
         titleTV = findViewById(R.id.title);
         adresa = findViewById(R.id.adresa);
         loading = new ProgressDialog(PrevizEvent.this);
+        back = findViewById(R.id.back);
         createDialog();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
 

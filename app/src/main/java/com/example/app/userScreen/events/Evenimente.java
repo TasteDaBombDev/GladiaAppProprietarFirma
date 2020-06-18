@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.transition.TransitionManager;
@@ -20,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -233,6 +235,12 @@ public class Evenimente extends Fragment {
         addP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final ProgressDialog progress = new ProgressDialog(getContext());
+                progress.setTitle("We are adding the party");
+                progress.setCancelable(false);
+                progress.setMessage("We are creating your party...");
+                progress.show();
+
                 String urlUpload = "http://gladiaholdings.com/PHP/addPetrecere.php";
 
                 StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
@@ -274,6 +282,8 @@ public class Evenimente extends Fragment {
                                 v.setCurrentItem(0);
                                 ImageButton btn = (ImageButton) c.getChildAt(1);
                                 btn.callOnClick();
+
+                                progress.dismiss();
                             }
                             Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
