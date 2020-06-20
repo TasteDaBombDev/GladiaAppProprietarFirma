@@ -94,7 +94,6 @@ public class PetreceriPage1 extends Fragment {
         view = inflater.inflate(R.layout.petreceri_page1,container,false);
 
         init();
-//        setImageRounded();
         timePikers();
         focusListener();
 
@@ -158,7 +157,6 @@ public class PetreceriPage1 extends Fragment {
     private void setImageRounded(){
         Bitmap bitmap = ((BitmapDrawable)selectImg.getDrawable()).getBitmap();
         RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(),bitmap);
-//        roundedBitmapDrawable.setCircular(true);
         roundedBitmapDrawable.setCornerRadius(40);
         selectImg.setImageDrawable(roundedBitmapDrawable);
     }
