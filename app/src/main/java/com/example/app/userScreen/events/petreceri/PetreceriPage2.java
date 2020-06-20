@@ -7,6 +7,8 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,8 +19,11 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.app.R;
@@ -39,8 +44,9 @@ public class PetreceriPage2 extends Fragment {
     private static PetreceriPage2 INSTANCE = null;
     private static ImageView vedetaPic;
     private static Bitmap bitmap;
-    private static TextInputLayout tematicaLayout, vedetaNameLayout;
+    private static TextInputLayout tematicaLayout, vedetaNameLayout, tipLayout;
     private static TextInputEditText tematica, vedetaName;
+    private EditText tip;
     private View view;
 
 
@@ -79,6 +85,33 @@ public class PetreceriPage2 extends Fragment {
                         .getIntent(getContext());
 
                 startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
+            }
+        });
+
+        tip.setFocusable(false);
+        tip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Selecteaza tipul artistului");
+
+                ListView modeList = new ListView(getContext());
+                final String[] stringArray = new String[] { "destept", "prost" };
+                ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, stringArray);
+                modeList.setAdapter(modeAdapter);
+
+                builder.setView(modeList);
+                final Dialog dialog = builder.create();
+
+                dialog.show();
+
+                modeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        tip.setText(stringArray[position]);
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 
@@ -126,6 +159,8 @@ public class PetreceriPage2 extends Fragment {
 
         tematicaLayout = view.findViewById(R.id.tematicaLayout);
         tematica = view.findViewById(R.id.tematica);
+
+        tip = view.findViewById(R.id.tip);
     }
 
     private void focusListener(){

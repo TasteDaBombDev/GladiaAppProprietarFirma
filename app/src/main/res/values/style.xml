@@ -6,11 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowFullscreen">true</item>
+<!--        <item name="android:windowFullscreen">true</item>-->
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowSwipeToDismiss">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:statusBarColor">@color/textHint</item>
+<!--        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>-->
     </style>
 
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">

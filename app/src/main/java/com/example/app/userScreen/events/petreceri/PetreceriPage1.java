@@ -94,7 +94,7 @@ public class PetreceriPage1 extends Fragment {
         view = inflater.inflate(R.layout.petreceri_page1,container,false);
 
         init();
-        setImageRounded();
+//        setImageRounded();
         timePikers();
         focusListener();
 
@@ -102,7 +102,7 @@ public class PetreceriPage1 extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = CropImage.activity().setGuidelines(CropImageView.Guidelines.ON)
-                        .setAspectRatio(1,1)
+                        .setAspectRatio(5,4)
                         .getIntent(getContext());
 
                 startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
@@ -158,7 +158,8 @@ public class PetreceriPage1 extends Fragment {
     private void setImageRounded(){
         Bitmap bitmap = ((BitmapDrawable)selectImg.getDrawable()).getBitmap();
         RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(),bitmap);
-        roundedBitmapDrawable.setCircular(true);
+//        roundedBitmapDrawable.setCircular(true);
+        roundedBitmapDrawable.setCornerRadius(40);
         selectImg.setImageDrawable(roundedBitmapDrawable);
     }
 
