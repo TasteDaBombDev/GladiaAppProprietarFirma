@@ -112,6 +112,7 @@ public class PetreceriPage1 extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),SelectLocation.class);
+                intent.putExtra("redirectedPage", 1);
                 startActivity(intent);
             }
         });
@@ -177,6 +178,8 @@ public class PetreceriPage1 extends Fragment {
 
                     selectImg.setImageBitmap(bitmap);
                     setImageRounded();
+                    TextView placeHolder = view.findViewById(R.id.placeHolderPetrecere);
+                    placeHolder.setText("");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

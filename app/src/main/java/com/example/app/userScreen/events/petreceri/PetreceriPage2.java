@@ -96,7 +96,7 @@ public class PetreceriPage2 extends Fragment {
                 builder.setTitle("Selecteaza tipul artistului");
 
                 ListView modeList = new ListView(getContext());
-                final String[] stringArray = new String[] { "destept", "prost" };
+                final String[] stringArray = new String[] { "DJ", "Cantaret" };
                 ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, stringArray);
                 modeList.setAdapter(modeAdapter);
 

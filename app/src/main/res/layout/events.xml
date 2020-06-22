@@ -186,7 +186,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#fff"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -203,38 +203,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
 
-            <ImageButton
-                android:id="@+id/imageButton1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                android:translationZ="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.02"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.01" />
-
-            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-                android:id="@+id/dotIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:dotsColor="@color/colorPrimary"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="10dp"
-                app:dotsSpacing="4dp"
-                app:dotsStrokeColor="@color/colorPrimary"
-                app:dotsStrokeWidth="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/petreceriForm"
-                app:layout_constraintVertical_bias="0.045">
-
-            </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
-
             <Button
                 android:id="@+id/addP"
                 android:layout_width="wrap_content"
@@ -248,6 +216,48 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/header_shadow"
+                android:elevation="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/petreceriForm"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:translationZ="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                    android:id="@+id/dotIndicatorP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:dotsColor="@color/colorPrimary"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="10dp"
+                    app:dotsSpacing="4dp"
+                    app:dotsStrokeColor="@color/colorPrimary"
+                    app:dotsStrokeWidth="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.47">
+
+                </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -263,6 +273,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -283,21 +294,45 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.03" />
 
-            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-                android:id="@+id/dotIndicator2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:dotsColor="@color/colorPrimary"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="10dp"
-                app:dotsSpacing="4dp"
-                app:dotsStrokeColor="@color/colorPrimary"
-                app:dotsStrokeWidth="2dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/header_shadow"
+                android:elevation="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.03" />
+                app:layout_constraintTop_toTopOf="@+id/viewPager2"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:translationZ="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:dotsColor="@color/colorPrimary"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="10dp"
+                    app:dotsSpacing="4dp"
+                    app:dotsStrokeColor="@color/colorPrimary"
+                    app:dotsStrokeWidth="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -334,21 +369,45 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.03" />
 
-            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-                android:id="@+id/dotIndicator3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:dotsColor="@color/colorPrimary"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="10dp"
-                app:dotsSpacing="4dp"
-                app:dotsStrokeColor="@color/colorPrimary"
-                app:dotsStrokeWidth="2dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/header_shadow"
+                android:elevation="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.03" />
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:translationZ="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:dotsColor="@color/colorPrimary"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="10dp"
+                    app:dotsSpacing="4dp"
+                    app:dotsStrokeColor="@color/colorPrimary"
+                    app:dotsStrokeWidth="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -365,6 +424,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -385,21 +445,45 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.03" />
 
-            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-                android:id="@+id/dotIndicator4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:dotsColor="@color/colorPrimary"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="10dp"
-                app:dotsSpacing="4dp"
-                app:dotsStrokeColor="@color/colorPrimary"
-                app:dotsStrokeWidth="2dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/header_shadow"
+                android:elevation="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.03" />
+                app:layout_constraintTop_toTopOf="@+id/viewPager3"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:translationZ="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:dotsColor="@color/colorPrimary"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="10dp"
+                    app:dotsSpacing="4dp"
+                    app:dotsStrokeColor="@color/colorPrimary"
+                    app:dotsStrokeWidth="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -436,21 +520,45 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.03" />
 
-            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-                android:id="@+id/dotIndicator5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:dotsColor="@color/colorPrimary"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="10dp"
-                app:dotsSpacing="4dp"
-                app:dotsStrokeColor="@color/colorPrimary"
-                app:dotsStrokeWidth="2dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/header_shadow"
+                android:elevation="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.03" />
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:translationZ="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:dotsColor="@color/colorPrimary"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="10dp"
+                    app:dotsSpacing="4dp"
+                    app:dotsStrokeColor="@color/colorPrimary"
+                    app:dotsStrokeWidth="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -467,6 +575,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -487,21 +596,47 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.03" />
 
-            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-                android:id="@+id/dotIndicator6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:dotsColor="@color/colorPrimary"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="10dp"
-                app:dotsSpacing="4dp"
-                app:dotsStrokeColor="@color/colorPrimary"
-                app:dotsStrokeWidth="2dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/header_shadow"
+                android:elevation="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.03" />
+                app:layout_constraintTop_toTopOf="@+id/viewPager4"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:translationZ="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:dotsColor="@color/colorPrimary"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="10dp"
+                    app:dotsSpacing="4dp"
+                    app:dotsStrokeColor="@color/colorPrimary"
+                    app:dotsStrokeWidth="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -64,7 +64,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/aggro_zone"
             android:ems="10"
-            android:hint="Search location"
+            android:hint="Cauta locatie"
             android:imeOptions="actionSearch"
             android:inputType="textPersonName"
             android:textColor="#000"

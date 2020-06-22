@@ -6,169 +6,213 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/selectImgPetrecere"
+
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
+        android:layout_marginTop="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHeight_percent="0.89"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13999999"
-        app:layout_constraintWidth_percent="0.83"
-        app:srcCompat="@drawable/prof_pic" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/petrecereTitle"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:hint="Titlul petrecerii"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/textHint"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:boxStrokeWidth="2dp"
-        app:boxStrokeWidthFocused="2dp"
-        app:counterEnabled="false"
-        app:endIconDrawable="@drawable/rounded_x"
-        app:endIconMode="clear_text"
-        app:errorEnabled="false"
-        app:helperTextEnabled="false"
-        app:hintAnimationEnabled="true"
-        app:hintEnabled="true"
-        app:hintTextColor="@color/colorSecundary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectImgPetrecere"
-        app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintWidth_percent="0.7">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/petrecereT"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:textColorHint="#fff"
-            android:textCursorDrawable="@drawable/color_cursor" />
+            android:layout_height="wrap_content">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Informatii generale*"
+                android:textColor="#000"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@+id/selectImgPetrecere"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/petrecereData"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:hint="Data petrecerii"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/textHint"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:boxStrokeWidth="2dp"
-        app:boxStrokeWidthFocused="2dp"
-        app:counterEnabled="false"
-        app:endIconMode="none"
-        app:errorEnabled="false"
-        app:helperTextEnabled="false"
-        app:hintAnimationEnabled="true"
-        app:hintEnabled="true"
-        app:hintTextColor="@color/colorSecundary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/petrecereTitle"
-        app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintWidth_percent="0.7">
+            <ImageView
+                android:id="@+id/selectImgPetrecere"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="70dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textView14"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintWidth_percent="0.9"
+                app:srcCompat="@drawable/prof_pic" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/petrecereD"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textCursorDrawable="@drawable/color_cursor" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/petrecereData"
-        app:layout_constraintVertical_bias="0.050000012"
-        app:layout_constraintWidth_percent="0.7">
-
-        <EditText
-            android:id="@+id/oraStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/textHint"
-            android:ems="10"
-            android:gravity="center_horizontal"
-            android:hint="Ora start"
-            android:inputType="textPersonName"
-            android:textColor="#000"
-            android:textColorHint="@color/textHint" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="18dp"
-                android:layout_height="1dp"
+            <TextView
+                android:id="@+id/placeHolderPetrecere"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@android:color/black" />
-        </LinearLayout>
+                android:text="Selecteaza fotografie eveniment"
+                app:layout_constraintBottom_toBottomOf="@+id/selectImgPetrecere"
+                app:layout_constraintEnd_toEndOf="@+id/selectImgPetrecere"
+                app:layout_constraintStart_toStartOf="@+id/selectImgPetrecere"
+                app:layout_constraintTop_toTopOf="@+id/selectImgPetrecere"
+                app:layout_constraintVertical_bias="0.8" />
 
-        <EditText
-            android:id="@+id/oraEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/textHint"
-            android:ems="10"
-            android:gravity="center_horizontal"
-            android:hint="Ora end"
-            android:inputType="textPersonName"
-            android:textColor="#000"
-            android:textColorHint="@color/textHint" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/selectImgPetrecere"
+                app:layout_constraintWidth_percent="0.7">
 
-    <Button
-        android:id="@+id/setLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set Location"
-        android:textColor="#fff"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.05" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/petrecereTitle"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:hint="Titlul"
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/textHint"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:boxStrokeWidth="2dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:counterEnabled="false"
+                    app:endIconDrawable="@drawable/rounded_x"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="false"
+                    app:helperTextEnabled="false"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="@color/colorSecundary">
 
-    <TextView
-        android:id="@+id/addressPlace"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="No address set"
-        android:textColor="#000"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setLocation"
-        app:layout_constraintVertical_bias="0.08"
-        app:layout_constraintWidth_percent="0.7" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/petrecereT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:textColorHint="#fff"
+                        android:textCursorDrawable="@drawable/color_cursor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/petrecereData"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_horizontal"
+                    android:hint="Data"
+                    android:textColorHint="@color/textHint"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:boxStrokeWidth="2dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:counterEnabled="false"
+                    app:endIconMode="none"
+                    app:errorEnabled="false"
+                    app:helperTextEnabled="false"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="@color/colorSecundary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/petrecereD"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textCursorDrawable="@drawable/color_cursor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/oraStart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/textHint"
+                        android:ems="10"
+                        android:gravity="center_horizontal"
+                        android:hint="Ora inceperii"
+                        android:inputType="textPersonName"
+                        android:textColor="#000"
+                        android:textColorHint="@color/textHint" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="18dp"
+                            android:layout_height="1dp"
+                            android:layout_gravity="center"
+                            android:background="@color/textHint" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/oraEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/textHint"
+                        android:ems="10"
+                        android:gravity="center_horizontal"
+                        android:hint="Ora terminarii"
+                        android:inputType="textPersonName"
+                        android:textColor="#000"
+                        android:textColorHint="@color/textHint" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/setLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Fixeaza locatia"
+                        android:textColor="#fff"
+                        app:cornerRadius="20dp" />
+
+                    <TextView
+                        android:id="@+id/addressPlace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Nicio adresa selectata"
+                        android:textSize="18sp"
+                        app:layout_constraintWidth_percent="0.7" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -106,6 +106,7 @@ public class Evenimente extends Fragment {
         for (int i = 0; i < layoutRoot.getChildCount(); i++) {
             final ConstraintLayout child = (ConstraintLayout) layoutRoot.getChildAt(i);
             final ViewPager childViewPager = (ViewPager) child.getChildAt(0);
+            final ConstraintLayout childOfHeader = (ConstraintLayout) child.getChildAt(2);
 
 
 //            WormDotsIndicator dotsIndicator = (WormDotsIndicator) child.getChildAt(2);
@@ -118,9 +119,9 @@ public class Evenimente extends Fragment {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     if(position != 0)
-                        child.getChildAt(1).setVisibility(View.INVISIBLE);
+                        childOfHeader.getChildAt(0).setVisibility(View.INVISIBLE);
                     else
-                        child.getChildAt(1).setVisibility(View.VISIBLE);
+                        childOfHeader.getChildAt(0).setVisibility(View.VISIBLE);
                 }
 
                 @Override
@@ -198,8 +199,9 @@ public class Evenimente extends Fragment {
         for (int i = 0; i < layoutRoot.getChildCount(); i++) {
             final int finalI = i;
             final ConstraintLayout child = (ConstraintLayout) layoutRoot.getChildAt(i);
+            final ConstraintLayout childOfHeader = (ConstraintLayout) child.getChildAt(2);
 
-            child.getChildAt(1).setOnClickListener(new View.OnClickListener() {
+            childOfHeader.getChildAt(0).setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("ClickableViewAccessibility")
                 @Override
                 public void onClick(View v) {
@@ -227,7 +229,7 @@ public class Evenimente extends Fragment {
         rootSelector = view.findViewById(R.id.rootSelector);
         layoutRoot = view.findViewById(R.id.layoutsRoot);
         petreceriForm = view.findViewById(R.id.petreceriForm);
-        dotsIndicatorPetreceri = view.findViewById(R.id.dotIndicator);
+        dotsIndicatorPetreceri = view.findViewById(R.id.dotIndicatorP);
         addP = view.findViewById(R.id.addP);
     }
 

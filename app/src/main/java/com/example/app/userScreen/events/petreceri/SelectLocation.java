@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.inputmethod.EditorInfoCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -57,7 +58,6 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
     private static final int REQUEST_CODE = 101;
     private Button done;
     private static double lng = 0, lat = 0;
-    private static boolean visited = false;
     private GoogleMap map;
     private static String address;
     private EditText searchLocation;
@@ -66,11 +66,13 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
     private LinearLayout completeResults;
     private ArrayAdapter arrayAdapter;
     private Pairs<String,LatLng> addressesList = new Pairs<>();
+    private Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_location);
+        extras = getIntent().getExtras();
         done = findViewById(R.id.done);
         completeResults = findViewById(R.id.completeResults);
         root = findViewById(R.id.root);
@@ -181,7 +183,6 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
                     public void onClick(View v) {
                         lat = map.getCameraPosition().target.latitude;
                         lng = map.getCameraPosition().target.longitude;
-                        visited = true;
                         Geocoder geocoder = new Geocoder(SelectLocation.this, Locale.getDefault());
                         try {
                             List<Address> addresses = geocoder.getFromLocation(lat,lng,1);
@@ -189,7 +190,11 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        PetreceriPage1.updateValue();
+                        switch (extras.getInt("redirectedPage")){
+                            case 1:
+                                PetreceriPage1.updateValue();
+                                break;
+                        }
                         onBackPressed();
                     }
                 });
@@ -232,10 +237,6 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
 
     public static double getLng() {
         return lng;
-    }
-
-    public static boolean getVisited(){
-        return visited;
     }
 
     public static String getAddress() {
