@@ -106,7 +106,7 @@ public class Evenimente extends Fragment {
         for (int i = 0; i < layoutRoot.getChildCount(); i++) {
             final ConstraintLayout child = (ConstraintLayout) layoutRoot.getChildAt(i);
             final ViewPager childViewPager = (ViewPager) child.getChildAt(0);
-            final ConstraintLayout childOfHeader = (ConstraintLayout) child.getChildAt(2);
+            final ConstraintLayout childOfHeader = (ConstraintLayout) child.getChildAt(3);
 
 
 //            WormDotsIndicator dotsIndicator = (WormDotsIndicator) child.getChildAt(2);
@@ -127,15 +127,13 @@ public class Evenimente extends Fragment {
                 @Override
                 public void onPageSelected(int position) {
                     if(position == (MainScreen.getViewPagerCountPage(finalI) - 1))
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                addP.setVisibility(View.VISIBLE);
-                                addP.startAnimation(popin);
-                            }
-                        },3000);
+                    {
+                        child.getChildAt(2).setVisibility(View.VISIBLE);
+                    }
                     else
-                        addP.setVisibility(View.INVISIBLE);
+                    {
+                        child.getChildAt(2).setVisibility(View.INVISIBLE);
+                    }
                 }
 
                 @Override
@@ -200,7 +198,7 @@ public class Evenimente extends Fragment {
         for (int i = 0; i < layoutRoot.getChildCount(); i++) {
             final int finalI = i;
             final ConstraintLayout child = (ConstraintLayout) layoutRoot.getChildAt(i);
-            final ConstraintLayout childOfHeader = (ConstraintLayout) child.getChildAt(2);
+            final ConstraintLayout childOfHeader = (ConstraintLayout) child.getChildAt(3);
 
             childOfHeader.getChildAt(0).setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("ClickableViewAccessibility")

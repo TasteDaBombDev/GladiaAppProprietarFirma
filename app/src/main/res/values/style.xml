@@ -9,8 +9,9 @@
 <!--        <item name="android:windowFullscreen">true</item>-->
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowSwipeToDismiss">false</item>
-        <item name="android:statusBarColor">@color/textHint</item>
-<!--        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>-->
+        <item name="android:statusBarColor">#f1f1f1</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">

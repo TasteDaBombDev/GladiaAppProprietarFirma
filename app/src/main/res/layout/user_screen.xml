@@ -27,11 +27,12 @@
         android:pointerIcon="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:tabIconTint="@color/icon_colors_for_tabs"
-        app:tabIndicatorColor="@color/orange"
+        app:tabIndicator="@drawable/circle"
         app:tabRippleColor="@color/icon_colors_ripple">
 
         <com.google.android.material.tabs.TabItem
