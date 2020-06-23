@@ -35,105 +35,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView17"
-                app:layout_constraintVertical_bias="0.1"
-                app:layout_constraintWidth_percent="0.85">
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/vedetaPic"
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
-                        android:layout_weight="1"
-                        android:adjustViewBounds="true"
-                        android:cropToPadding="false"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
-                        app:srcCompat="@drawable/nopic_round" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:hint="Numele artistului"
-                        android:textColorHint="@color/textHint"
-                        app:boxCornerRadiusBottomStart="0dp"
-                        app:boxStrokeColor="@color/colorPrimary"
-                        app:boxStrokeWidth="2dp"
-                        app:boxStrokeWidthFocused="2dp"
-                        app:counterEnabled="false"
-                        app:endIconDrawable="@drawable/rounded_x"
-                        app:endIconMode="clear_text"
-                        app:errorEnabled="false"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/vedetaPic"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.17">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/vedetaName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <EditText
-                        android:id="@+id/tip"
-                        android:layout_width="120dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/tip_artist_background"
-                        android:backgroundTint="@color/focused_edit_text"
-                        android:ems="10"
-                        android:gravity="center"
-                        android:hint="Tip artist"
-                        android:inputType="textPersonName"
-                        android:textColor="#000"
-                        android:textColorHint="@color/textHint"
-                        android:textSize="10sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-
             <TextView
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="47dp"
                 android:text="Consumatie"
                 android:textColor="#000"
                 android:textSize="36sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-                app:layout_constraintVertical_bias="0.15" />
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
             <LinearLayout
                 android:id="@+id/linearLayout5"

@@ -22,8 +22,6 @@ public class PetreceriPage4 extends Fragment {
     private static PetreceriPage4 INSTANCE = null;
     private static Button mancare, bautura, bilet;
     private static boolean mancareB = false, bauturaB = false, biletB = false;
-    private TextInputLayout tinutaLayout, descriereLayout;
-    private static TextInputEditText tinuta, descriere;
     private static EditText biletPret, mancarePret, bauturaPret;
     private View view;
 
@@ -51,7 +49,6 @@ public class PetreceriPage4 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.petreceri_page4, container, false);
         init();
-        focusListener();
 
         mancarePret.setEnabled(false);
         bauturaPret.setEnabled(false);
@@ -112,39 +109,7 @@ public class PetreceriPage4 extends Fragment {
     }
 
 
-    private void focusListener(){
-        tinuta.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                {
-                    tinutaLayout.setCounterEnabled(true);
-                    tinutaLayout.setCounterMaxLength(100);
-                }
-                else
-                {
-                    tinutaLayout.setCounterEnabled(false);
-                    tinutaLayout.setCounterMaxLength(0);
-                }
-            }
-        });
 
-        descriere.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                {
-                    descriereLayout.setCounterEnabled(true);
-                    descriereLayout.setCounterMaxLength(500);
-                }
-                else
-                {
-                    descriereLayout.setCounterEnabled(false);
-                    descriereLayout.setCounterMaxLength(0);
-                }
-            }
-        });
-    }
 
     private void init(){
         bautura = view.findViewById(R.id.bautura);
@@ -154,20 +119,6 @@ public class PetreceriPage4 extends Fragment {
         mancarePret = view.findViewById(R.id.mancarePret);
         bauturaPret = view.findViewById(R.id.bauturaPret);
         biletPret = view.findViewById(R.id.biletPret);
-
-        tinutaLayout = view.findViewById(R.id.tinutaLayout);
-        tinuta = view.findViewById(R.id.tinuta);
-
-        descriereLayout = view.findViewById(R.id.descriereLayout);
-        descriere = view.findViewById(R.id.descriere);
-    }
-
-    public static String getDescriere(){
-        return descriere.getText().toString();
-    }
-
-    public static String getTinuta(){
-        return tinuta.getText().toString();
     }
 
     public static int getMancare(){
@@ -207,8 +158,6 @@ public class PetreceriPage4 extends Fragment {
     }
 
     public static void reset(){
-        descriere.setText("");
-        tinuta.setText("");
         bauturaPret.setText("");
         bauturaB = false;
         mancareB = false;

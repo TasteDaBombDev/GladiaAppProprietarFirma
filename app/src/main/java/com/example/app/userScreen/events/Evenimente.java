@@ -126,15 +126,16 @@ public class Evenimente extends Fragment {
 
                 @Override
                 public void onPageSelected(int position) {
-                    if(position == (MainScreen.getViewPagerCountPage(finalI) - 1) && !hasAppeared[finalI])
+                    if(position == (MainScreen.getViewPagerCountPage(finalI) - 1))
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 addP.setVisibility(View.VISIBLE);
                                 addP.startAnimation(popin);
-                                hasAppeared[finalI] = true;
                             }
                         },3000);
+                    else
+                        addP.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
@@ -314,8 +315,8 @@ public class Evenimente extends Fragment {
                         params.put("pozaArtist",PetreceriPage2.getVedetaPic());
                         params.put("numeArtist",PetreceriPage2.getVedetaName());
                         params.put("genuriMuzicale", PetreceriPage3.getGenuri());
-                        params.put("descriere", PetreceriPage4.getDescriere());
-                        params.put("tinuta",PetreceriPage4.getTinuta());
+                        params.put("descriere", PetreceriPage2.getDescriere());
+                        params.put("tinuta",PetreceriPage2.getTinuta());
                         params.put("mancare", String.valueOf(PetreceriPage4.getMancare()));
                         params.put("pretMancare",PetreceriPage4.getMancarePret());
                         params.put("bautura", String.valueOf(PetreceriPage4.getBautura()));

@@ -46,6 +46,8 @@ public class PetreceriPage2 extends Fragment {
     private static Bitmap bitmap;
     private static TextInputLayout tematicaLayout, vedetaNameLayout, tipLayout;
     private static TextInputEditText tematica, vedetaName;
+    private TextInputLayout tinutaLayout, descriereLayout;
+    private static TextInputEditText tinuta, descriere;
     private EditText tip;
     private View view;
 
@@ -161,6 +163,12 @@ public class PetreceriPage2 extends Fragment {
         tematica = view.findViewById(R.id.tematica);
 
         tip = view.findViewById(R.id.tip);
+
+        tinutaLayout = view.findViewById(R.id.tinutaLayout);
+        tinuta = view.findViewById(R.id.tinuta);
+
+        descriereLayout = view.findViewById(R.id.descriereLayout);
+        descriere = view.findViewById(R.id.descriere);
     }
 
     private void focusListener(){
@@ -176,6 +184,38 @@ public class PetreceriPage2 extends Fragment {
                 {
                     tematicaLayout.setCounterEnabled(false);
                     tematicaLayout.setCounterMaxLength(0);
+                }
+            }
+        });
+
+        tinuta.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    tinutaLayout.setCounterEnabled(true);
+                    tinutaLayout.setCounterMaxLength(100);
+                }
+                else
+                {
+                    tinutaLayout.setCounterEnabled(false);
+                    tinutaLayout.setCounterMaxLength(0);
+                }
+            }
+        });
+
+        descriere.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    descriereLayout.setCounterEnabled(true);
+                    descriereLayout.setCounterMaxLength(500);
+                }
+                else
+                {
+                    descriereLayout.setCounterEnabled(false);
+                    descriereLayout.setCounterMaxLength(0);
                 }
             }
         });
@@ -211,12 +251,22 @@ public class PetreceriPage2 extends Fragment {
         return vedetaName.getText().toString();
     }
 
+    public static String getDescriere(){
+        return descriere.getText().toString();
+    }
+
+    public static String getTinuta(){
+        return tinuta.getText().toString();
+    }
+
     public static String getVedetaPic() {
         String data = imgToString(bitmap);
         return data;
     }
 
     public static void reset(){
+        descriere.setText("");
+        tinuta.setText("");
         tematica.setText("");
         vedetaName.setText("");
         vedetaPic.setImageResource(R.drawable.nopic_round);
