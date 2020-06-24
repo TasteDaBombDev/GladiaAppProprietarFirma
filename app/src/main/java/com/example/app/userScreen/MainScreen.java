@@ -17,7 +17,7 @@ public class MainScreen extends AppCompatActivity {
     private static ViewPager viewPager;
     private TabLayout tabLayout;
 
-    private static int[] viewPagersPages = {4,0,0,0,0,0};
+    private static int[] viewPagersPages = {5,0,0,0,0,0};
 
     private static int userID, afaceri, events, friends;
     private static boolean tutorial;
