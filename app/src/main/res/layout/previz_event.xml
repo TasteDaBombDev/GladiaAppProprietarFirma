@@ -98,8 +98,8 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/aggro_zone"
                     android:gravity="center"
+                    android:hint="Data eveniment"
                     android:inputType="textPersonName"
-                    android:text="Data"
                     android:textColor="#000"
                     android:textSize="20dp" />
 
@@ -214,8 +214,8 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/aggro_zone"
                             android:gravity="center"
+                            android:hint="Tematica"
                             android:inputType="textPersonName"
-                            android:text="Disco"
                             android:textColor="#000"
                             android:textSize="20dp" />
                     </LinearLayout>
@@ -265,8 +265,8 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/aggro_zone"
                             android:gravity="center"
+                            android:hint="Numele Artistului"
                             android:inputType="textPersonName"
-                            android:text="Nume"
                             android:textColor="#000"
                             android:textSize="20dp" />
                     </LinearLayout>
@@ -317,8 +317,8 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/aggro_zone"
                             android:gravity="center"
+                            android:hint="Muzica"
                             android:inputType="textPersonName"
-                            android:text="Muzica"
                             android:textColor="#000"
                             android:textSize="20dp" />
                     </LinearLayout>
@@ -368,8 +368,8 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/aggro_zone"
                             android:gravity="center"
+                            android:hint="Descriere eveniment"
                             android:inputType="textPersonName"
-                            android:text="Descriere"
                             android:textColor="#000"
                             android:textSize="20dp" />
 
@@ -420,8 +420,8 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/aggro_zone"
                             android:gravity="center"
+                            android:hint="Tinuta event"
                             android:inputType="textPersonName"
-                            android:text="Tinuta"
                             android:textColor="#000"
                             android:textSize="20dp" />
                     </LinearLayout>
@@ -472,8 +472,8 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/aggro_zone"
                             android:gravity="center"
-                            android:inputType="textPersonName"
-                            android:text="PretMancare"
+                            android:hint="Pret mancare"
+                            android:inputType="number"
                             android:textColor="#000"
                             android:textSize="20dp" />
 
@@ -524,8 +524,8 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/aggro_zone"
                             android:gravity="center"
+                            android:hint="Pret bautura"
                             android:inputType="textPersonName"
-                            android:text="pretBautura"
                             android:textColor="#000"
                             android:textSize="20dp" />
                     </LinearLayout>
@@ -575,6 +575,7 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/aggro_zone"
                             android:gravity="center"
+                            android:hint="Pret bilet"
                             android:inputType="textPersonName"
                             android:text="pretBilet"
                             android:textColor="#000"
