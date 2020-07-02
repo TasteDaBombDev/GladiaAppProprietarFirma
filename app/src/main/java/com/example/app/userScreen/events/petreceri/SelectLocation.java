@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app.R;
+import com.example.app.userScreen.PrevizEvent;
 import com.example.app.utils.Pairs;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -59,7 +60,7 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
     private Button done;
     private static double lng = 0, lat = 0;
     private GoogleMap map;
-    private static String address;
+    private static String address = "";
     private EditText searchLocation;
     private ListView addressList;
     private ConstraintLayout root;
@@ -151,15 +152,18 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(currentLocation == null) {
-                    LatLng loc = new LatLng(0.0f,0.0f);
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,4));
-                } else {
-                    LatLng loc = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,14));
-                }
+               if(address.equals(""))
+                   if(currentLocation == null) {
+                       LatLng loc = new LatLng(0.0f,0.0f);
+                       googleMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
+                       googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,4));
+                   } else {
+                       LatLng loc = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+                       googleMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
+                       googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,14));
+                   }
+               else
+                   geolocateAdress(address);
 
                 searchLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
@@ -193,6 +197,9 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
                         switch (extras.getInt("redirectedPage")){
                             case 1:
                                 PetreceriPage1.updateValue();
+                                break;
+                            case -1:
+                                PrevizEvent.setAdr(address);
                                 break;
                         }
                         onBackPressed();
@@ -231,6 +238,21 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
         }
     }
 
+    private void geolocateAdress(String adr){
+        Geocoder geocoder = new Geocoder(SelectLocation.this);
+
+        List<Address> list = new ArrayList<>();
+        try {
+            list = geocoder.getFromLocationName(adr, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        LatLng loc = new LatLng(list.get(0).getLatitude(), list.get(0).getLongitude());
+        map.animateCamera(CameraUpdateFactory.newLatLng(loc));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,14));
+
+    }
+
     public static double getLat() {
         return lat;
     }
@@ -241,5 +263,9 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
 
     public static String getAddress() {
         return address;
+    }
+
+    public static void setAddress(String address) {
+        SelectLocation.address = address;
     }
 }
