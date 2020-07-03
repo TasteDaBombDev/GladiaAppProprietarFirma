@@ -5,18 +5,23 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,12 +34,16 @@ import com.android.volley.toolbox.Volley;
 import com.example.app.R;
 import com.example.app.userScreen.events.petreceri.SelectLocation;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import jp.wasabeef.picasso.transformations.MaskTransformation;
 
 import static android.view.View.GONE;
 
@@ -43,11 +52,11 @@ public class PrevizEvent extends AppCompatActivity {
     private static ProgressDialog loading;
     private int ID;
     private String imgPath, title;
-    private ImageView profPic;
+    private ImageView profPic, artistPic;
     private static EditText titleTV,adresa, dataXml, oraStartXml, oraEndXml, tematicaXml, numeArtistXml, genuriMuzicaleXml, descriereXml, tinutaXml, pretMancareXml, pretBauturaXml, pretBiletXml;
     private ImageButton back, butonEditat;
 
-    private String data, oraStart, oraEnd, tematica, pozaArtist, numeArtist, genuriMuzicale, descriere, tinuta;
+    private String data, oraStart, oraEnd, tematica, pozaArtist, numeArtist, genuriMuzicale, descriere, tinuta, adr;
     private int mancare, bautura;
     private double pretMancare, pretBautura, pretBilet;
     private boolean editmode = false;
@@ -60,6 +69,7 @@ public class PrevizEvent extends AppCompatActivity {
         setContentView(R.layout.previz_event);
         init();
 
+        timePikers();
         disable_content();
         adresa.setFocusable(false);
         adresa.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +105,7 @@ public class PrevizEvent extends AppCompatActivity {
                     butonEditat.setImageResource(R.drawable.ic_check_black_24dp);
                     editmode = true;
                 }else{
+//                    sendDataToServer();
                     disable_content();
                     butonEditat.setImageResource(R.drawable.ic_edit_black_24dp);
                     editmode = false;
@@ -109,7 +120,7 @@ public class PrevizEvent extends AppCompatActivity {
     }
 
     private void setImageRounded(int radius){
-        Bitmap bitmap = ((BitmapDrawable)profPic.getDrawable()).getBitmap();
+        Bitmap bitmap = ((BitmapDrawable)artistPic.getDrawable()).getBitmap();
         RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(),bitmap);
         roundedBitmapDrawable.setCornerRadius(radius);
         profPic.setImageDrawable(roundedBitmapDrawable);
@@ -122,6 +133,12 @@ public class PrevizEvent extends AppCompatActivity {
         loading.show();
     }
 
+    private void createSendingDialog(){
+        loading.setCancelable(false);
+        loading.setTitle("Registering changes");
+        loading.setMessage("We are keeping your event...");
+        loading.show();
+    }
 
     private void init(){
         profPic = findViewById(R.id.profPic);
@@ -139,40 +156,36 @@ public class PrevizEvent extends AppCompatActivity {
         pretMancareXml = findViewById(R.id.pretMancareXml);
         pretBauturaXml = findViewById(R.id. pretBauturaXml);
         pretBiletXml = findViewById(R.id.pretBiletXml);
+        artistPic = findViewById(R.id.artistPic);
     }
 
     private void disable_content(){
         LinearLayout root = findViewById(R.id.root);
-        for (int i = 1; i < 7; i += 2) {
-            if(i == 7){
-                LinearLayout l = findViewById(R.id.hour);
-                l.getChildAt(0).setEnabled(false);
-                l.getChildAt(1).setEnabled(false);
+        for (int i = 1; i < root.getChildCount(); i++) {
+            ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
+            c.getChildAt(2).setBackgroundResource(R.drawable.aggro_zone);
+            c.getChildAt(2).setEnabled(false);
+            if(i == 2) {
+                c.getChildAt(3).setBackgroundResource(R.drawable.aggro_zone);
+                c.getChildAt(3).setEnabled(false);
+                c.getChildAt(4).setBackgroundResource(R.drawable.aggro_zone);
+                c.getChildAt(4).setEnabled(false);
             }
-            root.getChildAt(i).setEnabled(false);
-        }
-        for (int i = 8; i < root.getChildCount(); i++) {
-            ConstraintLayout child = (ConstraintLayout) root.getChildAt(i);
-            LinearLayout ll = (LinearLayout) child.getChildAt(1);
-            ll.getChildAt(1).setEnabled(false);
-
         }
     }
 
     private void enable_content(){
         LinearLayout root = findViewById(R.id.root);
-        for (int i = 1; i < 7; i += 2) {
-            if(i == 7){
-                LinearLayout l = findViewById(R.id.hour);
-                l.getChildAt(0).setEnabled(true);
-                l.getChildAt(1).setEnabled(true);
+        for (int i = 1; i < root.getChildCount(); i++) {
+            ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
+            c.getChildAt(2).setBackgroundResource(R.drawable.edit_text_shape);
+            c.getChildAt(2).setEnabled(true);
+            if(i == 2) {
+                c.getChildAt(3).setBackgroundResource(R.drawable.edit_text_shape);
+                c.getChildAt(3).setEnabled(true);
+                c.getChildAt(4).setBackgroundResource(R.drawable.edit_text_shape);
+                c.getChildAt(4).setEnabled(true);
             }
-            root.getChildAt(i).setEnabled(true);
-        }
-        for (int i = 8; i < root.getChildCount(); i++) {
-            ConstraintLayout child = (ConstraintLayout) root.getChildAt(i);
-            LinearLayout ll = (LinearLayout) child.getChildAt(1);
-            ll.getChildAt(1).setEnabled(true);
         }
     }
 
@@ -183,19 +196,18 @@ public class PrevizEvent extends AppCompatActivity {
     private void display(){
         LinearLayout root = findViewById(R.id.root);
         if(editmode)
-            for (int i = 8; i < root.getChildCount(); i++) {
+            for (int i = 3; i < root.getChildCount(); i++) {
                 ConstraintLayout child = (ConstraintLayout) root.getChildAt(i);
                 child.setVisibility(View.VISIBLE);
                 CheckBox ck = (CheckBox) child.getChildAt(0);
                 ck.setVisibility(View.VISIBLE);
             }
         else
-            for (int i = 8; i < root.getChildCount(); i++) {
+            for (int i = 3; i < root.getChildCount(); i++) {
                 ConstraintLayout child = (ConstraintLayout) root.getChildAt(i);
                 CheckBox ck = (CheckBox) child.getChildAt(0);
-                ck.setVisibility(GONE);
-                LinearLayout ll = (LinearLayout) child.getChildAt(1);
-                EditText t = (EditText) ll.getChildAt(1);
+                ck.setVisibility(View.INVISIBLE);
+                EditText t = (EditText) child.getChildAt(2);
                 if(String.valueOf(t.getText()).length() == 0)
                     child.setVisibility(GONE);
             }
@@ -219,7 +231,7 @@ public class PrevizEvent extends AppCompatActivity {
                     oraStart = jsonObject.getString("oraStart");
                     oraEnd = jsonObject.getString("oraEnd");
                     tematica = jsonObject.getString("tematica");
-                    pozaArtist = jsonObject.getString("pozaArtist"); //trebuie adaugata
+                    pozaArtist = jsonObject.getString("pozaArtist");
                     numeArtist = jsonObject.getString("numeArtist");
                     genuriMuzicale = jsonObject.getString("genuriMuzicale");
                     descriere = jsonObject.getString("descriere");
@@ -229,38 +241,42 @@ public class PrevizEvent extends AppCompatActivity {
                     if(mancare == 1)
                         pretMancareXml.setText(String.valueOf(jsonObject.getDouble("pretMancare")));
                     else
-                        root.getChildAt(13).setVisibility(GONE);
+                        root.getChildAt(8).setVisibility(GONE);
 
                     bautura = jsonObject.getInt("bautura");
                     if(bautura == 1)
                         pretBauturaXml.setText(String.valueOf(jsonObject.getDouble("pretBautura")));
                     else
-                        root.getChildAt(14).setVisibility(GONE);
+                        root.getChildAt(9).setVisibility(GONE);
 
                     if(pretBilet != 0.0)
                         pretBiletXml.setText(String.valueOf(jsonObject.getDouble("pretBilet")));
                     else
-                        root.getChildAt(15).setVisibility(GONE);
+                        root.getChildAt(10).setVisibility(GONE);
 
                     titleTV.setText(title);
                     Picasso.get().load(imgPath).into(profPic);
-                    setImageRounded(40);
+
                     adresa.setText(jsonObject.getString("adresa"));
+                    adr = adresa.getText().toString().trim();
 
                     dataXml.setText(data);
-                    oraStartXml.setText(oraStart);
+                    oraStartXml.setText(oraStart + "  -");
                     oraEndXml.setText(oraEnd);
 
                     if(tematica.length() != 0)
                         tematicaXml.setText(tematica);
                     else
-                        root.getChildAt(8).setVisibility(GONE);
+                        root.getChildAt(3).setVisibility(GONE);
 
 
                     if(numeArtist.length() != 0)
                         numeArtistXml.setText(numeArtist);
                     else
-                        root.getChildAt(9).setVisibility(GONE);
+                        root.getChildAt(4).setVisibility(GONE);
+
+                    final Transformation transformation = new MaskTransformation(getApplicationContext(), R.drawable.circle);
+                    Picasso.get().load(pozaArtist).transform(transformation).into(artistPic);
 
 
                     genuriMuzicale = genuriMuzicale.replace("#",", ");
@@ -270,13 +286,13 @@ public class PrevizEvent extends AppCompatActivity {
                     if(descriere.length() != 0)
                         descriereXml.setText(descriere);
                     else
-                        root.getChildAt(11).setVisibility(GONE);
+                        root.getChildAt(6).setVisibility(GONE);
 
 
                     if(tinuta.length() != 0)
                         tinutaXml.setText(tinuta);
                     else
-                        root.getChildAt(12).setVisibility(GONE);
+                        root.getChildAt(7).setVisibility(GONE);
 
 
 
@@ -305,5 +321,126 @@ public class PrevizEvent extends AppCompatActivity {
         };
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(stringRequest);
+    }
+
+    private void sendDataToServer(){
+        String urlUpload = "http://gladiaholdings.com/PHP/updateEventPetreceri.php";
+
+        StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Toast.makeText(PrevizEvent.this, jsonObject.getString("mesaj"), Toast.LENGTH_SHORT).show();
+
+                    loading.dismiss();
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Check your internet connection and try again.", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
+                onBackPressed();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                LinearLayout root = findViewById(R.id.root);
+
+                params.put("no",root.getChildCount() + "");
+                for (int i = 1; i < root.getChildCount(); i++) {
+                    ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
+                    EditText e = (EditText) c.getChildAt(2);
+                    params.put("val_" + i, e.getText().toString().trim());
+                }
+                params.put("x",String.valueOf(SelectLocation.getLat()));
+                params.put("y",String.valueOf(SelectLocation.getLng()));
+                return params;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(stringRequest);
+        createSendingDialog();
+    }
+
+    private void timePikers(){
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        final int minute = calendar.get(Calendar.MINUTE);
+
+        dataXml.setFocusable(false);
+        dataXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(PrevizEvent.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        String mnt = "" + (month + 1), dy = "" + day;
+                        if((month + 1) < 10)
+                            mnt = "0" + (month + 1);
+                        if(day < 10)
+                            dy = "0" + day;
+                        String date = dy + "/" + mnt + "/" + year;
+                        dataXml.setText(date);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
+
+        oraStartXml.setFocusable(false);
+        oraStartXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editmode) {
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(PrevizEvent.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            String min = String.valueOf(minute);
+                            String h = String.valueOf(hourOfDay);
+                            if(hourOfDay < 10)
+                                h = "0" + h;
+                            if(minute < 10)
+                                min = "0" + min;
+                            String time = h + ":" + min + "  -";
+                            oraStartXml.setText(time);
+                        }
+                    }, hour, minute, android.text.format.DateFormat.is24HourFormat(getApplicationContext()));
+                    timePickerDialog.show();
+                }
+            }
+        });
+
+        oraEndXml.setFocusable(false);
+        oraEndXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editmode) {
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(PrevizEvent.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            String min = String.valueOf(minute);
+                            String h = String.valueOf(hourOfDay);
+                            if(hourOfDay < 10)
+                                h = "0" + h;
+                            if(minute < 10)
+                                min = "0" + min;
+                            String time = h + ":" + min;
+                            oraEndXml.setText(time);
+                        }
+                    }, hour, minute, android.text.format.DateFormat.is24HourFormat(getApplicationContext()));
+                    timePickerDialog.show();
+                }
+            }
+        });
     }
 }

@@ -215,7 +215,12 @@ public class PetreceriPage1 extends Fragment {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        String date = String.valueOf(day) + "/" + String.valueOf(month + 1) + "/" + year;
+                        String mnt = "" + (month + 1), dy = "" + day;
+                        if((month + 1) < 10)
+                            mnt = "0" + (month + 1);
+                        if(day < 10)
+                            dy = "0" + day;
+                        String date = dy + "/" + mnt + "/" + year;
                         data.setText(date);
                     }
                 },year,month,day);
@@ -232,6 +237,10 @@ public class PetreceriPage1 extends Fragment {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String min = String.valueOf(minute);
                         String h = String.valueOf(hourOfDay);
+                        if(hourOfDay < 10)
+                            h = "0" + h;
+                        if(minute < 10)
+                            min = "0" + min;
                         String time = h + ":" + min;
                         oraStart.setText(time);
                     }
@@ -249,6 +258,10 @@ public class PetreceriPage1 extends Fragment {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String min = String.valueOf(minute);
                         String h = String.valueOf(hourOfDay);
+                        if(hourOfDay < 10)
+                            h = "0" + h;
+                        if(minute < 10)
+                            min = "0" + min;
                         String time = h + ":" + min;
                         oraEnd.setText(time);
                     }
