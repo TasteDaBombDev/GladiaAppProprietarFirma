@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context=".userScreen.PrevizEvent">
+    tools:context=".userScreen.previzEvent.PrevizEvent">
 
     <ImageView
         android:id="@+id/profPic"
@@ -585,7 +585,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.03"
-                        app:srcCompat="@drawable/ic_room_service_black_24dp" />
+                        app:srcCompat="@drawable/ic_restaurant_black_24dp" />
 
                     <EditText
                         android:id="@+id/pretMancareXml"
@@ -751,36 +751,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <ImageButton
-        android:id="@+id/back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/circle"
-        android:backgroundTint="@color/colorPrimary"
-        android:tint="#fff"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04"
-        app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp" />
-
-    <ImageButton
-        android:id="@+id/butonEditat"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/circle"
-        android:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.98"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        app:srcCompat="@drawable/ic_edit_black_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

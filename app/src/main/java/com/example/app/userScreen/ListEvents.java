@@ -3,29 +3,21 @@ package com.example.app.userScreen;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -39,8 +31,9 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.app.R;
+import com.example.app.userScreen.previzEvent.PrevizEvent;
+import com.example.app.userScreen.previzEvent.PrevizEventMain;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,8 +41,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import jp.wasabeef.picasso.transformations.MaskTransformation;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -63,7 +54,8 @@ public class ListEvents extends Fragment {
     private static ArrayList<String> names = new ArrayList<>();
     private static ArrayList<String> paths = new ArrayList<>();
     private static ArrayList<Integer> ids = new ArrayList<>();
-
+    private static ArrayList<String> dates = new ArrayList<>();
+    private static ArrayList<String> hours = new ArrayList<>();
 
     public ListEvents(){
     }
@@ -108,6 +100,7 @@ public class ListEvents extends Fragment {
         };
 
         eventsListing.setMenuCreator(creator);
+        eventsListing.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
         eventsListing.smoothCloseMenu();
         eventsListing.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
 
@@ -125,7 +118,7 @@ public class ListEvents extends Fragment {
         eventsListing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(),PrevizEvent.class);
+                Intent intent = new Intent(getContext(), PrevizEventMain.class);
                 intent.putExtra("ID",ids.get(position));
                 startActivity(intent);
             }
@@ -149,14 +142,18 @@ public class ListEvents extends Fragment {
         Context context;
         ArrayList<String> names;
         ArrayList<String> paths;
-        TextView name;
+        ArrayList<String> dates;
+        ArrayList<String> hours;
+        TextView name, date, hour;
         ImageView image;
 
-        Adapter(Context c, ArrayList<String> names, ArrayList<String> paths){
+        Adapter(Context c, ArrayList<String> names, ArrayList<String> paths, ArrayList<String> dates, ArrayList<String> hours){
             super(c, R.layout.event_item,R.id.eventName, names);
             this.context = c;
             this.names = names;
             this.paths = paths;
+            this.dates = dates;
+            this.hours = hours;
         }
 
         @NonNull
@@ -166,9 +163,15 @@ public class ListEvents extends Fragment {
             @SuppressLint("ViewHolder") View item = layoutInflater.inflate(R.layout.event_item,parent,false);
             name = item.findViewById(R.id.eventName);
             image = item.findViewById(R.id.eventPic);
+            hour = item.findViewById(R.id.eventOra);
+            date = item.findViewById(R.id.eventDate);
+
             name.setText(names.get(position));
 
             Picasso.get().load(paths.get(position)).into(image);
+
+            hour.setText(hours.get(position));
+            date.setText(dates.get(position));
 
             return item;
         }
@@ -183,18 +186,26 @@ public class ListEvents extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if(jsonObject.getBoolean("existance")){
-                        for (int i = 0; i < (jsonObject.length() / 3); i++) {
+                        for (int i = 0; i < (jsonObject.length() / 5); i++) {
                             ids.add(jsonObject.getInt("id" + i));
                             names.add(jsonObject.getString("nume" + i));
                             paths.add(jsonObject.getString("poza" + i));
+                            dates.add(jsonObject.getString("date" + i));
+                            hours.add(jsonObject.getString("hours" + i));
                         }
                     }
+//                    for (int i = 0; i < 20; i++) {
+//                        names.add("Rares Party");
+//                        paths.add("https://storage0.dms.mpinteractiv.ro/media/2/1381/15866/7152132/11/party-covermic.jpg");
+//                        dates.add("12/10/2020");
+//                        hours.add("12:12 - 12:13");
+//                    }
                     if (!firstTime)
                         adapter = null;
-                    adapter = new Adapter(getContext(), names, paths);
+                    adapter = new Adapter(getContext(), names, paths, dates, hours);
                     eventsListing.setAdapter(adapter);
                 } catch (JSONException e) {
-                    Toast.makeText(getContext(), "Error loading your events", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error loading your events" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
             }
@@ -250,6 +261,14 @@ public class ListEvents extends Fragment {
         queue.add(stringRequest);
     }
 
+    public static void addDates(String s){
+        dates.add(0,s);
+    }
+
+    public static void addHours(String s){
+        hours.add(0,s);
+    }
+
     public static void addNames(String s){
         names.add(0,s);
     }
@@ -267,6 +286,8 @@ public class ListEvents extends Fragment {
     }
 
     private void clear(){
+        hours.clear();
+        dates.clear();
         names.clear();
         paths.clear();
         ids.clear();

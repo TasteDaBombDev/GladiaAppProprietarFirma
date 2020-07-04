@@ -1,9 +1,11 @@
-package com.example.app.userScreen;
+package com.example.app.userScreen.previzEvent;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.fragment.app.Fragment;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -12,9 +14,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,40 +39,62 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
 import com.example.app.userScreen.events.petreceri.SelectLocation;
+import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.IllegalFormatPrecisionException;
 import java.util.Map;
 
 import jp.wasabeef.picasso.transformations.MaskTransformation;
 
 import static android.view.View.GONE;
 
-public class PrevizEvent extends AppCompatActivity {
+public class PrevizEvent extends Fragment{
 
+
+    private static PrevizEvent INSTANCE = null;
+    private View view;
+    private ArrayList<String> a = new ArrayList<>();
+    
     private static ProgressDialog loading;
-    private int ID;
-    private String imgPath, title;
+    private static String imgPath, title;
     private ImageView profPic, artistPic;
     private static EditText titleTV,adresa, dataXml, oraStartXml, oraEndXml, tematicaXml, numeArtistXml, genuriMuzicaleXml, descriereXml, tinutaXml, pretMancareXml, pretBauturaXml, pretBiletXml;
-    private ImageButton back, butonEditat;
 
     private String data, oraStart, oraEnd, tematica, pozaArtist, numeArtist, genuriMuzicale, descriere, tinuta, adr;
     private int mancare, bautura;
-    private double pretMancare, pretBautura, pretBilet;
+    private static double pretMancare, pretBautura, pretBilet, lat, lng;
     private boolean editmode = false;
 
+    public PrevizEvent(){
 
+    }
+
+    public static PrevizEvent getINSTANCE(){
+        if(INSTANCE == null)
+            INSTANCE = new PrevizEvent();
+        return INSTANCE;
+    }
+
+    public static void resetINSTANCE(){
+        INSTANCE = null;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.previz_event);
+    }
+
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.previz_event,container,false);
+        
         init();
 
         timePikers();
@@ -76,7 +104,7 @@ public class PrevizEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(editmode){
-                    Intent i = new Intent(PrevizEvent.this, SelectLocation.class);
+                    Intent i = new Intent(getContext(), SelectLocation.class);
                     SelectLocation.setAddress(String.valueOf(adresa.getText()));
                     i.putExtra("redirectedPage",-1);
                     startActivity(i);
@@ -84,39 +112,85 @@ public class PrevizEvent extends AppCompatActivity {
             }
         });
 
-        loading = new ProgressDialog(PrevizEvent.this);
-        back = findViewById(R.id.back);
-        butonEditat = findViewById(R.id.butonEditat);
+        loading = new ProgressDialog(getContext());
         createDialog();
 
-        back.setOnClickListener(new View.OnClickListener() {
+        PrevizEventMain.getEdit().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        butonEditat.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if(!editmode) {
-                    enable_content();
-                    butonEditat.setImageResource(R.drawable.ic_check_black_24dp);
-                    editmode = true;
-                }else{
-//                    sendDataToServer();
-                    disable_content();
-                    butonEditat.setImageResource(R.drawable.ic_edit_black_24dp);
-                    editmode = false;
-                }
-                display();
+                edit();
             }
         });
 
 
         fetchData();
 
+        LinearLayout root = view.findViewById(R.id.root);
+        for (int i = 3; i < root.getChildCount(); i++) {
+            final ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
+            final CheckBox cb = (CheckBox) c.getChildAt(0);
+
+            cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    EditText e = (EditText) c.getChildAt(2);
+                    TextView ttv = (TextView) c.getChildAt(3);
+                    String p = ttv.getText().toString() + ": " + e.getText().toString();
+
+                    if(!e.getText().toString().equals(""))
+                        if(isChecked)
+                            a.add(p);
+                        else
+                            a.remove(p);
+                }
+            });
+
+            EditText infos = (EditText) c.getChildAt(2);
+            if(infos.getText().toString().length() == 0)
+                cb.setEnabled(false);
+            infos.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if(s.length() == 0)
+                    {
+                        cb.setEnabled(false);
+                        TextView ttv = (TextView) c.getChildAt(3);
+                        for (int j = 0; j < a.size(); j++) {
+                            if(a.get(j).contains(ttv.getText().toString()))
+                                a.remove(j);
+                        }
+                        cb.setChecked(false);
+                    }
+                        else
+                            cb.setEnabled(true);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
+
+        return view;
+    }
+
+    public void edit(){
+        if(!editmode) {
+            enable_content();
+            PrevizEventMain.getEdit().setImageResource(R.drawable.ic_check_black_24dp);
+            editmode = true;
+        }else{
+//          sendDataToServer();
+            disable_content();
+            PrevizEventMain.getEdit().setImageResource(R.drawable.ic_edit_black_24dp);
+            editmode = false;
+        }
+        display();
     }
 
     private void setImageRounded(int radius){
@@ -141,26 +215,26 @@ public class PrevizEvent extends AppCompatActivity {
     }
 
     private void init(){
-        profPic = findViewById(R.id.profPic);
-        titleTV = findViewById(R.id.title);
-        adresa = findViewById(R.id.adresa);
+        profPic = view.findViewById(R.id.profPic);
+        titleTV = view.findViewById(R.id.title);
+        adresa = view.findViewById(R.id.adresa);
 
-        dataXml = findViewById(R.id.dataXml);
-        oraStartXml = findViewById(R.id.oraStartXml);
-        oraEndXml = findViewById(R.id.oraEndXml);
-        tematicaXml = findViewById(R.id.tematicaXml);
-        numeArtistXml = findViewById(R.id.numeArtistXml);
-        genuriMuzicaleXml = findViewById(R.id.genuriMuzicaleXml);
-        descriereXml = findViewById(R.id.descriereXml);
-        tinutaXml = findViewById(R.id. tinutaXml);
-        pretMancareXml = findViewById(R.id.pretMancareXml);
-        pretBauturaXml = findViewById(R.id. pretBauturaXml);
-        pretBiletXml = findViewById(R.id.pretBiletXml);
-        artistPic = findViewById(R.id.artistPic);
+        dataXml = view.findViewById(R.id.dataXml);
+        oraStartXml = view.findViewById(R.id.oraStartXml);
+        oraEndXml = view.findViewById(R.id.oraEndXml);
+        tematicaXml = view.findViewById(R.id.tematicaXml);
+        numeArtistXml = view.findViewById(R.id.numeArtistXml);
+        genuriMuzicaleXml = view.findViewById(R.id.genuriMuzicaleXml);
+        descriereXml = view.findViewById(R.id.descriereXml);
+        tinutaXml = view.findViewById(R.id. tinutaXml);
+        pretMancareXml = view.findViewById(R.id.pretMancareXml);
+        pretBauturaXml = view.findViewById(R.id. pretBauturaXml);
+        pretBiletXml = view.findViewById(R.id.pretBiletXml);
+        artistPic = view.findViewById(R.id.artistPic);
     }
 
     private void disable_content(){
-        LinearLayout root = findViewById(R.id.root);
+        LinearLayout root = view.findViewById(R.id.root);
         for (int i = 1; i < root.getChildCount(); i++) {
             ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
             c.getChildAt(2).setBackgroundResource(R.drawable.aggro_zone);
@@ -175,7 +249,7 @@ public class PrevizEvent extends AppCompatActivity {
     }
 
     private void enable_content(){
-        LinearLayout root = findViewById(R.id.root);
+        LinearLayout root = view.findViewById(R.id.root);
         for (int i = 1; i < root.getChildCount(); i++) {
             ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
             c.getChildAt(2).setBackgroundResource(R.drawable.edit_text_shape);
@@ -194,7 +268,7 @@ public class PrevizEvent extends AppCompatActivity {
     }
 
     private void display(){
-        LinearLayout root = findViewById(R.id.root);
+        LinearLayout root = view.findViewById(R.id.root);
         if(editmode)
             for (int i = 3; i < root.getChildCount(); i++) {
                 ConstraintLayout child = (ConstraintLayout) root.getChildAt(i);
@@ -214,15 +288,13 @@ public class PrevizEvent extends AppCompatActivity {
     }
 
     private void fetchData(){
-        Bundle extras = getIntent().getExtras();
-        ID = extras.getInt("ID");
         String urlUpload = "http://gladiaholdings.com/PHP/fetchEvent.php";
 
         StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    LinearLayout root = findViewById(R.id.root);
+                    LinearLayout root = view.findViewById(R.id.root);
                     JSONObject jsonObject = new JSONObject(response);
                     imgPath = jsonObject.getString("poza");
                     title = jsonObject.getString("title");
@@ -237,6 +309,8 @@ public class PrevizEvent extends AppCompatActivity {
                     descriere = jsonObject.getString("descriere");
                     tinuta = jsonObject.getString("tinuta");
                     mancare = jsonObject.getInt("mancare");
+                    lat = jsonObject.getDouble("lat");
+                    lng = jsonObject.getDouble("lng");
 
                     if(mancare == 1)
                         pretMancareXml.setText(String.valueOf(jsonObject.getDouble("pretMancare")));
@@ -275,7 +349,7 @@ public class PrevizEvent extends AppCompatActivity {
                     else
                         root.getChildAt(4).setVisibility(GONE);
 
-                    final Transformation transformation = new MaskTransformation(getApplicationContext(), R.drawable.circle);
+                    final Transformation transformation = new MaskTransformation(getContext(), R.drawable.circle);
                     Picasso.get().load(pozaArtist).transform(transformation).into(artistPic);
 
 
@@ -295,11 +369,16 @@ public class PrevizEvent extends AppCompatActivity {
                         root.getChildAt(7).setVisibility(GONE);
 
 
+                    //data, oraStart, oraEnd, tematica, pozaArtist, numeArtist, genuriMuzicale, descriere, tinuta, adr
+                    a.add(adr);
+                    a.add(data);
+                    a.add(oraStart + " - " + oraEnd);
+                    Stats.setUp(a);
 
 
                     loading.dismiss();
                 } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
 
@@ -307,19 +386,19 @@ public class PrevizEvent extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Check your internet connection and try again.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Check your internet connection and try again.", Toast.LENGTH_SHORT).show();
                 loading.dismiss();
-                onBackPressed();
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                int ID = PrevizEventMain.getID();
                 params.put("ID", String.valueOf(ID));
                 return params;
             }
         };
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(stringRequest);
     }
 
@@ -331,11 +410,11 @@ public class PrevizEvent extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    Toast.makeText(PrevizEvent.this, jsonObject.getString("mesaj"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), jsonObject.getString("mesaj"), Toast.LENGTH_SHORT).show();
 
                     loading.dismiss();
                 } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
 
@@ -343,15 +422,14 @@ public class PrevizEvent extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Check your internet connection and try again.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Check your internet connection and try again.", Toast.LENGTH_SHORT).show();
                 loading.dismiss();
-                onBackPressed();
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                LinearLayout root = findViewById(R.id.root);
+                LinearLayout root = view.findViewById(R.id.root);
 
                 params.put("no",root.getChildCount() + "");
                 for (int i = 1; i < root.getChildCount(); i++) {
@@ -364,7 +442,7 @@ public class PrevizEvent extends AppCompatActivity {
                 return params;
             }
         };
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(stringRequest);
         createSendingDialog();
     }
@@ -381,7 +459,7 @@ public class PrevizEvent extends AppCompatActivity {
         dataXml.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(PrevizEvent.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         String mnt = "" + (month + 1), dy = "" + day;
@@ -402,7 +480,7 @@ public class PrevizEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(editmode) {
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(PrevizEvent.this, new TimePickerDialog.OnTimeSetListener() {
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                             String min = String.valueOf(minute);
@@ -414,7 +492,7 @@ public class PrevizEvent extends AppCompatActivity {
                             String time = h + ":" + min + "  -";
                             oraStartXml.setText(time);
                         }
-                    }, hour, minute, android.text.format.DateFormat.is24HourFormat(getApplicationContext()));
+                    }, hour, minute, android.text.format.DateFormat.is24HourFormat(getContext()));
                     timePickerDialog.show();
                 }
             }
@@ -425,7 +503,7 @@ public class PrevizEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (editmode) {
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(PrevizEvent.this, new TimePickerDialog.OnTimeSetListener() {
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                             String min = String.valueOf(minute);
@@ -437,10 +515,26 @@ public class PrevizEvent extends AppCompatActivity {
                             String time = h + ":" + min;
                             oraEndXml.setText(time);
                         }
-                    }, hour, minute, android.text.format.DateFormat.is24HourFormat(getApplicationContext()));
+                    }, hour, minute, android.text.format.DateFormat.is24HourFormat(getContext()));
                     timePickerDialog.show();
                 }
             }
         });
+    }
+
+    public static double getLat() {
+        return lat;
+    }
+
+    public static double getLng() {
+        return lng;
+    }
+
+    public static String getTitle(){
+        return title;
+    }
+
+    public static String getImgPath() {
+        return imgPath;
     }
 }

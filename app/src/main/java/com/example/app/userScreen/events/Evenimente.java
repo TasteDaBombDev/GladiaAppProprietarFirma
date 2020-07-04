@@ -259,6 +259,8 @@ public class Evenimente extends Fragment {
                                 ListEvents.addNames(PetreceriPage1.getTitle());
                                 ListEvents.addPaths(path);
                                 ListEvents.addIds(id);
+                                ListEvents.addDates(PetreceriPage1.getData());
+                                ListEvents.addHours(PetreceriPage1.getOraStart() + " - " + PetreceriPage1.getOraEnd());
                                 ListEvents.change();
 
 
