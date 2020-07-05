@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f1f1f1"
     tools:context=".userScreen.previzEvent.PrevizEventMain">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,11 +21,13 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="56dp"
+        android:layout_marginTop="@*android:dimen/status_bar_height"
         android:background="#f1f1f1"
-        app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -32,11 +36,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/butonEditat"
+        app:layout_constraintBottom_toTopOf="@+id/pager"
         app:layout_constraintEnd_toStartOf="@+id/butonEditat"
         app:layout_constraintStart_toEndOf="@+id/back"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.5"
         app:tabIconTint="@color/icon_colors_for_tabs"
         app:tabIndicatorFullWidth="false">
 
@@ -56,31 +60,30 @@
         android:id="@+id/butonEditat"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/circle"
         android:backgroundTint="@color/colorPrimary"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
+        app:layout_constraintBottom_toTopOf="@+id/pager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/ic_edit_black_24dp" />
 
     <ImageButton
         android:id="@+id/back"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/circle"
         android:backgroundTint="@color/colorPrimary"
         android:tint="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/pager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

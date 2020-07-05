@@ -197,7 +197,7 @@ public class PrevizEvent extends Fragment{
         Bitmap bitmap = ((BitmapDrawable)artistPic.getDrawable()).getBitmap();
         RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(),bitmap);
         roundedBitmapDrawable.setCornerRadius(radius);
-        profPic.setImageDrawable(roundedBitmapDrawable);
+        artistPic.setImageDrawable(roundedBitmapDrawable);
     }
 
     private void createDialog(){

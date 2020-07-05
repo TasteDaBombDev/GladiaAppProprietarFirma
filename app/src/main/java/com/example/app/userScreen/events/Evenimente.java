@@ -256,12 +256,7 @@ public class Evenimente extends Fragment {
                                 Integer id = jsonObject.getInt("id");
 
 
-                                ListEvents.addNames(PetreceriPage1.getTitle());
-                                ListEvents.addPaths(path);
-                                ListEvents.addIds(id);
-                                ListEvents.addDates(PetreceriPage1.getData());
-                                ListEvents.addHours(PetreceriPage1.getOraStart() + " - " + PetreceriPage1.getOraEnd());
-                                ListEvents.change();
+                                ListEvents.refresh();
 
 
                                 PetreceriPage1.reset();
@@ -283,7 +278,8 @@ public class Evenimente extends Fragment {
                                 ViewPager v = (ViewPager) c.getChildAt(0);
 
                                 v.setCurrentItem(0);
-                                ImageButton btn = (ImageButton) c.getChildAt(1);
+                                ConstraintLayout cc = (ConstraintLayout) c.getChildAt(3);
+                                ImageButton btn = (ImageButton) cc.getChildAt(0);
                                 btn.callOnClick();
 
                                 progress.dismiss();
