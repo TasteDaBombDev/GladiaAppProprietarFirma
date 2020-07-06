@@ -1,22 +1,12 @@
 package com.example.app.userScreen;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Interpolator;
-import android.view.animation.LayoutAnimationController;
-import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -25,11 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
@@ -44,10 +30,8 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.app.R;
-import com.example.app.userScreen.previzEvent.PrevizEvent;
 import com.example.app.userScreen.previzEvent.PrevizEventMain;
 import com.example.app.utils.EventDetails;
-import com.example.app.utils.GladiaReciclerAdapter;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -63,9 +47,8 @@ public class ListEvents extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     private static ListEvents INSTANCE = null;
-    private static RecyclerView eventsListing;
-    private RecyclerView.Adapter reciclerAdapter;
-    private RecyclerView.LayoutManager reciclerLayoutManager;
+    private static SwipeMenuListView eventsListing;
+    private Adapter adapter;
     private View view;
     private static ArrayList<EventDetails> eventsInfo = new ArrayList<>();
     private static SwipeRefreshLayout swipeRefresh;
@@ -94,11 +77,55 @@ public class ListEvents extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.list_events2, container, false);
+        view = inflater.inflate(R.layout.list_events, container, false);
         serverRun(true);
         eventsListing = view.findViewById(R.id.myEvents);
-        eventsListing.setHasFixedSize(true);
-        setUpRecicler();
+
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+                @Override
+                public void create(SwipeMenu menu) {
+                    SwipeMenuItem deleteItem = new SwipeMenuItem(getContext());
+                    deleteItem.setBackground(R.drawable.background_item);
+                    deleteItem.setWidth(300);
+                    deleteItem.setIcon(R.drawable.ic_delete_black_24dp);
+                    menu.addMenuItem(deleteItem);
+                }
+        };
+
+        eventsListing.setMenuCreator(creator);
+        eventsListing.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+        eventsListing.smoothCloseMenu();
+        eventsListing.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+
+            @Override
+            public void onSwipeStart(int position) {
+                eventsListing.smoothOpenMenu(position);
+            }
+
+            @Override
+            public void onSwipeEnd(int position) {
+
+            }
+        });
+
+        eventsListing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), PrevizEventMain.class);
+                intent.putExtra("ID",eventsInfo.get(position).getId());
+                startActivity(intent);
+            }
+        });
+
+        eventsListing.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                if (index == 0) {
+                    deleteFromServer(eventsInfo.get(position).getId());
+                }
+                return false;
+            }
+        });
 
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         swipeRefresh.setEnabled(false);
@@ -113,6 +140,40 @@ public class ListEvents extends Fragment {
         swipeRefresh.setOnRefreshListener(swipeRefreshListner);
 
         return view;
+    }
+
+    class Adapter extends ArrayAdapter<String> {
+
+        Context context;
+        ArrayList<EventDetails> event;
+        TextView name, date, hour;
+        ImageView image;
+
+        Adapter(Context c, ArrayList<String> names, ArrayList<EventDetails> eventsInfo){
+            super(c, R.layout.event_item,R.id.eventName, names);
+            this.context = c;
+            this.event = eventsInfo;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+            @SuppressLint("ViewHolder") View item = layoutInflater.inflate(R.layout.event_item,parent,false);
+            name = item.findViewById(R.id.eventName);
+            image = item.findViewById(R.id.eventPic);
+            hour = item.findViewById(R.id.eventOra);
+            date = item.findViewById(R.id.eventDate);
+
+            name.setText(event.get(position).getName());
+
+            Picasso.get().load(event.get(position).getImgPath()).into(image);
+
+            hour.setText(event.get(position).getDate());
+            date.setText(event.get(position).getHour());
+
+            return item;
+        }
     }
 
     private void serverRun(final boolean firstTime){
@@ -134,17 +195,17 @@ public class ListEvents extends Fragment {
                             );
                         }
                     }
-                    if (!firstTime)
-                    {
-                        reciclerAdapter = null;
-                        reciclerLayoutManager = null;
+//                    for (int i = 0; i < 35; i++) {
+//                        eventsInfo.add(new EventDetails(i,"http://gladiaholdings.com/FILES/AFACERI/23/1342629831_1594022827.png","Titlu eveniment", "20/02/2020", "12:20 - 12:30"));
+//                    }
+                    ArrayList<String> name = new ArrayList<>();
+                    for (int i = 0; i < eventsInfo.size(); i++) {
+                        name.add(eventsInfo.get(i).getName());
                     }
-
-                    reciclerLayoutManager = new LinearLayoutManager(getContext());
-                    reciclerAdapter = new GladiaReciclerAdapter(eventsInfo);
-
-                    eventsListing.setLayoutManager(reciclerLayoutManager);
-                    eventsListing.setAdapter(reciclerAdapter);
+                    if (!firstTime)
+                        adapter = null;
+                    adapter = new Adapter(getContext(),name,eventsInfo);
+                    eventsListing.setAdapter(adapter);
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Error loading your events" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
@@ -159,7 +220,7 @@ public class ListEvents extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("userID","23");
+                params.put("userID", String.valueOf(MainScreen.getUserID()));
                 return params;
             }
         };
@@ -204,29 +265,6 @@ public class ListEvents extends Fragment {
 
     public static void refresh(){
         swipeRefreshListner.onRefresh();
-    }
-
-    public void setUpRecicler(){
-//        eventsListing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-//            }
-//        });
-
-
-
-
-
-        AnimationSet set = new AnimationSet(true);
-        Animation animation = new TranslateAnimation(200.0f,0.0f,10.0f,0.0f);
-        Animation animation1 = new AlphaAnimation(0.0f,1.0f);
-        animation1.setDuration(500);
-        animation.setDuration(500);
-        set.addAnimation(animation);
-        set.addAnimation(animation1);
-        LayoutAnimationController controller = new LayoutAnimationController(set, 0.2f);
-        eventsListing.setLayoutAnimation(controller);
     }
 
 

@@ -1,58 +1,41 @@
 package com.example.app.userScreen;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.example.app.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainScreen extends AppCompatActivity {
 
-    private static String username;
     private static ViewPager viewPager;
     private TabLayout tabLayout;
-
     private static int[] viewPagersPages = {5,0,0,0,0,0};
 
-    private static int userID, afaceri, events, friends;
-    private static boolean tutorial;
-    private static String nume;
-    private static String prenume;
-    private static String password;
-    private static String mail;
-    private static String ziuaDeNastere;
-    private static String sex;
-    private static String nrtel;
-    private static String path;
+    private static int userID;
+    private static String nume, pozaPath, password, mail, type, dressCode, tema,  path, adresa;
+    private static double lat,lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_screen);
-        getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-
 
         Bundle extras = getIntent().getExtras();
         userID = extras.getInt("userID");
-        username = extras.getString("username");
+        pozaPath = extras.getString("pozaPath");
         nume = extras.getString("nume");
-        prenume = extras.getString("prenume");
         password = extras.getString("password");
         mail = extras.getString("mail");
-        ziuaDeNastere = extras.getString("ziuaDeNastere");
-        sex = extras.getString("sex");
-        afaceri = extras.getInt("nrAfaceri");
-        events = extras.getInt("nrEvents");
-        friends = extras.getInt("friends");
-        nrtel = extras.getString("nrtel");
-        tutorial = extras.getBoolean("fromRegister");
+        type = extras.getString("type");
+        dressCode = extras.getString("dressCode");
+        tema = extras.getString("tema");
         path = extras.getString("logoutPath");
+        adresa = extras.getString("adresa");
+        lat = extras.getDouble("lat");
+        lng = extras.getDouble("lng");
 
         viewPager = findViewById(R.id.mainSlider);
 
@@ -73,16 +56,8 @@ public class MainScreen extends AppCompatActivity {
         return userID;
     }
 
-    public static String getUsername() {
-        return username;
-    }
-
     public static String getNume() {
         return nume;
-    }
-
-    public static String getPrenume() {
-        return prenume;
     }
 
     public static String getPassword() {
@@ -93,36 +68,36 @@ public class MainScreen extends AppCompatActivity {
         return mail;
     }
 
-    public static String getZiuaDeNastere() {
-        return ziuaDeNastere;
-    }
-
-    public static String getSex() {
-        return sex;
-    }
-
-    public static String getNrtel() {
-        return nrtel;
-    }
-
-    public static boolean startTutorial(){
-        return tutorial;
-    }
-
-    public static int getAfaceri(){
-        return afaceri;
-    }
-
-    public static int getEvents(){
-        return events;
-    }
-
-    public static int getFriends(){
-        return friends;
-    }
-
     public static String getPath() {
         return path;
+    }
+
+    public static String getPozaPath() {
+        return pozaPath;
+    }
+
+    public static String getType() {
+        return type;
+    }
+
+    public static String getDressCode() {
+        return dressCode;
+    }
+
+    public static String getTema() {
+        return tema;
+    }
+
+    public static String getAdresa() {
+        return adresa;
+    }
+
+    public static double getLat() {
+        return lat;
+    }
+
+    public static double getLng() {
+        return lng;
     }
 
     public static ViewPager getViewPager(){

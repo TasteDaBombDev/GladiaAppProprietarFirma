@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.app.userScreen.events.Evenimente;
-import com.example.app.userScreen.profile.ProfileMainClass;
+import com.example.app.userScreen.profile.Profile;
 
 public class EnumFragments extends FragmentPagerAdapter {
 
@@ -24,7 +24,7 @@ public class EnumFragments extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position){
         if(position == 0)
-            return ProfileMainClass.getINSTANCE();
+            return Profile.getINSTANCE();
         else if(position == 1)
             return Evenimente.getINSTANCE();
         else if(position == 2)

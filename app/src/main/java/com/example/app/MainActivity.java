@@ -82,30 +82,30 @@ public class MainActivity extends AppCompatActivity {
 
 
                         int ID = jsonObject.getInt("userID");
-                        String username = jsonObject.getString("username");
+                        String pozaPath = jsonObject.getString("poza");
                         String nume = jsonObject.getString("nume");
-                        String prenume = jsonObject.getString("prenume");
-                        String password = jsonObject.getString("password");
                         String mail = jsonObject.getString("mail");
-                        String ziuaDeNastere = jsonObject.getString("ziuaDeNastere");
-                        String sex = jsonObject.getString("sex");
-                        String nrtel = jsonObject.getString("nrtel");
+                        String password = jsonObject.getString("password");
+                        String type = jsonObject.getString("type");
+                        String dressCode = jsonObject.getString("dressCode");
+                        String tema = jsonObject.getString("tema");
+                        String adresa = jsonObject.getString("adresa");
+                        double lat = jsonObject.getDouble("lat");
+                        double lng = jsonObject.getDouble("lng");
 
 
                         Intent intent = new Intent(MainActivity.this, MainScreen.class);
                         intent.putExtra("userID", ID);
-                        intent.putExtra("username",username);
+                        intent.putExtra("pozaPath", pozaPath);
                         intent.putExtra("nume", nume);
-                        intent.putExtra("prenume", prenume);
                         intent.putExtra("password", password);
+                        intent.putExtra("adresa", adresa);
+                        intent.putExtra("lat", lat);
+                        intent.putExtra("lng", lng);
                         intent.putExtra("mail", mail);
-                        intent.putExtra("ziuaDeNastere", ziuaDeNastere);
-                        intent.putExtra("sex", sex);
-                        intent.putExtra("nrtel", nrtel);
-                        intent.putExtra("nrAfaceri",jsonObject.getInt("nrAfaceri"));
-                        intent.putExtra("nrEvents",jsonObject.getInt("nrEvents"));
-                        intent.putExtra("friends", jsonObject.getInt("friends"));
-                        intent.putExtra("fromRegister",false);
+                        intent.putExtra("type", type);
+                        intent.putExtra("dressCode", dressCode);
+                        intent.putExtra("tema", tema);
                         intent.putExtra("logoutPath",FILE_PATH);
 
                         startActivity(intent);
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        ServerRequest serverRequest = new ServerRequest("user", (data.getText().toString().trim()), "pass", (pass.getText().toString().trim()),"http://gladiaholdings.com/PHP/login.php",listener);
+        ServerRequest serverRequest = new ServerRequest("user", (data.getText().toString().trim()), "pass", (pass.getText().toString().trim()),"http://gladiaholdings.com/PHP/loginFirm.php",listener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(serverRequest);
 

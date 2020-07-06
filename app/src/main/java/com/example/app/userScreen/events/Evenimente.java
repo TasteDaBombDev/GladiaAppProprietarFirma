@@ -1,18 +1,10 @@
 package com.example.app.userScreen.events;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
-import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -21,8 +13,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -319,7 +317,7 @@ public class Evenimente extends Fragment {
                         params.put("pretBautura",PetreceriPage4.getBauturaPret());
                         params.put("bilet",String.valueOf(PetreceriPage4.getBilet()));
                         params.put("pretBilet",PetreceriPage4.getBiletPret());
-                        params.put("IDorganizator","23");
+                        params.put("IDorganizator",String.valueOf(MainScreen.getUserID()));
 
                         return params;
                     }

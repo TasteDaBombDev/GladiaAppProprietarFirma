@@ -26,12 +26,10 @@
             android:name=".userScreen.events.petreceri.PetreceriPage2"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".userScreen.events.petreceri.SelectPic" />
-        <activity android:name=".userScreen.profile.FriendsActivity" />
         <activity android:name=".termsAndConditions.Terms3" />
         <activity android:name=".termsAndConditions.Terms2" />
         <activity android:name=".termsAndConditions.Terms1" />
         <activity android:name=".termsAndConditions.TermsAndConditionsMain" />
-        <activity android:name=".userScreen.profile.EditProfile" />
         <activity
             android:name=".userScreen.events.Evenimente"
             android:windowSoftInputMode="adjustResize" />
