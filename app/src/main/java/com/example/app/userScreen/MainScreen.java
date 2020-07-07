@@ -15,7 +15,7 @@ public class MainScreen extends AppCompatActivity {
     private static int[] viewPagersPages = {5,0,0,0,0,0};
 
     private static int userID;
-    private static String nume, pozaPath, password, mail, type, dressCode, tema,  path, adresa;
+    private static String numeFirma, nume, pozaPath, password, mail, type, dressCode, tema,  path, adresa;
     private static double lat,lng;
 
     @Override
@@ -27,6 +27,7 @@ public class MainScreen extends AppCompatActivity {
         userID = extras.getInt("userID");
         pozaPath = extras.getString("pozaPath");
         nume = extras.getString("nume");
+        numeFirma = extras.getString("numeFirma");
         password = extras.getString("password");
         mail = extras.getString("mail");
         type = extras.getString("type");
@@ -98,6 +99,10 @@ public class MainScreen extends AppCompatActivity {
 
     public static double getLng() {
         return lng;
+    }
+
+    public static String getNumeFirma() {
+        return numeFirma;
     }
 
     public static ViewPager getViewPager(){

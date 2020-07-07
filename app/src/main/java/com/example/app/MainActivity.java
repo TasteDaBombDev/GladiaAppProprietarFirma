@@ -1,24 +1,21 @@
 package com.example.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.app.termsAndConditions.TermsAndConditionsMain;
 import com.example.app.userScreen.MainScreen;
 
 import org.json.JSONException;
@@ -84,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                         int ID = jsonObject.getInt("userID");
                         String pozaPath = jsonObject.getString("poza");
                         String nume = jsonObject.getString("nume");
+                        String numeFirma = jsonObject.getString("numeFirma");
+                        int f = jsonObject.getInt("firstTime");
                         String mail = jsonObject.getString("mail");
                         String password = jsonObject.getString("password");
                         String type = jsonObject.getString("type");
@@ -94,21 +93,31 @@ public class MainActivity extends AppCompatActivity {
                         double lng = jsonObject.getDouble("lng");
 
 
-                        Intent intent = new Intent(MainActivity.this, MainScreen.class);
-                        intent.putExtra("userID", ID);
-                        intent.putExtra("pozaPath", pozaPath);
-                        intent.putExtra("nume", nume);
-                        intent.putExtra("password", password);
-                        intent.putExtra("adresa", adresa);
-                        intent.putExtra("lat", lat);
-                        intent.putExtra("lng", lng);
-                        intent.putExtra("mail", mail);
-                        intent.putExtra("type", type);
-                        intent.putExtra("dressCode", dressCode);
-                        intent.putExtra("tema", tema);
-                        intent.putExtra("logoutPath",FILE_PATH);
+                        if(f == 1){
+                            Intent intent = new Intent(MainActivity.this, MainScreen.class);
+                            intent.putExtra("userID", ID);
+                            intent.putExtra("pozaPath", pozaPath);
+                            intent.putExtra("nume", nume);
+                            intent.putExtra("numeFirma", numeFirma);
+                            intent.putExtra("password", password);
+                            intent.putExtra("adresa", adresa);
+                            intent.putExtra("lat", lat);
+                            intent.putExtra("lng", lng);
+                            intent.putExtra("mail", mail);
+                            intent.putExtra("type", type);
+                            intent.putExtra("dressCode", dressCode);
+                            intent.putExtra("tema", tema);
+                            intent.putExtra("logoutPath",FILE_PATH);
 
-                        startActivity(intent);
+                            startActivity(intent);
+                        }
+
+                        else {
+                            Intent intent = new Intent(MainActivity.this, RegisterFirma.class);
+                            startActivity(intent);
+                        }
+
+
                         loading.dismiss();
                     } else{
                         loading.dismiss();

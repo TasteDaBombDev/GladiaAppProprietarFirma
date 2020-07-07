@@ -1,19 +1,15 @@
 package com.example.app;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -76,6 +71,7 @@ public class SplashScreen extends AppCompatActivity {
                             int ID = jsonObject.getInt("userID");
                             String pozaPath = jsonObject.getString("poza");
                             String nume = jsonObject.getString("nume");
+                            String numeFirma = jsonObject.getString("numeFirma");
                             String mail = jsonObject.getString("mail");
                             String password = jsonObject.getString("password");
                             String type = jsonObject.getString("type");
@@ -90,6 +86,7 @@ public class SplashScreen extends AppCompatActivity {
                             intent.putExtra("userID", ID);
                             intent.putExtra("pozaPath", pozaPath);
                             intent.putExtra("nume", nume);
+                            intent.putExtra("numeFirma", numeFirma);
                             intent.putExtra("password", password);
                             intent.putExtra("adresa", adresa);
                             intent.putExtra("lat", lat);

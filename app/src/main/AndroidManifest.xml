@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".registerFirma.RegisterFirma"></activity>
         <activity android:name=".userScreen.previzEvent.PrevizEventMain" />
         <activity android:name=".userScreen.previzEvent.PrevizEvent" />
         <activity
