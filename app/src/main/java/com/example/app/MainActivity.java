@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.app.registerFirma.RegisterFirma;
 import com.example.app.userScreen.MainScreen;
 
 import org.json.JSONException;

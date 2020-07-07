@@ -16,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".registerFirma.RegisterFirma"></activity>
+        <activity android:name=".registerFirma.Register3"></activity>
+        <activity android:name=".registerFirma.Register2" />
+        <activity android:name=".registerFirma.Register1" />
+        <activity android:name=".registerFirma.RegisterFirma" />
         <activity android:name=".userScreen.previzEvent.PrevizEventMain" />
         <activity android:name=".userScreen.previzEvent.PrevizEvent" />
         <activity
