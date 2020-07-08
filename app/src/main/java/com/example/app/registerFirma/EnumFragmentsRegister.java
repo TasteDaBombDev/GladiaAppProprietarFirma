@@ -11,26 +11,32 @@ public class EnumFragmentsRegister  extends FragmentPagerAdapter {
 
 
     private Context context;
+    private boolean locatie;
 
     @SuppressWarnings("deprecation")
-    public EnumFragmentsRegister(@NonNull FragmentManager fm, Context context) {
+    public EnumFragmentsRegister(@NonNull FragmentManager fm, Context context, boolean locatie) {
         super(fm);
         this.context = context;
+        this.locatie = locatie;
     }
 
     @Override
     public Fragment getItem(int position) {
         if (position == 0)
-            return Register1.getINSTANCE();
+            return Register1.getINSTANCE(locatie);
         else if (position == 1)
             return Register2.getINSTANCE();
         else if (position == 2)
             return Register3.getINSTANCE();
+        else if (position == 3)
+            return Register4.getINSTANCE();
         return null;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        if(locatie)
+            return 4;
+        return 2;
     }
 }

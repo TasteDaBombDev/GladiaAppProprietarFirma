@@ -5,25 +5,30 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.app.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class Register1 extends Fragment {
 
     private static Register1 INSTANCE = null;
     private View view;
+    private boolean show;
+    private static TextInputEditText name, email;
+    private TextInputLayout emailL;
 
-    public Register1(){
+    public Register1(boolean show){
+        this.show = show;
     }
 
-    public static Register1 getINSTANCE(){
+    public static Register1 getINSTANCE(boolean show){
         if (INSTANCE == null)
-            INSTANCE = new Register1();
+            INSTANCE = new Register1(show);
         return INSTANCE;
     }
 
@@ -41,7 +46,21 @@ public class Register1 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.register1, container, false);
+        emailL = view.findViewById(R.id.emailFirmaL);
+        name = view.findViewById(R.id.name);
+        email = view.findViewById(R.id.emailFirma);
+
+        if(!show)
+            emailL.setVisibility(View.GONE);
 
         return view;
+    }
+
+    public static String getName(){
+        return name.getText().toString().trim();
+    }
+
+    public static String getEmail(){
+        return email.getText().toString().trim();
     }
 }

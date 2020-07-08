@@ -115,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
 
                         else {
                             Intent intent = new Intent(MainActivity.this, RegisterFirma.class);
+                            String l = data.getText().toString().trim();
+                            l = l.substring(2, 3);
+                            intent.putExtra("locatie", l.equals("L"));
                             startActivity(intent);
                         }
 
