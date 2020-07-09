@@ -76,15 +76,17 @@
 
                 <ImageView
                     android:id="@+id/profilePic"
-                    android:layout_width="150dp"
+                    android:layout_width="0dp"
                     android:layout_height="150dp"
                     android:elevation="12dp"
+                    android:scaleType="fitXY"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/bg_default" />
+                    app:layout_constraintWidth_percent="0.8"
+                    app:srcCompat="@drawable/nopic" />
 
                 <Space
                     android:layout_width="wrap_content"
