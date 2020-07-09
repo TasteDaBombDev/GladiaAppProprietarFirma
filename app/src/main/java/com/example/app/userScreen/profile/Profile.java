@@ -1,57 +1,30 @@
 package com.example.app.userScreen.profile;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.fragment.app.Fragment;
-
-import android.animation.Animator;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.transition.TransitionManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.app.MainActivity;
 import com.example.app.R;
 import com.example.app.userScreen.ListEvents;
 import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.events.Evenimente;
-import com.google.gson.internal.$Gson$Preconditions;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.squareup.picasso.Transformation;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+
+import jp.wasabeef.picasso.transformations.MaskTransformation;
 
 public class Profile extends Fragment {
 
@@ -59,6 +32,8 @@ public class Profile extends Fragment {
     private static Profile INSTANCE = null;
     private LinearLayout logout;
     private View view;
+    private ImageView profilePic;
+    private TextView name, adress;
 
     public Profile(){
     }
@@ -105,6 +80,20 @@ public class Profile extends Fragment {
             }
         });
 
+        init();
+
+        final Transformation transformation = new MaskTransformation(getContext(), R.drawable.circle);
+//        Picasso.get().load(MainScreen.getPath()).transform(transformation).into(profilePic);
+
+        name.setText(MainScreen.getNume());
+        adress.setText(MainScreen.getAdresa());
+
         return view;
+    }
+
+    private void init(){
+        profilePic = view.findViewById(R.id.profilePic);
+        name = view.findViewById(R.id.name);
+        adress = view.findViewById(R.id.adress);
     }
 }

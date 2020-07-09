@@ -271,4 +271,10 @@ public class Register2 extends Fragment implements OnMapReadyCallback {
     public static String getAddress() {
         return address;
     }
+
+    public static boolean areCompleted(){
+        if((lng == 0 && lat == 0) || address.trim().equals(""))
+            return false;
+        return true;
+    }
 }

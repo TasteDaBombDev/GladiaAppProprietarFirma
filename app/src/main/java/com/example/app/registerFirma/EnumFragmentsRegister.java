@@ -20,6 +20,7 @@ public class EnumFragmentsRegister  extends FragmentPagerAdapter {
         this.locatie = locatie;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         if (position == 0)

@@ -48,6 +48,7 @@ public class Register3 extends Fragment {
         muzica = view.findViewById(R.id.muzica);
         decor = view.findViewById(R.id.decor);
 
+
         return view;
     }
 

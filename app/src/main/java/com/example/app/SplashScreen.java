@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.app.registerFirma.RegisterFirma;
 import com.example.app.userScreen.MainScreen;
 
 import org.json.JSONException;
@@ -31,6 +32,8 @@ public class SplashScreen extends AppCompatActivity {
     private TextView name;
     private static int SPLASH_TIME = 3000;
     private static final String FILE_NAME = "data.txt";
+    private static String path = "";
+    private static String Cod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,8 @@ public class SplashScreen extends AppCompatActivity {
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
 
-            final String login = br.readLine(), pass = br.readLine(), path = br.readLine();
+            final String login = br.readLine(), pass = br.readLine();
+            path = br.readLine();
 
             Response.Listener<String> listener = new Response.Listener<String>() {
                 @Override
@@ -67,37 +71,50 @@ public class SplashScreen extends AppCompatActivity {
                         boolean success = jsonObject.getBoolean("success");
 
                         if(success){
+                                int f = jsonObject.getInt("firstTime");
+                                int ID = jsonObject.getInt("userID");
+                                Cod = jsonObject.getString("COD");
+                                String pozaPath = jsonObject.getString("poza");
+                                String nume = jsonObject.getString("nume");
+                                String numeFirma = jsonObject.getString("numeFirma");
+                                String mail = jsonObject.getString("mail");
+                                String password = jsonObject.getString("password");
+                                String type = jsonObject.getString("type");
+                                String dressCode = jsonObject.getString("dressCode");
+                                String decor = jsonObject.getString("decor");
+                                String muzica = jsonObject.getString("muzica");
+                                String tema = jsonObject.getString("tema");
+                                String adresa = jsonObject.getString("adresa");
+                                double lat = jsonObject.getDouble("lat");
+                                double lng = jsonObject.getDouble("lng");
 
-                            int ID = jsonObject.getInt("userID");
-                            String pozaPath = jsonObject.getString("poza");
-                            String nume = jsonObject.getString("nume");
-                            String numeFirma = jsonObject.getString("numeFirma");
-                            String mail = jsonObject.getString("mail");
-                            String password = jsonObject.getString("password");
-                            String type = jsonObject.getString("type");
-                            String dressCode = jsonObject.getString("dressCode");
-                            String tema = jsonObject.getString("tema");
-                            String adresa = jsonObject.getString("adresa");
-                            double lat = jsonObject.getDouble("lat");
-                            double lng = jsonObject.getDouble("lng");
+                                if(f == 1){
+                                    Intent intent = new Intent(SplashScreen.this, MainScreen.class);
+                                    intent.putExtra("userID", ID);
+                                    intent.putExtra("pozaPath", pozaPath);
+                                    intent.putExtra("nume", nume);
+                                    intent.putExtra("COD", Cod);
+                                    intent.putExtra("numeFirma", numeFirma);
+                                    intent.putExtra("password", password);
+                                    intent.putExtra("muzica", muzica);
+                                    intent.putExtra("decor", decor);
+                                    intent.putExtra("adresa", adresa);
+                                    intent.putExtra("lat", lat);
+                                    intent.putExtra("lng", lng);
+                                    intent.putExtra("mail", mail);
+                                    intent.putExtra("type", type);
+                                    intent.putExtra("dressCode", dressCode);
+                                    intent.putExtra("tema", tema);
+                                    intent.putExtra("logoutPath",path);
 
-
-                            Intent intent = new Intent(SplashScreen.this, MainScreen.class);
-                            intent.putExtra("userID", ID);
-                            intent.putExtra("pozaPath", pozaPath);
-                            intent.putExtra("nume", nume);
-                            intent.putExtra("numeFirma", numeFirma);
-                            intent.putExtra("password", password);
-                            intent.putExtra("adresa", adresa);
-                            intent.putExtra("lat", lat);
-                            intent.putExtra("lng", lng);
-                            intent.putExtra("mail", mail);
-                            intent.putExtra("type", type);
-                            intent.putExtra("dressCode", dressCode);
-                            intent.putExtra("tema", tema);
-                            intent.putExtra("logoutPath",path);
-
-                            startActivity(intent);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(SplashScreen.this, RegisterFirma.class);
+                                    String l = Cod;
+                                    l = l.substring(2, 3);
+                                    intent.putExtra("locatie", l.equals("L"));
+                                    startActivity(intent);
+                                }
                         } else{
                             Pair[] pairs = new Pair[1];
                             pairs[0] = new Pair<View, String>(logo,"imgTransition");
@@ -147,6 +164,13 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }
         }
+    }
 
+    public static String getPath() {
+        return path;
+    }
+
+    public static String getCod() {
+        return Cod;
     }
 }

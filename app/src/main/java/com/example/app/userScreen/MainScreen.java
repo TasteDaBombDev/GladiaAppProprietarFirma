@@ -15,7 +15,7 @@ public class MainScreen extends AppCompatActivity {
     private static int[] viewPagersPages = {5,0,0,0,0,0};
 
     private static int userID;
-    private static String numeFirma, nume, pozaPath, password, mail, type, dressCode, tema,  path, adresa;
+    private static String Cod, muzica, decor, numeFirma, nume, pozaPath, password, mail, type, dressCode, tema,  path, adresa;
     private static double lat,lng;
 
     @Override
@@ -25,6 +25,9 @@ public class MainScreen extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         userID = extras.getInt("userID");
+        muzica = extras.getString("muzica");
+        decor = extras.getString("decor");
+        Cod = extras.getString("COD");
         pozaPath = extras.getString("pozaPath");
         nume = extras.getString("nume");
         numeFirma = extras.getString("numeFirma");

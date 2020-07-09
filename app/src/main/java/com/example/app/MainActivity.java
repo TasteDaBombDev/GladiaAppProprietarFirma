@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static ProgressDialog loading;
     private static final String FILE_NAME = "data.txt";
-    private EditText data, pass;
+    private static EditText data, pass;
     private static String FILE_PATH;
 
     @Override
@@ -73,34 +73,37 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
                     String message = jsonObject.getString("msg");
-
                     if(success){
 
                         createFile();
 
-
+                        int f = jsonObject.getInt("firstTime");
                         int ID = jsonObject.getInt("userID");
+                        String Cod = jsonObject.getString("COD");
                         String pozaPath = jsonObject.getString("poza");
                         String nume = jsonObject.getString("nume");
                         String numeFirma = jsonObject.getString("numeFirma");
-                        int f = jsonObject.getInt("firstTime");
                         String mail = jsonObject.getString("mail");
                         String password = jsonObject.getString("password");
                         String type = jsonObject.getString("type");
                         String dressCode = jsonObject.getString("dressCode");
+                        String decor = jsonObject.getString("decor");
+                        String muzica = jsonObject.getString("muzica");
                         String tema = jsonObject.getString("tema");
                         String adresa = jsonObject.getString("adresa");
                         double lat = jsonObject.getDouble("lat");
                         double lng = jsonObject.getDouble("lng");
-
 
                         if(f == 1){
                             Intent intent = new Intent(MainActivity.this, MainScreen.class);
                             intent.putExtra("userID", ID);
                             intent.putExtra("pozaPath", pozaPath);
                             intent.putExtra("nume", nume);
+                            intent.putExtra("COD", Cod);
                             intent.putExtra("numeFirma", numeFirma);
                             intent.putExtra("password", password);
+                            intent.putExtra("muzica", muzica);
+                            intent.putExtra("decor", decor);
                             intent.putExtra("adresa", adresa);
                             intent.putExtra("lat", lat);
                             intent.putExtra("lng", lng);
@@ -112,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
                             startActivity(intent);
                         }
-
                         else {
                             Intent intent = new Intent(MainActivity.this, RegisterFirma.class);
                             String l = data.getText().toString().trim();
@@ -120,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("locatie", l.equals("L"));
                             startActivity(intent);
                         }
-
 
                         loading.dismiss();
                     } else{
@@ -164,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
+    public static String getData() {
+        return data.getText().toString().trim();
+    }
 }

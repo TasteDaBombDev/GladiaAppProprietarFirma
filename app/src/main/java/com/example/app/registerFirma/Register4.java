@@ -38,7 +38,7 @@ public class Register4 extends Fragment {
     private static Register4 INSTANCE = null;
     private View view;
     private SwipeMenuListView menu;
-    private ArrayList<Item> items = new ArrayList<>();
+    private static ArrayList<Item> items = new ArrayList<>();
     private ImageButton add;
     private EditText mancare, pret;
     private Adapter adapter;
@@ -159,5 +159,12 @@ public class Register4 extends Fragment {
 
             return item;
         }
+    }
+
+    public static String getItems() {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < items.size(); i++)
+            s.append(items.get(i).felMancare).append("#").append(items.get(i).pret).append(", ");
+        return s.toString();
     }
 }

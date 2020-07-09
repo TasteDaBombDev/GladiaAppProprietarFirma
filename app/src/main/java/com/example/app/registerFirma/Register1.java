@@ -47,7 +47,7 @@ public class Register1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.register1, container, false);
         emailL = view.findViewById(R.id.emailFirmaL);
-        name = view.findViewById(R.id.name);
+        name = view.findViewById(R.id.nameFirma);
         email = view.findViewById(R.id.emailFirma);
 
         if(!show)
@@ -62,5 +62,9 @@ public class Register1 extends Fragment {
 
     public static String getEmail(){
         return email.getText().toString().trim();
+    }
+
+    public static boolean areCompleted(){
+        return !name.getText().toString().trim().equals("") && !email.getText().toString().trim().equals("");
     }
 }
