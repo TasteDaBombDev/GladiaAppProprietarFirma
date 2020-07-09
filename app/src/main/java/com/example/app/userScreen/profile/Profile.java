@@ -33,7 +33,7 @@ public class Profile extends Fragment {
     private LinearLayout logout;
     private View view;
     private ImageView profilePic;
-    private TextView name, adress;
+    private TextView name, adress, email, tema, decor, muzica, dresscode;
 
     public Profile(){
     }
@@ -87,6 +87,11 @@ public class Profile extends Fragment {
 
         name.setText(MainScreen.getNume());
         adress.setText(MainScreen.getAdresa());
+        email.setText(MainScreen.getMail());
+        tema.setText(MainScreen.getTema());
+        dresscode.setText(MainScreen.getDressCode());
+        muzica.setText(MainScreen.getMuzica());
+        decor.setText(MainScreen.getDecor());
 
         return view;
     }
@@ -95,5 +100,10 @@ public class Profile extends Fragment {
         profilePic = view.findViewById(R.id.profilePic);
         name = view.findViewById(R.id.name);
         adress = view.findViewById(R.id.adress);
+        email = view.findViewById(R.id.mail);
+        tema = view.findViewById(R.id.tema);
+        muzica = view.findViewById(R.id.muzica);
+        dresscode = view.findViewById(R.id.desscode);
+        decor = view.findViewById(R.id.decor);
     }
 }

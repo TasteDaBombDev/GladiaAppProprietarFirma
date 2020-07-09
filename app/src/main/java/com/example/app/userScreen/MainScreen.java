@@ -104,6 +104,14 @@ public class MainScreen extends AppCompatActivity {
         return lng;
     }
 
+    public static String getDecor() {
+        return decor;
+    }
+
+    public static String getMuzica() {
+        return muzica;
+    }
+
     public static String getNumeFirma() {
         return numeFirma;
     }
