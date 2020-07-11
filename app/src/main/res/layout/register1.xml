@@ -7,84 +7,8 @@
     android:background="#f1f1f1"
     tools:context=".registerFirma.Register1">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailFirmaL"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:hint="Email firma"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/textHint"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:boxStrokeWidth="2dp"
-        app:boxStrokeWidthFocused="2dp"
-        app:counterEnabled="false"
-        app:endIconDrawable="@drawable/rounded_x"
-        app:endIconMode="clear_text"
-        app:errorEnabled="false"
-        app:helperTextEnabled="false"
-        app:hintAnimationEnabled="true"
-        app:hintEnabled="true"
-        app:hintTextColor="@color/colorSecundary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameFirmaL"
-        app:layout_constraintVertical_bias="0.07999998"
-        app:layout_constraintWidth_percent="0.7">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailFirma"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:textColorHint="#fff"
-            android:textCursorDrawable="@drawable/color_cursor" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nameFirmaL"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:hint="Nume firma"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/textHint"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:boxStrokeWidth="2dp"
-        app:boxStrokeWidthFocused="2dp"
-        app:counterEnabled="false"
-        app:endIconDrawable="@drawable/rounded_x"
-        app:endIconMode="clear_text"
-        app:errorEnabled="false"
-        app:helperTextEnabled="false"
-        app:hintAnimationEnabled="true"
-        app:hintEnabled="true"
-        app:hintTextColor="@color/colorSecundary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.07999998"
-        app:layout_constraintWidth_percent="0.7">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameFirma"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:textColorHint="#fff"
-            android:textCursorDrawable="@drawable/color_cursor" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/coverPic"
         android:layout_width="300dp"
         android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         app:layout_constraintVertical_bias="0.1"
-        app:srcCompat="@drawable/nopic_round" />
+        app:srcCompat="@drawable/nopic" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
@@ -104,5 +28,141 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#f1f1f1"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coverPic"
+        app:layout_constraintVertical_bias="0.39"
+        app:layout_constraintWidth_percent="0.7">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintWidth_percent="0.7">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nameFirmaL"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:hint="Nume firma"
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/textHint"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:boxStrokeWidth="2dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:counterEnabled="false"
+                    app:endIconDrawable="@drawable/rounded_x"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="false"
+                    app:helperTextEnabled="false"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="@color/colorSecundary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nameFirma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:textColorHint="#fff"
+                        android:textCursorDrawable="@drawable/color_cursor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passFirmaL"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_horizontal"
+                    android:hint="Parola cont firma"
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/textHint"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:boxStrokeWidth="2dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:counterEnabled="false"
+                    app:endIconDrawable="@drawable/rounded_x"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="false"
+                    app:helperTextEnabled="false"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="@color/colorSecundary"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passFirma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:maxLines="3"
+                        android:textColorHint="#fff"
+                        android:textCursorDrawable="@drawable/color_cursor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailFirmaL"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:hint="Email firma"
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/textHint"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:boxStrokeWidth="2dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:counterEnabled="false"
+                    app:endIconDrawable="@drawable/rounded_x"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="false"
+                    app:helperTextEnabled="false"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="@color/colorSecundary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailFirma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:textColorHint="#fff"
+                        android:textCursorDrawable="@drawable/color_cursor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

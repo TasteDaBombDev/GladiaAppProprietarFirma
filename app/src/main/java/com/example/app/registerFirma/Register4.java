@@ -164,7 +164,11 @@ public class Register4 extends Fragment {
     public static String getItems() {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < items.size(); i++)
-            s.append(items.get(i).felMancare).append("#").append(items.get(i).pret).append(", ");
+            s.append(items.get(i).felMancare).append(": ").append(items.get(i).pret).append(", ");
         return s.toString();
+    }
+
+    public static void clear(){
+        items.clear();
     }
 }

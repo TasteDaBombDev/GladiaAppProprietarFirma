@@ -34,6 +34,9 @@ import com.example.app.userScreen.MainScreen;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +48,10 @@ public class RegisterFirma extends AppCompatActivity {
     private Button save;
     private boolean ok = true;
     private boolean errMode = false;
+    private String salt;
+    private Bundle extras;
+    private static String FILE_PATH;
+    private static final String FILE_NAME = "data.txt";
     private Animation fadeIn = new AlphaAnimation(0.0f, 1.0f), fadeOut = new AlphaAnimation(1.0f, 0.0f), shake;
 
     @Override
@@ -57,6 +64,8 @@ public class RegisterFirma extends AppCompatActivity {
         fadeOut.setFillAfter(true);
         shake = AnimationUtils.loadAnimation(RegisterFirma.this, R.anim.shake);
 
+        extras = getIntent().getExtras();
+        salt = extras.getString("salt");
 
         save = findViewById(R.id.save);
         save.setBackgroundResource(R.drawable.circle);
@@ -64,16 +73,25 @@ public class RegisterFirma extends AppCompatActivity {
         header = findViewById(R.id.header);
         TransitionManager.beginDelayedTransition(header);
 
+        String ID = "";
+        if(extras.getBoolean("splashscreen"))
+            ID = SplashScreen.getCod();
+        else
+            ID = MainActivity.getData();
+
 
         final TextView text = findViewById(R.id.textPrompt);
-        texts.add("Let's set up your profile picture, name and email");
+        texts.add("Let's set up your cover photo, name and email");
         texts.add("Now, let's set up your bussiness location");
-        texts.add("Details about your firm");
-        texts.add("Your menu");
+        if(ID.substring(2,3).equals("L")){
+            texts.add("Details about your firm");
+            texts.add("Your flavours menu");
+        }
+        else
+            texts.add("Your organisation's description");
 
 
         final ViewPager vp = findViewById(R.id.registerVP);
-        Bundle extras = getIntent().getExtras();
         final EnumFragmentsRegister enumFragmentsRegister = new EnumFragmentsRegister(getSupportFragmentManager(), this, extras.getBoolean("locatie"));
         vp.setAdapter(enumFragmentsRegister);
         vp.setOffscreenPageLimit(4);
@@ -87,7 +105,7 @@ public class RegisterFirma extends AppCompatActivity {
             @Override
             public void onPageSelected(final int position)
             {
-                if(errMode){
+                if(!errMode){
                     text.startAnimation(fadeOut);
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -115,6 +133,7 @@ public class RegisterFirma extends AppCompatActivity {
             }
         });
 
+        final String finalID = ID;
         save.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -131,6 +150,8 @@ public class RegisterFirma extends AppCompatActivity {
                                     String msg = jsonObject.getString("msg");
                                     if(success){
 
+                                        createFile();
+
                                         int ID = jsonObject.getInt("userID");
                                         String Cod = jsonObject.getString("COD");
                                         String pozaPath = jsonObject.getString("poza");
@@ -139,6 +160,8 @@ public class RegisterFirma extends AppCompatActivity {
                                         String mail = jsonObject.getString("mail");
                                         String password = jsonObject.getString("password");
                                         String type = jsonObject.getString("type");
+                                        String menu = jsonObject.getString("menu");
+                                        String descriere = jsonObject.getString("descriere");
                                         String dressCode = jsonObject.getString("dressCode");
                                         String decor = jsonObject.getString("decor");
                                         String muzica = jsonObject.getString("muzica");
@@ -153,6 +176,8 @@ public class RegisterFirma extends AppCompatActivity {
                                         intent.putExtra("pozaPath", pozaPath);
                                         intent.putExtra("nume", nume);
                                         intent.putExtra("COD", Cod);
+                                        intent.putExtra("menu", menu);
+                                        intent.putExtra("descriere", descriere);
                                         intent.putExtra("numeFirma", numeFirma);
                                         intent.putExtra("password", password);
                                         intent.putExtra("muzica", muzica);
@@ -171,6 +196,7 @@ public class RegisterFirma extends AppCompatActivity {
                                     else{
                                         Intent intent = new Intent(RegisterFirma.this, MainActivity.class);
                                         startActivity(intent);
+                                        Register4.clear();
                                         finish();
                                     }
                                     Toast.makeText(RegisterFirma.this, msg, Toast.LENGTH_SHORT).show();
@@ -189,26 +215,28 @@ public class RegisterFirma extends AppCompatActivity {
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<>();
-                                String ID = SplashScreen.getCod();
-                                params.put("ID", ID.substring(3));
+                                params.put("ID", finalID.substring(3));
+                                params.put("poza", Register1.getPoza());
                                 params.put("name", Register1.getName());
+                                params.put("pass", (Register1.getPass() + "--" + salt));
                                 params.put("adresa", Register2.getAddress());
                                 params.put("lat", String.valueOf(Register2.getLat()));
                                 params.put("lng", String.valueOf(Register2.getLng()));
+                                params.put("email", Register1.getEmail());
                                 if(enumFragmentsRegister.getCount() == 4){
                                     params.put("tema", Register3.getTema());
                                     params.put("dressCode", Register3.getDressCode());
                                     params.put("decor", Register3.getDecor());
                                     params.put("muzica", Register3.getMuzica());
                                     params.put("menu", Register4.getItems());
-                                    params.put("email", Register1.getEmail());
+                                    params.put("descriere", Register3.getDescriere());
                                 } else {
                                     params.put("tema", "");
                                     params.put("dressCode", "");
                                     params.put("decor", "");
                                     params.put("muzica", "");
                                     params.put("menu", "");
-                                    params.put("email", "");
+                                    params.put("descriere",RegsiterDescriereOrganizatie.getDescriere());
                                 }
 
                                 return params;
@@ -233,6 +261,34 @@ public class RegisterFirma extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void createFile() {
+        FileOutputStream fos = null;
+        String ID = "";
+        if(extras.getBoolean("splashscreen"))
+            ID = SplashScreen.getCod();
+        else
+            ID = MainActivity.getData();
+        String text = ( ID + "\n" + Register1.getPass());
+        try {
+            fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
+            FILE_PATH = getFilesDir() + "/" + FILE_NAME;
+            text = text + "\n" + FILE_PATH;
+            fos.write(text.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override

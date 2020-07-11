@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 public class Register3 extends Fragment {
     
     private static Register3 INSTANCE = null;
-    private static TextInputEditText tema, dresscode, muzica, decor;
+    private static TextInputEditText descriere, tema, dresscode, muzica, decor;
     private View view;
 
     public Register3(){
@@ -47,6 +47,7 @@ public class Register3 extends Fragment {
         dresscode = view.findViewById(R.id.dressCode);
         muzica = view.findViewById(R.id.muzica);
         decor = view.findViewById(R.id.decor);
+        descriere = view.findViewById(R.id.descriere);
 
 
         return view;
@@ -66,5 +67,9 @@ public class Register3 extends Fragment {
 
     public static String getDecor() {
         return decor.getText().toString().trim();
+    }
+
+    public static String getDescriere(){
+        return descriere.getText().toString().trim();
     }
 }

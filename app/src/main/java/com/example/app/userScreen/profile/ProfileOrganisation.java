@@ -1,46 +1,48 @@
 package com.example.app.userScreen.profile;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.example.app.MainActivity;
 import com.example.app.R;
+import com.example.app.SplashScreen;
 import com.example.app.userScreen.ListEvents;
 import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.events.Evenimente;
-import com.squareup.picasso.Transformation;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.ArrayList;
 
-import jp.wasabeef.picasso.transformations.MaskTransformation;
+public class ProfileOrganisation extends Fragment {
 
-public class Profile extends Fragment {
-
-
-    private static Profile INSTANCE = null;
-    private LinearLayout logout;
+    private static ProfileOrganisation INSTANCE = null;
+    private ImageButton logout;
     private View view;
     private ImageView profilePic;
-    private TextView name, adress, email, tema, decor, muzica, dresscode;
+    private TextView name, adress, descriere;
 
-    public Profile(){
+    public ProfileOrganisation(){
     }
 
-    public static Profile getINSTANCE(){
+    public static ProfileOrganisation getINSTANCE(){
         if (INSTANCE == null)
-            INSTANCE = new Profile();
+            INSTANCE = new ProfileOrganisation();
         return INSTANCE;
     }
 
@@ -57,19 +59,31 @@ public class Profile extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.user_screen_dashboard,container,false);
+        view = inflater.inflate(R.layout.profile_organisation, container, false);
+        profilePic = view.findViewById(R.id.profilePic);
+        Picasso.get().load(MainScreen.getPozaPath()).into(profilePic);
+
+        name = view.findViewById(R.id.name);
+        name.setText(MainScreen.getNume());
+
+        adress = view.findViewById(R.id.adress);
+        adress.setText(MainScreen.getAdresa());
+
+        descriere = view.findViewById(R.id.descriereFirma);
+        descriere.setText(MainScreen.getDescriere());
 
         logout = view.findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MainActivity.class);
-                File fdelete = new File(MainScreen.getPath());
+                File fdelete = new File(SplashScreen.getPath());
                 if (fdelete.exists()) {
                     boolean t = fdelete.delete();
                     if(t)
                     {
-                        Profile.resetINSTANCE();
+                        ProfileLocation.resetINSTANCE();
+                        ProfileOrganisation.resetINSTANCE();
                         Evenimente.resetINSTANCE();
                         ListEvents.resetINSTANCE();
                         startActivity(intent);
@@ -79,31 +93,6 @@ public class Profile extends Fragment {
                 }
             }
         });
-
-        init();
-
-        final Transformation transformation = new MaskTransformation(getContext(), R.drawable.circle);
-//        Picasso.get().load(MainScreen.getPath()).transform(transformation).into(profilePic);
-
-        name.setText(MainScreen.getNume());
-        adress.setText(MainScreen.getAdresa());
-        email.setText(MainScreen.getMail());
-        tema.setText(MainScreen.getTema());
-        dresscode.setText(MainScreen.getDressCode());
-        muzica.setText(MainScreen.getMuzica());
-        decor.setText(MainScreen.getDecor());
-
         return view;
-    }
-
-    private void init(){
-        profilePic = view.findViewById(R.id.profilePic);
-        name = view.findViewById(R.id.name);
-        adress = view.findViewById(R.id.adress);
-        email = view.findViewById(R.id.mail);
-        tema = view.findViewById(R.id.tema);
-        muzica = view.findViewById(R.id.muzica);
-        dresscode = view.findViewById(R.id.desscode);
-        decor = view.findViewById(R.id.decor);
     }
 }

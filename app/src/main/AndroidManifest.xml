@@ -16,7 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".registerFirma.Register4"></activity>
+        <activity android:name=".userScreen.profile.Dashboard"></activity>
+        <activity android:name=".userScreen.profile.Sales" />
+        <activity android:name=".registerFirma.RegsiterDescriereOrganizatie" />
+        <activity android:name=".userScreen.profile.ProfileOrganisation" />
+        <activity android:name=".registerFirma.Register4" />
         <activity android:name=".registerFirma.Register3" />
         <activity android:name=".registerFirma.Register2" />
         <activity android:name=".registerFirma.Register1" />
@@ -38,7 +42,7 @@
         <activity
             android:name=".userScreen.events.Evenimente"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".userScreen.profile.Profile" />
+        <activity android:name=".userScreen.profile.ProfileLocation" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,11 +1,13 @@
 package com.example.app.userScreen;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.app.R;
+import com.example.app.termsAndConditions.ZoomOutPageTransformer;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainScreen extends AppCompatActivity {
@@ -15,7 +17,7 @@ public class MainScreen extends AppCompatActivity {
     private static int[] viewPagersPages = {5,0,0,0,0,0};
 
     private static int userID;
-    private static String Cod, muzica, decor, numeFirma, nume, pozaPath, password, mail, type, dressCode, tema,  path, adresa;
+    private static String descriere, menu, Cod, muzica, decor, numeFirma, nume, pozaPath, password, mail, type, dressCode, tema,  path, adresa;
     private static double lat,lng;
 
     @Override
@@ -40,12 +42,15 @@ public class MainScreen extends AppCompatActivity {
         adresa = extras.getString("adresa");
         lat = extras.getDouble("lat");
         lng = extras.getDouble("lng");
+        menu = extras.getString("menu");
+        descriere = extras.getString("descriere");
 
         viewPager = findViewById(R.id.mainSlider);
 
         EnumFragments enumFragments = new EnumFragments(getSupportFragmentManager(),this);
         viewPager.setAdapter(enumFragments);
         viewPager.setOffscreenPageLimit(3);
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
         tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -112,8 +117,20 @@ public class MainScreen extends AppCompatActivity {
         return muzica;
     }
 
+    public static String getMenu() {
+        return menu;
+    }
+
+    public static String getDescriere() {
+        return descriere;
+    }
+
     public static String getNumeFirma() {
         return numeFirma;
+    }
+
+    public static String getCod() {
+        return Cod;
     }
 
     public static ViewPager getViewPager(){

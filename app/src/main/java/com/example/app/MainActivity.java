@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.app.registerFirma.Register1;
 import com.example.app.registerFirma.RegisterFirma;
 import com.example.app.userScreen.MainScreen;
 
@@ -30,9 +31,9 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     private static ProgressDialog loading;
-    private static final String FILE_NAME = "data.txt";
     private static EditText data, pass;
     private static String FILE_PATH;
+    private static final String FILE_NAME = "data.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,14 +90,19 @@ public class MainActivity extends AppCompatActivity {
                         String dressCode = jsonObject.getString("dressCode");
                         String decor = jsonObject.getString("decor");
                         String muzica = jsonObject.getString("muzica");
+                        String menu = jsonObject.getString("menu");
+                        String descriere = jsonObject.getString("descriere");
                         String tema = jsonObject.getString("tema");
                         String adresa = jsonObject.getString("adresa");
+                        String salt = jsonObject.getString("salt");
                         double lat = jsonObject.getDouble("lat");
                         double lng = jsonObject.getDouble("lng");
 
                         if(f == 1){
+
                             Intent intent = new Intent(MainActivity.this, MainScreen.class);
                             intent.putExtra("userID", ID);
+                            intent.putExtra("menu", menu);
                             intent.putExtra("pozaPath", pozaPath);
                             intent.putExtra("nume", nume);
                             intent.putExtra("COD", Cod);
@@ -104,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("password", password);
                             intent.putExtra("muzica", muzica);
                             intent.putExtra("decor", decor);
+                            intent.putExtra("descriere", descriere);
                             intent.putExtra("adresa", adresa);
                             intent.putExtra("lat", lat);
                             intent.putExtra("lng", lng);
@@ -120,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
                             String l = data.getText().toString().trim();
                             l = l.substring(2, 3);
                             intent.putExtra("locatie", l.equals("L"));
+                            intent.putExtra("salt", salt);
+                            intent.putExtra("splashscreen", false);
                             startActivity(intent);
                         }
 
@@ -144,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createFile() {
         FileOutputStream fos = null;
-        String text = (data.getText().toString().trim()) + "\n" + (pass.getText().toString().trim());
+        String text = ( getData() + "\n" + pass.getText().toString().trim());
         try {
             fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
             FILE_PATH = getFilesDir() + "/" + FILE_NAME;

@@ -28,7 +28,10 @@ public class EnumFragmentsRegister  extends FragmentPagerAdapter {
         else if (position == 1)
             return Register2.getINSTANCE();
         else if (position == 2)
-            return Register3.getINSTANCE();
+            if(locatie)
+                return Register3.getINSTANCE();
+            else
+                return RegsiterDescriereOrganizatie.getINSTANCE();
         else if (position == 3)
             return Register4.getINSTANCE();
         return null;
@@ -38,6 +41,6 @@ public class EnumFragmentsRegister  extends FragmentPagerAdapter {
     public int getCount() {
         if(locatie)
             return 4;
-        return 2;
+        return 3;
     }
 }

@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
@@ -82,18 +83,23 @@ public class SplashScreen extends AppCompatActivity {
                                 String type = jsonObject.getString("type");
                                 String dressCode = jsonObject.getString("dressCode");
                                 String decor = jsonObject.getString("decor");
+                                String descriere = jsonObject.getString("descriere");
                                 String muzica = jsonObject.getString("muzica");
                                 String tema = jsonObject.getString("tema");
                                 String adresa = jsonObject.getString("adresa");
+                                String menu = jsonObject.getString("menu");
+                                String salt = jsonObject.getString("salt");
                                 double lat = jsonObject.getDouble("lat");
                                 double lng = jsonObject.getDouble("lng");
 
                                 if(f == 1){
                                     Intent intent = new Intent(SplashScreen.this, MainScreen.class);
                                     intent.putExtra("userID", ID);
+                                    intent.putExtra("menu", menu);
                                     intent.putExtra("pozaPath", pozaPath);
                                     intent.putExtra("nume", nume);
                                     intent.putExtra("COD", Cod);
+                                    intent.putExtra("descriere", descriere);
                                     intent.putExtra("numeFirma", numeFirma);
                                     intent.putExtra("password", password);
                                     intent.putExtra("muzica", muzica);
@@ -113,6 +119,8 @@ public class SplashScreen extends AppCompatActivity {
                                     String l = Cod;
                                     l = l.substring(2, 3);
                                     intent.putExtra("locatie", l.equals("L"));
+                                    intent.putExtra("salt", salt);
+                                    intent.putExtra("splashscreen", true);
                                     startActivity(intent);
                                 }
                         } else{
@@ -126,6 +134,7 @@ public class SplashScreen extends AppCompatActivity {
                         }
 
                     } catch (JSONException e) {
+                        Log.w("response", response);
                         e.printStackTrace();
                     }
                 }

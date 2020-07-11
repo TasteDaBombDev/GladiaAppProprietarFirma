@@ -55,7 +55,7 @@ public class PrevizEventMain extends AppCompatActivity {
         tab = findViewById(R.id.tabLayout);
         tab.setupWithViewPager(pager);
         tab.getTabAt(0).setIcon(R.drawable.ic_description_black_24dp);
-        tab.getTabAt(1).setIcon(R.drawable.ic_settings_black_24dp);
+        tab.getTabAt(1).setIcon(R.drawable.ic_trending_up_black_24dp);
 
 
         back = findViewById(R.id.back);
