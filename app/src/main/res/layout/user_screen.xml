@@ -7,18 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".userScreen.MainScreen">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/mainSlider"
-        android:layout_width="match_parent"
+<!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:id="@+id/mainSlider"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:isScrollContainer="false"-->
+<!--        android:overScrollMode="never"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/tabLayout"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--    </androidx.viewpager.widget.ViewPager>-->
+
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:isScrollContainer="false"
-        android:overScrollMode="never"
         app:layout_constraintBottom_toTopOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.viewpager.widget.ViewPager>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

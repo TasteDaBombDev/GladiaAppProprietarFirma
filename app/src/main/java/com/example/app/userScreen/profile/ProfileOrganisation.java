@@ -24,6 +24,11 @@ import com.example.app.SplashScreen;
 import com.example.app.userScreen.ListEvents;
 import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.events.Evenimente;
+import com.example.app.userScreen.events.petreceri.PetreceriPage1;
+import com.example.app.userScreen.events.petreceri.PetreceriPage2;
+import com.example.app.userScreen.events.petreceri.PetreceriPage3;
+import com.example.app.userScreen.events.petreceri.PetreceriPage4;
+import com.example.app.userScreen.events.petreceri.PetreceriPage5;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -31,23 +36,12 @@ import java.util.ArrayList;
 
 public class ProfileOrganisation extends Fragment {
 
-    private static ProfileOrganisation INSTANCE = null;
     private ImageButton logout;
     private View view;
     private ImageView profilePic;
     private TextView name, adress, descriere;
 
     public ProfileOrganisation(){
-    }
-
-    public static ProfileOrganisation getINSTANCE(){
-        if (INSTANCE == null)
-            INSTANCE = new ProfileOrganisation();
-        return INSTANCE;
-    }
-
-    public static void resetINSTANCE(){
-        INSTANCE = null;
     }
 
     @Override
@@ -82,10 +76,12 @@ public class ProfileOrganisation extends Fragment {
                     boolean t = fdelete.delete();
                     if(t)
                     {
-                        ProfileLocation.resetINSTANCE();
-                        ProfileOrganisation.resetINSTANCE();
-                        Evenimente.resetINSTANCE();
-                        ListEvents.resetINSTANCE();
+                        ListEvents.deleteAll();
+                        PetreceriPage1.resetINSTANCE();
+                        PetreceriPage2.resetINSTANCE();
+                        PetreceriPage3.resetINSTANCE();
+                        PetreceriPage4.resetINSTANCE();
+                        PetreceriPage5.resetINSTANCE();
                         startActivity(intent);
                     }
                     else

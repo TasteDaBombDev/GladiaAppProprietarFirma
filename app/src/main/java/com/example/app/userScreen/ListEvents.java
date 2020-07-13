@@ -46,26 +46,14 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public class ListEvents extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
-    private static ListEvents INSTANCE = null;
     private static SwipeMenuListView eventsListing;
-    private Adapter adapter;
+    private static Adapter adapter;
     private View view;
     private static ArrayList<EventDetails> eventsInfo = new ArrayList<>();
     private static SwipeRefreshLayout swipeRefresh;
     private static SwipeRefreshLayout.OnRefreshListener swipeRefreshListner;
 
     public ListEvents(){
-    }
-
-    public static ListEvents getINSTANCE(){
-        if (INSTANCE == null)
-            INSTANCE = new ListEvents();
-        return INSTANCE;
-    }
-
-    public static void resetINSTANCE(){
-        eventsInfo.clear();
-        INSTANCE = null;
     }
 
     @Override
@@ -265,6 +253,11 @@ public class ListEvents extends Fragment {
 
     public static void refresh(){
         swipeRefreshListner.onRefresh();
+    }
+
+    public static void deleteAll(){
+        adapter = null;
+        eventsInfo.clear();
     }
 
 

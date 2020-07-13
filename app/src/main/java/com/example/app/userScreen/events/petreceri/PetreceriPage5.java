@@ -29,6 +29,8 @@ public class PetreceriPage5 extends Fragment {
         return INSTANCE;
     }
 
+    public static void resetINSTANCE(){INSTANCE = null;}
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

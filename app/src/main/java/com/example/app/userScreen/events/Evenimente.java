@@ -47,9 +47,6 @@ import java.util.Map;
 
 public class Evenimente extends Fragment {
 
-    @SuppressLint("StaticFieldLeak")
-    private static Evenimente INSTANCE = null;
-
     private View view;
     private boolean openPL = false;
     private boolean[] hasAppeared;
@@ -60,16 +57,6 @@ public class Evenimente extends Fragment {
     private WormDotsIndicator dotsIndicatorPetreceri;
 
     public Evenimente(){
-    }
-
-    public static Evenimente getINSTANCE(){
-        if (INSTANCE == null)
-            INSTANCE = new Evenimente();
-        return INSTANCE;
-    }
-
-    public static void resetINSTANCE(){
-        INSTANCE = null;
     }
 
     @Override

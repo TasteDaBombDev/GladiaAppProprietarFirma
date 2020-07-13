@@ -24,15 +24,15 @@ public class EnumFragments extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position){
-        if(position == 0)
-            if(MainScreen.getCod().substring(2,3).equals("L"))
-                return ProfileLocation.getINSTANCE();
-            else
-                return ProfileOrganisation.getINSTANCE();
-        else if(position == 1)
-            return Evenimente.getINSTANCE();
-        else if(position == 2)
-            return ListEvents.getINSTANCE();
+//        if(position == 0)
+//            if(MainScreen.getCod().substring(2,3).equals("L"))
+//                return ProfileLocation.getINSTANCE();
+//            else
+//                return ProfileOrganisation.getINSTANCE();
+//        else if(position == 1)
+//            return Evenimente.getINSTANCE();
+//        else if(position == 2)
+//            return ListEvents.getINSTANCE();
         return null;
     }
 
