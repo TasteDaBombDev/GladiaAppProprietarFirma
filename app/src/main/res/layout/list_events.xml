@@ -63,7 +63,7 @@
         android:background="@drawable/background_header"
 
         android:clipToPadding="true"
-        android:fillViewport="false"
+        android:fillViewport="true"
         android:forceHasOverlappingRendering="true"
         app:behavior_overlapTop="40dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -79,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintVertical_bias="1.0">
 
-            <ListView
+            <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:id="@+id/myEvents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                 android:dividerHeight="0dp"
                 android:overScrollMode="never">
 
-            </ListView>
+            </com.baoyz.swipemenulistview.SwipeMenuListView>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

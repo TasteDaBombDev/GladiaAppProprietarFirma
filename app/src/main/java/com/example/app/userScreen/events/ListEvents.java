@@ -49,7 +49,7 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public class ListEvents extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
-    private static ListView eventsListing;
+    private static SwipeMenuListView eventsListing;
     private static AdapterList adapter;
     private View view;
     private static ArrayList<EventDetails> eventsInfo = new ArrayList<>();
@@ -69,19 +69,9 @@ public class ListEvents extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_events, container, false);
-//        serverRun(true);
+        serverRun(true);
 
         eventsListing = view.findViewById(R.id.myEvents);
-        for (int i = 0; i < 35; i++)
-            eventsInfo.add(new EventDetails(i,"http://gladiaholdings.com/FILES/AFACERI/23/1342629831_1594022827.png","Titlu eveniment", "20/02/2020", "12:20 - 12:30"));
-
-        ArrayList<String> name = new ArrayList<>();
-        for (int i = 0; i < eventsInfo.size(); i++)
-            name.add(eventsInfo.get(i).getName());
-
-        Log.w("tat", name.toString());
-        adapter = new AdapterList(getContext(),name,eventsInfo);
-        eventsListing.setAdapter(adapter);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
                 @Override
@@ -94,21 +84,21 @@ public class ListEvents extends Fragment {
                 }
         };
 
-//        eventsListing.setMenuCreator(creator);
-//        eventsListing.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-//        eventsListing.smoothCloseMenu();
-//        eventsListing.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-//
-//            @Override
-//            public void onSwipeStart(int position) {
-//                eventsListing.smoothOpenMenu(position);
-//            }
-//
-//            @Override
-//            public void onSwipeEnd(int position) {
-//
-//            }
-//        });
+        eventsListing.setMenuCreator(creator);
+        eventsListing.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+        eventsListing.smoothCloseMenu();
+        eventsListing.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+
+            @Override
+            public void onSwipeStart(int position) {
+                eventsListing.smoothOpenMenu(position);
+            }
+
+            @Override
+            public void onSwipeEnd(int position) {
+
+            }
+        });
 
         eventsListing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -119,15 +109,15 @@ public class ListEvents extends Fragment {
             }
         });
 
-//        eventsListing.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-//                if (index == 0) {
-//                    deleteFromServer(eventsInfo.get(position).getId());
-//                }
-//                return false;
-//            }
-//        });
+        eventsListing.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                if (index == 0) {
+                    deleteFromServer(eventsInfo.get(position).getId());
+                }
+                return false;
+            }
+        });
 
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         swipeRefresh.setEnabled(false);
