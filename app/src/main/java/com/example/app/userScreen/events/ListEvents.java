@@ -72,6 +72,7 @@ public class ListEvents extends Fragment {
         serverRun(true);
 
         eventsListing = view.findViewById(R.id.myEvents);
+        eventsListing.setNestedScrollingEnabled(true);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
                 @Override
