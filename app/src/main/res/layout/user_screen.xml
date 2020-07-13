@@ -44,25 +44,6 @@
         app:layout_constraintVertical_bias="1.0"
         app:tabIconTint="@color/icon_colors_for_tabs"
         app:tabIndicator="@drawable/circle"
-        app:tabRippleColor="@color/icon_colors_ripple">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:pointerIcon="none" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/createEvent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/plus" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/displayEvetns"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_perm_contact_calendar_black_24dp" />
-    </com.google.android.material.tabs.TabLayout>
+        app:tabMode="fixed"
+        app:tabRippleColor="@color/icon_colors_ripple"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

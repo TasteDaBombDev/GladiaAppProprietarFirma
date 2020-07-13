@@ -1,7 +1,6 @@
 package com.example.app.userScreen;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -10,8 +9,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.app.R;
-import com.example.app.termsAndConditions.ZoomOutPageTransformer;
-import com.example.app.userScreen.events.Evenimente;
+import com.example.app.userScreen.createEvents.Evenimente;
+import com.example.app.userScreen.events.ListEvents;
 import com.example.app.userScreen.profile.ProfileLocation;
 import com.example.app.userScreen.profile.ProfileOrganisation;
 import com.google.android.material.tabs.TabLayout;
@@ -34,37 +33,19 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_screen);
-
-        Bundle extras = getIntent().getExtras();
-        userID = extras.getInt("userID");
-        muzica = extras.getString("muzica");
-        decor = extras.getString("decor");
-        Cod = extras.getString("COD");
-        pozaPath = extras.getString("pozaPath");
-        nume = extras.getString("nume");
-        numeFirma = extras.getString("numeFirma");
-        password = extras.getString("password");
-        mail = extras.getString("mail");
-        type = extras.getString("type");
-        dressCode = extras.getString("dressCode");
-        tema = extras.getString("tema");
-        path = extras.getString("logoutPath");
-        adresa = extras.getString("adresa");
-        lat = extras.getDouble("lat");
-        lng = extras.getDouble("lng");
-        menu = extras.getString("menu");
-        descriere = extras.getString("descriere");
+        getExtras();
 
         tabLayout = findViewById(R.id.tabLayout);
 
-//        tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_black_24dp);
-//        tabLayout.getTabAt(1).setIcon(R.drawable.plus);
-//        tabLayout.getTabAt(2).setIcon(R.drawable.ic_perm_contact_calendar_black_24dp);
+        tabLayout.addTab(tabLayout.newTab().setText("").setIcon(R.drawable.ic_home_black_24dp), true);
+        tabLayout.addTab(tabLayout.newTab().setText("").setIcon(R.drawable.plus));
+        tabLayout.addTab(tabLayout.newTab().setText("").setIcon(R.drawable.ic_perm_contact_calendar_black_24dp));
+        setCurrentTabFragment(0);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
+                setCurrentTabFragment(tab.getPosition());
             }
 
             @Override
@@ -86,10 +67,16 @@ public class MainScreen extends AppCompatActivity {
         switch (tabPosition)
         {
             case 0 :
-                replaceFragment();
+                if(MainScreen.getCod().substring(2,3).equals("L"))
+                        replaceFragment(profileLocation);
+                    else
+                        replaceFragment(profileOrganisation);
                 break;
             case 1 :
-                replaceFragment(fragmentTwo);
+                replaceFragment(evenimente);
+                break;
+            case 2:
+                replaceFragment(listEvents);
                 break;
         }
     }
@@ -184,5 +171,27 @@ public class MainScreen extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //Nothing
+    }
+
+    private void getExtras(){
+        Bundle extras = getIntent().getExtras();
+        userID = extras.getInt("userID");
+        muzica = extras.getString("muzica");
+        decor = extras.getString("decor");
+        Cod = extras.getString("COD");
+        pozaPath = extras.getString("pozaPath");
+        nume = extras.getString("nume");
+        numeFirma = extras.getString("numeFirma");
+        password = extras.getString("password");
+        mail = extras.getString("mail");
+        type = extras.getString("type");
+        dressCode = extras.getString("dressCode");
+        tema = extras.getString("tema");
+        path = extras.getString("logoutPath");
+        adresa = extras.getString("adresa");
+        lat = extras.getDouble("lat");
+        lng = extras.getDouble("lng");
+        menu = extras.getString("menu");
+        descriere = extras.getString("descriere");
     }
 }

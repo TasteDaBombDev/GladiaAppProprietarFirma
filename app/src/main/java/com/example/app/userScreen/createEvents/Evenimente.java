@@ -1,4 +1,4 @@
-package com.example.app.userScreen.events;
+package com.example.app.userScreen.createEvents;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
@@ -30,13 +30,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
-import com.example.app.userScreen.ListEvents;
+import com.example.app.userScreen.events.ListEvents;
 import com.example.app.userScreen.MainScreen;
-import com.example.app.userScreen.events.petreceri.EnumFragmentsPetreceri;
-import com.example.app.userScreen.events.petreceri.PetreceriPage1;
-import com.example.app.userScreen.events.petreceri.PetreceriPage2;
-import com.example.app.userScreen.events.petreceri.PetreceriPage3;
-import com.example.app.userScreen.events.petreceri.PetreceriPage4;
+import com.example.app.userScreen.createEvents.petreceri.EnumFragmentsPetreceri;
+import com.example.app.userScreen.createEvents.petreceri.PetreceriPage1;
+import com.example.app.userScreen.createEvents.petreceri.PetreceriPage2;
+import com.example.app.userScreen.createEvents.petreceri.PetreceriPage3;
+import com.example.app.userScreen.createEvents.petreceri.PetreceriPage4;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import org.json.JSONException;

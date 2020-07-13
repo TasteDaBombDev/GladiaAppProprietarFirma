@@ -1,15 +1,17 @@
-package com.example.app.userScreen;
+package com.example.app.userScreen.events;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +32,8 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.app.R;
-import com.example.app.userScreen.previzEvent.PrevizEventMain;
+import com.example.app.userScreen.MainScreen;
+import com.example.app.userScreen.events.previzEvent.PrevizEventMain;
 import com.example.app.utils.EventDetails;
 import com.squareup.picasso.Picasso;
 
@@ -46,8 +49,8 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public class ListEvents extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
-    private static SwipeMenuListView eventsListing;
-    private static Adapter adapter;
+    private static ListView eventsListing;
+    private static AdapterList adapter;
     private View view;
     private static ArrayList<EventDetails> eventsInfo = new ArrayList<>();
     private static SwipeRefreshLayout swipeRefresh;
@@ -66,8 +69,19 @@ public class ListEvents extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_events, container, false);
-        serverRun(true);
+//        serverRun(true);
+
         eventsListing = view.findViewById(R.id.myEvents);
+        for (int i = 0; i < 35; i++)
+            eventsInfo.add(new EventDetails(i,"http://gladiaholdings.com/FILES/AFACERI/23/1342629831_1594022827.png","Titlu eveniment", "20/02/2020", "12:20 - 12:30"));
+
+        ArrayList<String> name = new ArrayList<>();
+        for (int i = 0; i < eventsInfo.size(); i++)
+            name.add(eventsInfo.get(i).getName());
+
+        Log.w("tat", name.toString());
+        adapter = new AdapterList(getContext(),name,eventsInfo);
+        eventsListing.setAdapter(adapter);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
                 @Override
@@ -80,21 +94,21 @@ public class ListEvents extends Fragment {
                 }
         };
 
-        eventsListing.setMenuCreator(creator);
-        eventsListing.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-        eventsListing.smoothCloseMenu();
-        eventsListing.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-
-            @Override
-            public void onSwipeStart(int position) {
-                eventsListing.smoothOpenMenu(position);
-            }
-
-            @Override
-            public void onSwipeEnd(int position) {
-
-            }
-        });
+//        eventsListing.setMenuCreator(creator);
+//        eventsListing.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+//        eventsListing.smoothCloseMenu();
+//        eventsListing.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+//
+//            @Override
+//            public void onSwipeStart(int position) {
+//                eventsListing.smoothOpenMenu(position);
+//            }
+//
+//            @Override
+//            public void onSwipeEnd(int position) {
+//
+//            }
+//        });
 
         eventsListing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -105,15 +119,15 @@ public class ListEvents extends Fragment {
             }
         });
 
-        eventsListing.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                if (index == 0) {
-                    deleteFromServer(eventsInfo.get(position).getId());
-                }
-                return false;
-            }
-        });
+//        eventsListing.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+//                if (index == 0) {
+//                    deleteFromServer(eventsInfo.get(position).getId());
+//                }
+//                return false;
+//            }
+//        });
 
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         swipeRefresh.setEnabled(false);
@@ -130,14 +144,14 @@ public class ListEvents extends Fragment {
         return view;
     }
 
-    class Adapter extends ArrayAdapter<String> {
+    class AdapterList extends ArrayAdapter<String> {
 
         Context context;
         ArrayList<EventDetails> event;
         TextView name, date, hour;
         ImageView image;
 
-        Adapter(Context c, ArrayList<String> names, ArrayList<EventDetails> eventsInfo){
+        public AdapterList(Context c, ArrayList<String> names, ArrayList<EventDetails> eventsInfo){
             super(c, R.layout.event_item,R.id.eventName, names);
             this.context = c;
             this.event = eventsInfo;
@@ -147,7 +161,7 @@ public class ListEvents extends Fragment {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-            @SuppressLint("ViewHolder") View item = layoutInflater.inflate(R.layout.event_item,parent,false);
+            View item = layoutInflater.inflate(R.layout.event_item,parent,false);
             name = item.findViewById(R.id.eventName);
             image = item.findViewById(R.id.eventPic);
             hour = item.findViewById(R.id.eventOra);
@@ -157,8 +171,8 @@ public class ListEvents extends Fragment {
 
             Picasso.get().load(event.get(position).getImgPath()).into(image);
 
-            hour.setText(event.get(position).getDate());
-            date.setText(event.get(position).getHour());
+            hour.setText(event.get(position).getHour());
+            date.setText(event.get(position).getDate());
 
             return item;
         }
@@ -172,27 +186,28 @@ public class ListEvents extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.getBoolean("existance")){
-                        for (int i = 0; i < (jsonObject.length() / 5); i++) {
-                            eventsInfo.add(new EventDetails(
-                                    jsonObject.getInt("id" + i),
-                                    jsonObject.getString("poza" + i),
-                                    jsonObject.getString("nume" + i),
-                                    jsonObject.getString("date" + i),
-                                    jsonObject.getString("hours" + i))
-                            );
-                        }
-                    }
-//                    for (int i = 0; i < 35; i++) {
-//                        eventsInfo.add(new EventDetails(i,"http://gladiaholdings.com/FILES/AFACERI/23/1342629831_1594022827.png","Titlu eveniment", "20/02/2020", "12:20 - 12:30"));
+//                    if(jsonObject.getBoolean("existance")){
+//                        for (int i = 0; i < (jsonObject.length() / 5); i++) {
+//                            eventsInfo.add(new EventDetails(
+//                                    jsonObject.getInt("id" + i),
+//                                    jsonObject.getString("poza" + i),
+//                                    jsonObject.getString("nume" + i),
+//                                    jsonObject.getString("date" + i),
+//                                    jsonObject.getString("hours" + i))
+//                            );
+//                        }
 //                    }
+                    for (int i = 0; i < 35; i++) {
+                        eventsInfo.add(new EventDetails(i,"http://gladiaholdings.com/FILES/AFACERI/23/1342629831_1594022827.png","Titlu eveniment", "20/02/2020", "12:20 - 12:30"));
+                        Log.w("tag" + i, eventsInfo.get(i).getName());
+                    }
                     ArrayList<String> name = new ArrayList<>();
                     for (int i = 0; i < eventsInfo.size(); i++) {
                         name.add(eventsInfo.get(i).getName());
                     }
                     if (!firstTime)
                         adapter = null;
-                    adapter = new Adapter(getContext(),name,eventsInfo);
+                    adapter = new AdapterList(getContext(),name,eventsInfo);
                     eventsListing.setAdapter(adapter);
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Error loading your events" + response, Toast.LENGTH_LONG).show();

@@ -5,7 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".userScreen.events.petreceri.SelectLocation">
+    tools:context=".userScreen.createEvents.petreceri.SelectLocation">
 
     <fragment
         android:id="@+id/map"

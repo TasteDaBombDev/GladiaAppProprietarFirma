@@ -1,4 +1,4 @@
-package com.example.app.userScreen.events.petreceri;
+package com.example.app.userScreen.createEvents.petreceri;
 
 import android.content.Context;
 

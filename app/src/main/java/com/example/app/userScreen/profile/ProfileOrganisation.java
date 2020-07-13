@@ -2,8 +2,6 @@ package com.example.app.userScreen.profile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
@@ -14,25 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app.MainActivity;
 import com.example.app.R;
 import com.example.app.SplashScreen;
-import com.example.app.userScreen.ListEvents;
+import com.example.app.userScreen.events.ListEvents;
 import com.example.app.userScreen.MainScreen;
-import com.example.app.userScreen.events.Evenimente;
-import com.example.app.userScreen.events.petreceri.PetreceriPage1;
-import com.example.app.userScreen.events.petreceri.PetreceriPage2;
-import com.example.app.userScreen.events.petreceri.PetreceriPage3;
-import com.example.app.userScreen.events.petreceri.PetreceriPage4;
-import com.example.app.userScreen.events.petreceri.PetreceriPage5;
+import com.example.app.userScreen.createEvents.petreceri.PetreceriPage1;
+import com.example.app.userScreen.createEvents.petreceri.PetreceriPage2;
+import com.example.app.userScreen.createEvents.petreceri.PetreceriPage3;
+import com.example.app.userScreen.createEvents.petreceri.PetreceriPage4;
+import com.example.app.userScreen.createEvents.petreceri.PetreceriPage5;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class ProfileOrganisation extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.app.userScreen.events.petreceri;
+package com.example.app.userScreen.createEvents.petreceri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.app.R;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 public class PetreceriPage4 extends Fragment {
 

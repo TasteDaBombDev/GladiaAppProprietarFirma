@@ -25,22 +25,22 @@
         <activity android:name=".registerFirma.Register2" />
         <activity android:name=".registerFirma.Register1" />
         <activity android:name=".registerFirma.RegisterFirma" />
-        <activity android:name=".userScreen.previzEvent.PrevizEventMain" />
-        <activity android:name=".userScreen.previzEvent.PrevizEvent" />
+        <activity android:name=".userScreen.events.previzEvent.PrevizEventMain" />
+        <activity android:name=".userScreen.events.previzEvent.PrevizEvent" />
         <activity
-            android:name=".userScreen.events.petreceri.PetreceriPage4"
+            android:name=".userScreen.createEvents.petreceri.PetreceriPage4"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".userScreen.events.petreceri.SelectLocation" />
+        <activity android:name=".userScreen.createEvents.petreceri.SelectLocation" />
         <activity
-            android:name=".userScreen.events.petreceri.PetreceriPage2"
+            android:name=".userScreen.createEvents.petreceri.PetreceriPage2"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".userScreen.events.petreceri.SelectPic" />
+        <activity android:name=".userScreen.createEvents.petreceri.SelectPic" />
         <activity android:name=".termsAndConditions.Terms3" />
         <activity android:name=".termsAndConditions.Terms2" />
         <activity android:name=".termsAndConditions.Terms1" />
         <activity android:name=".termsAndConditions.TermsAndConditionsMain" />
         <activity
-            android:name=".userScreen.events.Evenimente"
+            android:name=".userScreen.createEvents.Evenimente"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".userScreen.profile.ProfileLocation" />
         <activity android:name=".SplashScreen">

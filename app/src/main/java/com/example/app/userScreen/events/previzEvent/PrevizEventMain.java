@@ -1,4 +1,4 @@
-package com.example.app.userScreen.previzEvent;
+package com.example.app.userScreen.events.previzEvent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -6,7 +6,6 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.app.R;
 import com.google.android.material.tabs.TabLayout;

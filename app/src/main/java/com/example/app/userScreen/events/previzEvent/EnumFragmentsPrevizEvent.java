@@ -1,4 +1,4 @@
-package com.example.app.userScreen.previzEvent;
+package com.example.app.userScreen.events.previzEvent;
 
 import android.content.Context;
 

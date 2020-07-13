@@ -1,4 +1,4 @@
-package com.example.app.userScreen.previzEvent;
+package com.example.app.userScreen.events.previzEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +23,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,8 +37,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
-import com.example.app.userScreen.events.petreceri.SelectLocation;
-import com.google.android.gms.maps.model.LatLng;
+import com.example.app.userScreen.createEvents.petreceri.SelectLocation;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -49,7 +47,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.IllegalFormatPrecisionException;
 import java.util.Map;
 
 import jp.wasabeef.picasso.transformations.MaskTransformation;

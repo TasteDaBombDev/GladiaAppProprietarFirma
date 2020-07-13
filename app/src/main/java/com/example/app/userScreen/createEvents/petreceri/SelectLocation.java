@@ -1,4 +1,4 @@
-package com.example.app.userScreen.events.petreceri;
+package com.example.app.userScreen.createEvents.petreceri;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app.R;
-import com.example.app.userScreen.previzEvent.PrevizEvent;
+import com.example.app.userScreen.events.previzEvent.PrevizEvent;
 import com.example.app.utils.Pairs;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
