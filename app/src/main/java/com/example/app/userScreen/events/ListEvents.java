@@ -177,21 +177,21 @@ public class ListEvents extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-//                    if(jsonObject.getBoolean("existance")){
-//                        for (int i = 0; i < (jsonObject.length() / 5); i++) {
-//                            eventsInfo.add(new EventDetails(
-//                                    jsonObject.getInt("id" + i),
-//                                    jsonObject.getString("poza" + i),
-//                                    jsonObject.getString("nume" + i),
-//                                    jsonObject.getString("date" + i),
-//                                    jsonObject.getString("hours" + i))
-//                            );
-//                        }
-//                    }
-                    for (int i = 0; i < 35; i++) {
-                        eventsInfo.add(new EventDetails(i,"http://gladiaholdings.com/FILES/AFACERI/23/1342629831_1594022827.png","Titlu eveniment", "20/02/2020", "12:20 - 12:30"));
-                        Log.w("tag" + i, eventsInfo.get(i).getName());
+                    if(jsonObject.getBoolean("existance")){
+                        for (int i = 0; i < (jsonObject.length() / 5); i++) {
+                            eventsInfo.add(new EventDetails(
+                                    jsonObject.getInt("id" + i),
+                                    jsonObject.getString("poza" + i),
+                                    jsonObject.getString("nume" + i),
+                                    jsonObject.getString("date" + i),
+                                    jsonObject.getString("hours" + i))
+                            );
+                        }
                     }
+//                    for (int i = 0; i < 35; i++) {
+//                        eventsInfo.add(new EventDetails(i,"http://gladiaholdings.com/FILES/AFACERI/23/1342629831_1594022827.png","Titlu eveniment", "20/02/2020", "12:20 - 12:30"));
+//                        Log.w("tag" + i, eventsInfo.get(i).getName());
+//                    }
                     ArrayList<String> name = new ArrayList<>();
                     for (int i = 0; i < eventsInfo.size(); i++) {
                         name.add(eventsInfo.get(i).getName());

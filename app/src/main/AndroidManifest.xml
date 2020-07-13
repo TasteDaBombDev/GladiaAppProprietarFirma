@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".userScreen.profile.Dashboard"></activity>
+        <activity android:name=".userScreen.profile.Dashboard" />
         <activity android:name=".userScreen.profile.Sales" />
         <activity android:name=".registerFirma.RegsiterDescriereOrganizatie" />
         <activity android:name=".userScreen.profile.ProfileOrganisation" />

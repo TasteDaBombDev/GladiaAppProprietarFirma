@@ -7,27 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".userScreen.MainScreen">
 
-<!--    <androidx.viewpager.widget.ViewPager-->
-<!--        android:id="@+id/mainSlider"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:isScrollContainer="false"-->
-<!--        android:overScrollMode="never"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/tabLayout"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--    </androidx.viewpager.widget.ViewPager>-->
-
-    <FrameLayout
-        android:id="@+id/frame_container"
-        android:layout_width="0dp"
+    <com.example.app.utils.OurViewPager
+        android:id="@+id/mainSlider"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:isScrollContainer="false"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toTopOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.example.app.utils.OurViewPager>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -45,5 +36,24 @@
         app:tabIconTint="@color/icon_colors_for_tabs"
         app:tabIndicator="@drawable/circle"
         app:tabMode="fixed"
-        app:tabRippleColor="@color/icon_colors_ripple"/>
+        app:tabRippleColor="@color/icon_colors_ripple">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab2" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab3" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab4" />
+    </com.google.android.material.tabs.TabLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

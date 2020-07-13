@@ -42,6 +42,7 @@
         app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="0.5"
         app:tabIconTint="@color/icon_colors_for_tabs"
+        app:tabIndicatorColor="@android:color/transparent"
         app:tabIndicatorFullWidth="false">
 
         <com.google.android.material.tabs.TabItem
