@@ -2,6 +2,8 @@ package com.example.app.userScreen.profile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
@@ -25,6 +27,7 @@ import com.example.app.userScreen.createEvents.petreceri.PetreceriPage2;
 import com.example.app.userScreen.createEvents.petreceri.PetreceriPage3;
 import com.example.app.userScreen.createEvents.petreceri.PetreceriPage4;
 import com.example.app.userScreen.createEvents.petreceri.PetreceriPage5;
+import com.google.android.material.appbar.AppBarLayout;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -84,6 +87,48 @@ public class ProfileOrganisation extends Fragment {
                 }
             }
         });
+
+
+        ImageButton toDashboard = view.findViewById(R.id.toDashboard);
+        ImageButton toProcent = view.findViewById(R.id.toProcent);
+
+        toDashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileMainFragment.getViewPager().setCurrentItem(0);
+            }
+        });
+
+        toProcent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileMainFragment.getViewPager().setCurrentItem(2);
+            }
+        });
+
+        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                ConstraintLayout root = view.findViewById(R.id.rootOfNext);
+                root.setMaxHeight(appBarLayout.getHeight() - Math.abs(verticalOffset));
+                ConstraintSet cs = new ConstraintSet();
+                cs.clone(root);
+                float l = (float) Math.abs(verticalOffset)/1032;
+                float csL = l/4;
+                if(csL > 0.11)
+                {
+                    cs.constrainPercentWidth(R.id.toDashboard, csL);
+                    cs.constrainPercentWidth(R.id.toProcent, csL);
+                } else {
+                    cs.constrainPercentWidth(R.id.toProcent, 0.11f);
+                    cs.constrainPercentWidth(R.id.toDashboard, 0.11f);
+                }
+                cs.applyTo(root);
+            }
+        });
+
+
         return view;
     }
 }

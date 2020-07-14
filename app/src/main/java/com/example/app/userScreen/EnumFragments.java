@@ -7,15 +7,13 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.app.userScreen.createEvents.Evenimente;
 import com.example.app.userScreen.events.ListEvents;
-import com.example.app.userScreen.profile.ProfileLocation;
-import com.example.app.userScreen.profile.ProfileOrganisation;
+import com.example.app.userScreen.profile.ProfileMainFragment;
 
 public class EnumFragments extends FragmentPagerAdapter {
 
-    private ProfileLocation profileLocation = new ProfileLocation();
-    private ProfileOrganisation profileOrganisation = new ProfileOrganisation();
     private Evenimente evenimente = new Evenimente();
     private ListEvents listEvents = new ListEvents();
+    private ProfileMainFragment profileMainFragment = new ProfileMainFragment();
 
     public EnumFragments(@NonNull FragmentManager fm) {
         super(fm);
@@ -27,10 +25,7 @@ public class EnumFragments extends FragmentPagerAdapter {
         switch (position)
         {
             case 0 :
-                if(MainScreen.getCod().substring(2,3).equals("L"))
-                    return profileLocation;
-                else
-                    return profileOrganisation;
+                return profileMainFragment;
             case 1 :
                 return evenimente;
             case 2:

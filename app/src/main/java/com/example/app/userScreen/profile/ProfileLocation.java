@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
 import com.example.app.MainActivity;
@@ -29,6 +31,7 @@ import com.example.app.userScreen.createEvents.petreceri.PetreceriPage2;
 import com.example.app.userScreen.createEvents.petreceri.PetreceriPage3;
 import com.example.app.userScreen.createEvents.petreceri.PetreceriPage4;
 import com.example.app.userScreen.createEvents.petreceri.PetreceriPage5;
+import com.google.android.material.appbar.AppBarLayout;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -36,7 +39,7 @@ import java.io.File;
 public class ProfileLocation extends Fragment {
 
     private LinearLayout root, rootButtons;
-    private ImageButton logout, newI, toDashboard, toProcent;
+    private ImageButton logout, toDashboard, toProcent;
     private View view;
     private boolean btnVisible = false;
     private ImageView profilePic;
@@ -103,38 +106,43 @@ public class ProfileLocation extends Fragment {
         animRotateOut.setDuration(300);
         animRotateOut.setFillAfter(true);
 
-        newI.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                TransitionManager.beginDelayedTransition(rootButtons);
-                if(!btnVisible){
-                    btnVisible = true;
-                    newI.startAnimation(animRotateIn);
-                    toDashboard.setVisibility(View.VISIBLE);
-                    toProcent.setVisibility(View.VISIBLE);
-                } else {
-                    btnVisible = false;
-                    toProcent.setVisibility(View.GONE);
-                    toDashboard.setVisibility(View.GONE);
-                    newI.startAnimation(animRotateOut);
-                }
-            }
-        });
+        toDashboard = view.findViewById(R.id.toDashboard);
+        toProcent = view.findViewById(R.id.toProcent);
 
         toDashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Dashboard.class);
-                startActivity(intent);
+                ProfileMainFragment.getViewPager().setCurrentItem(0);
             }
         });
 
         toProcent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Sales.class);
-                startActivity(intent);
+                ProfileMainFragment.getViewPager().setCurrentItem(2);
+            }
+        });
+
+        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                ConstraintLayout root = view.findViewById(R.id.rootOfNext);
+                root.setMaxHeight(appBarLayout.getHeight() - Math.abs(verticalOffset));
+                ConstraintSet cs = new ConstraintSet();
+                cs.clone(root);
+                float l = (float) Math.abs(verticalOffset)/1032;
+                float csL = l/4;
+                if(csL > 0.11)
+                {
+                    cs.constrainPercentWidth(R.id.toDashboard, csL);
+                    cs.constrainPercentWidth(R.id.toProcent, csL);
+                } else {
+                    cs.constrainPercentWidth(R.id.toProcent, 0.11f);
+                    cs.constrainPercentWidth(R.id.toDashboard, 0.11f);
+                }
+                cs.applyTo(root);
             }
         });
 
@@ -170,9 +178,7 @@ public class ProfileLocation extends Fragment {
         decor = view.findViewById(R.id.decor);
         descriere = view.findViewById(R.id.descriereFirma);
 
-        newI = view.findViewById(R.id.newI);
         toDashboard = view.findViewById(R.id.toDashboard);
         toProcent = view.findViewById(R.id.toProcent);
-        rootButtons = view.findViewById(R.id.rootButtons);
     }
 }
