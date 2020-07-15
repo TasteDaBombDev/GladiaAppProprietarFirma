@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -138,6 +139,7 @@ public class Stats extends Fragment implements OnMapReadyCallback {
         gMap = googleMap;
         gMap.getUiSettings().setAllGesturesEnabled(false);
         goToLoc(PrevizEvent.getLat(), PrevizEvent.getLng());
+        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
     }
 
     public void goToLoc(double lat, double lng){

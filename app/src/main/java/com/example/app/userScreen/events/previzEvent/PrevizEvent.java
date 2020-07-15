@@ -365,8 +365,6 @@ public class PrevizEvent extends Fragment{
                     else
                         root.getChildAt(7).setVisibility(GONE);
 
-
-                    //data, oraStart, oraEnd, tematica, pozaArtist, numeArtist, genuriMuzicale, descriere, tinuta, adr
                     a.add(adr);
                     a.add(data);
                     a.add(oraStart + " - " + oraEnd);

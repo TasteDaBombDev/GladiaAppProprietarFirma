@@ -12,11 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.app.R;
+import com.example.app.utils.OurViewPager;
 
 public class ProfileMainFragment extends Fragment {
 
     private View view;
-    private static ViewPager viewPager;
+    private static OurViewPager viewPager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,11 +33,16 @@ public class ProfileMainFragment extends Fragment {
         EnumProfiles enumProfiles = new EnumProfiles(getActivity().getSupportFragmentManager());
         viewPager.setAdapter(enumProfiles);
         viewPager.setCurrentItem(1);
+        viewPager.setOffscreenPageLimit(3);
 
         return view;
     }
 
     public static ViewPager getViewPager() {
         return viewPager;
+    }
+
+    public static void setScrollable(boolean b){
+        viewPager.setPagingEnabled(b);
     }
 }

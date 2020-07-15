@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.app.userScreen.MainScreen;
+import com.example.app.userScreen.profile.dashboard.Dashboard;
 
 public class EnumProfiles extends FragmentPagerAdapter {
 
@@ -13,6 +14,7 @@ public class EnumProfiles extends FragmentPagerAdapter {
     private ProfileOrganisation profileOrganisation = new ProfileOrganisation();
     private Dashboard dashboard = new Dashboard();
     private Sales sales = new Sales();
+    private static boolean isLocation;
 
     public EnumProfiles(@NonNull FragmentManager fm) {
         super(fm);
@@ -25,10 +27,14 @@ public class EnumProfiles extends FragmentPagerAdapter {
             return dashboard;
         else
             if(position == 1){
-                if(MainScreen.getCod().substring(2,3).equals("L"))
+                if(MainScreen.getCod().substring(2,3).equals("L")) {
+                    isLocation = true;
                     return profileLocation;
-                else
+                }
+                else{
+                    isLocation = false;
                     return profileOrganisation;
+                }
             } else if(position == 2)
                 return sales;
         return null;
@@ -37,5 +43,9 @@ public class EnumProfiles extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return 3;
+    }
+
+    public static boolean isLocation(){
+        return isLocation;
     }
 }

@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.transition.TransitionManager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,6 +38,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
@@ -142,6 +144,7 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         map = googleMap;
+        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

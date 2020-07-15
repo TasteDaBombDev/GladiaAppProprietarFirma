@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,9 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.app.R;
 import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.events.previzEvent.PrevizEventMain;
+import com.example.app.userScreen.profile.dashboard.Dashboard;
 import com.example.app.utils.EventDetails;
+import com.example.app.utils.ServerData;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -52,7 +55,6 @@ public class ListEvents extends Fragment {
     private static SwipeMenuListView eventsListing;
     private static AdapterList adapter;
     private View view;
-    private static ArrayList<EventDetails> eventsInfo = new ArrayList<>();
     private static SwipeRefreshLayout swipeRefresh;
     private static SwipeRefreshLayout.OnRefreshListener swipeRefreshListner;
 
@@ -105,7 +107,7 @@ public class ListEvents extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), PrevizEventMain.class);
-                intent.putExtra("ID",eventsInfo.get(position).getId());
+                intent.putExtra("ID", ServerData.getEventsInfo().get(position).getId());
                 startActivity(intent);
             }
         });
@@ -114,7 +116,7 @@ public class ListEvents extends Fragment {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 if (index == 0) {
-                    deleteFromServer(eventsInfo.get(position).getId());
+                    deleteFromServer(ServerData.getEventsInfo().get(position).getId());
                 }
                 return false;
             }
@@ -125,7 +127,7 @@ public class ListEvents extends Fragment {
         swipeRefreshListner = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                eventsInfo.clear();
+                ServerData.getEventsInfo().clear();
                 serverRun(false);
                 swipeRefresh.setRefreshing(false);
             }
@@ -179,7 +181,7 @@ public class ListEvents extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     if(jsonObject.getBoolean("existance")){
                         for (int i = 0; i < (jsonObject.length() / 5); i++) {
-                            eventsInfo.add(new EventDetails(
+                            ServerData.addEventsInfo(new EventDetails(
                                     jsonObject.getInt("id" + i),
                                     jsonObject.getString("poza" + i),
                                     jsonObject.getString("nume" + i),
@@ -188,18 +190,20 @@ public class ListEvents extends Fragment {
                             );
                         }
                     }
-//                    for (int i = 0; i < 35; i++) {
-//                        eventsInfo.add(new EventDetails(i,"http://gladiaholdings.com/FILES/AFACERI/23/1342629831_1594022827.png","Titlu eveniment", "20/02/2020", "12:20 - 12:30"));
-//                        Log.w("tag" + i, eventsInfo.get(i).getName());
-//                    }
+//                    for (int i = 0; i < 35; i++)
+//                       ServerData.addEventsInfo(new EventDetails(i,"http://gladiaholdings.com/FILES/AFACERI/23/1342629831_1594022827.png","Titlu eveniment", "20/02/2020", "12:20 - 12:30"));
                     ArrayList<String> name = new ArrayList<>();
-                    for (int i = 0; i < eventsInfo.size(); i++) {
-                        name.add(eventsInfo.get(i).getName());
+                    for (int i = 0; i < ServerData.getEventsInfo().size(); i++) {
+                        name.add(ServerData.getEventsInfo().get(i).getName());
                     }
                     if (!firstTime)
                         adapter = null;
-                    adapter = new AdapterList(getContext(),name,eventsInfo);
+                    adapter = new AdapterList(getContext(),name,ServerData.getEventsInfo());
                     eventsListing.setAdapter(adapter);
+
+                    //-------------SAFE ZONE OF CONSTRUCTING----------
+                    Dashboard.constructProfile(getContext());
+
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Error loading your events" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
@@ -232,7 +236,7 @@ public class ListEvents extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     if(jsonObject.getBoolean("success"))
                     {
-                        eventsInfo.clear();
+                        ServerData.getEventsInfo().clear();
                         serverRun(false);
                     }
                 } catch (JSONException e) {
@@ -263,8 +267,6 @@ public class ListEvents extends Fragment {
 
     public static void deleteAll(){
         adapter = null;
-        eventsInfo.clear();
+        ServerData.getEventsInfo().clear();
     }
-
-
 }

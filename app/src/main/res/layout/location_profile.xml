@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sudo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f1f1f1">
@@ -60,6 +61,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0">
+
+                    <ImageButton
+                        android:id="@+id/editBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/circle"
+                        android:tint="#000"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/toProcent"
+                        app:layout_constraintHorizontal_bias="0.04"
+                        app:layout_constraintStart_toEndOf="@+id/toDashboard"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_edit_black_24dp" />
 
                     <ImageButton
                         android:id="@+id/toProcent"
@@ -167,16 +182,19 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/listDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp">
 
                     <Space
+                        android:id="@+id/space1"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toTopOf="@+id/cardView2"
@@ -192,6 +210,7 @@
                         app:cardElevation="1dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintWidth_percent="0.85">
@@ -245,6 +264,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <Space
+                        android:id="@+id/space2"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -252,13 +272,27 @@
                         app:layout_constraintStart_toStartOf="@+id/cardView2"
                         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
+                    <CheckBox
+                        android:id="@+id/ck1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/cardView2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <Space
+                        android:id="@+id/space3"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toTopOf="@+id/cardView3"
@@ -327,6 +361,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <Space
+                        android:id="@+id/space4"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -334,22 +369,34 @@
                         app:layout_constraintStart_toStartOf="@+id/cardView3"
                         app:layout_constraintTop_toBottomOf="@+id/cardView3" />
 
+                    <CheckBox
+                        android:id="@+id/ck2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cardView3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <Space
+                        android:id="@+id/space5"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
-                        app:layout_constraintBottom_toTopOf="@+id/cardView6"
-                        app:layout_constraintEnd_toEndOf="@+id/cardView6"
-                        app:layout_constraintStart_toStartOf="@+id/cardView6"
+                        app:layout_constraintBottom_toTopOf="@+id/cardView4"
+                        app:layout_constraintEnd_toEndOf="@+id/cardView4"
+                        app:layout_constraintStart_toStartOf="@+id/cardView4"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView6"
+                        android:id="@+id/cardView4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="2dp"
@@ -409,20 +456,33 @@
                     </androidx.cardview.widget.CardView>
 
                     <Space
+                        android:id="@+id/space6"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/cardView6"
-                        app:layout_constraintStart_toStartOf="@+id/cardView6"
-                        app:layout_constraintTop_toBottomOf="@+id/cardView6" />
+                        app:layout_constraintEnd_toEndOf="@+id/cardView4"
+                        app:layout_constraintStart_toStartOf="@+id/cardView4"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+
+                    <CheckBox
+                        android:id="@+id/ck3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cardView4"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <Space
+                        android:id="@+id/space9"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toTopOf="@+id/cardView5"
@@ -491,6 +551,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <Space
+                        android:id="@+id/space10"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -498,22 +559,34 @@
                         app:layout_constraintStart_toStartOf="@+id/cardView5"
                         app:layout_constraintTop_toBottomOf="@+id/cardView5" />
 
+                    <CheckBox
+                        android:id="@+id/ck4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cardView5"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <Space
+                        android:id="@+id/space11"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
-                        app:layout_constraintBottom_toTopOf="@+id/cardView4"
-                        app:layout_constraintEnd_toEndOf="@+id/cardView4"
-                        app:layout_constraintStart_toStartOf="@+id/cardView4"
+                        app:layout_constraintBottom_toTopOf="@id/cardView6"
+                        app:layout_constraintEnd_toEndOf="@id/cardView6"
+                        app:layout_constraintStart_toStartOf="@id/cardView6"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView4"
+                        android:id="@+id/cardView6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="2dp"
@@ -573,20 +646,33 @@
                     </androidx.cardview.widget.CardView>
 
                     <Space
+                        android:id="@+id/space12"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/cardView4"
-                        app:layout_constraintStart_toStartOf="@+id/cardView4"
-                        app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+                        app:layout_constraintEnd_toEndOf="@id/cardView6"
+                        app:layout_constraintStart_toStartOf="@id/cardView6"
+                        app:layout_constraintTop_toBottomOf="@id/cardView6" />
+
+                    <CheckBox
+                        android:id="@+id/ck5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cardView6"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <Space
+                        android:id="@+id/space13"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toTopOf="@+id/cardView8"
@@ -656,6 +742,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <Space
+                        android:id="@+id/space14"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -663,13 +750,25 @@
                         app:layout_constraintStart_toStartOf="@+id/cardView8"
                         app:layout_constraintTop_toBottomOf="@+id/cardView8" />
 
+                    <CheckBox
+                        android:id="@+id/ck6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cardView8"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl7"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <Space
+                        android:id="@+id/space15"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toTopOf="@+id/cardView9"
@@ -740,12 +839,23 @@
                     </androidx.cardview.widget.CardView>
 
                     <Space
+                        android:id="@+id/space16"
                         android:layout_width="wrap_content"
                         android:layout_height="2.5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/cardView9"
                         app:layout_constraintStart_toStartOf="@+id/cardView9"
                         app:layout_constraintTop_toBottomOf="@+id/cardView9" />
+
+                    <CheckBox
+                        android:id="@+id/ck7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cardView9"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -768,7 +878,7 @@
             android:tint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.83"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
