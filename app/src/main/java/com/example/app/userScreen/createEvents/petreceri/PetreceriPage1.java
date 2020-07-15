@@ -249,8 +249,10 @@ public class PetreceriPage1 extends Fragment {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String min = String.valueOf(minute);
                         String h = String.valueOf(hourOfDay);
-                        if(hourOfDay < 10)
-                            h = "0" + h;
+                        if(hourOfDay == 0)
+                            h = "24";
+                            else if(hourOfDay < 10)
+                                h = "0" + h;
                         if(minute < 10)
                             min = "0" + min;
                         String time = h + ":" + min;
