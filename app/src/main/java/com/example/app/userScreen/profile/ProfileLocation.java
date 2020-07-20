@@ -78,10 +78,9 @@ public class ProfileLocation extends Fragment {
             "Decor - " + MainScreen.getDecor(),
             "Muzica - " + MainScreen.getMuzica(),
             "Dresscode - " + MainScreen.getDressCode(),
-            "Menu - ",
+            "Menu - " + MainScreen.getMenu(),
             "Email - " + MainScreen.getMail()
     };
-    private boolean[] isAdded = {false, false, false, false, false, false, false};
     private static ArrayList<String> firmaDetails = new ArrayList<>();
 
     public ProfileLocation(){
@@ -198,21 +197,15 @@ public class ProfileLocation extends Fragment {
                             @Override
                             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                                 if(b)
-                                {
                                     firmaDetails.add(VIEWS[finalI]);
-                                    isAdded[finalI] = true;
-                                }
                                 else
-                                {
                                     firmaDetails.remove(VIEWS[finalI]);
-                                    isAdded[finalI] = false;
-                                }
                             }
                         });
                     }
                 } else {
                     Dashboard.constructProfile(getContext());
-                    updateFirmData(isAdded);
+                    updateFirmData();
                     ProfileMainFragment.setScrollable(true);
                     editMode = false;
                     toDashboard.setVisibility(View.VISIBLE);
@@ -291,7 +284,7 @@ public class ProfileLocation extends Fragment {
         return firmaDetails;
     }
 
-    private void updateFirmData(final boolean[] options){
+    private void updateFirmData(){
         String url = "http://gladiaholdings.com/PHP/sendDetails.php";
         StringRequest stringRequest =  new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -308,10 +301,16 @@ public class ProfileLocation extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("ID", String.valueOf(MainScreen.getUserID()));
-                params.put("size", String.valueOf(options.length));
-                for (int i = 0; i < options.length; i++) {
-                    params.put("" + i, String.valueOf(options[i]));
+                StringBuilder s = new StringBuilder();
+                final LinearLayout list = item.findViewById(R.id.listDetails);
+                for (int i = 0; i < list.getChildCount(); i++) {
+                    ConstraintLayout c = item.findViewById(CONSTRAINT_VIEWS[i]);
+                    CheckBox cb = (CheckBox) c.getChildAt(3);
+                    if(cb.isChecked())
+                        s.append("1");
+                    else s.append("0");
                 }
+                params.put("permisiuni", s.toString());
                 return params;
             }
         };
@@ -326,17 +325,23 @@ public class ProfileLocation extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    for (int i = 0; i < isAdded.length; i++) {
-                        isAdded[i] = jsonObject.getBoolean("p" + i);
-                        if(isAdded[i])
+                    String permisiuni = jsonObject.getString("permisiuni");
+                    for (int i = 0; i < permisiuni.length(); i++) {
+
+                        Log.w("permisiuni", String.valueOf(permisiuni.charAt(i)));
+                        if(permisiuni.charAt(i) == '1')
+                        {
                             firmaDetails.add(VIEWS[i]);
+                        }
                     }
                     Dashboard.constructProfile(getContext());
+                    Log.w("a", firmaDetails.toString());
                     final LinearLayout list = item.findViewById(R.id.listDetails);
-                    for (int i = 0; i < list.getChildCount(); i++) {
+                    for (int i = 0; i < permisiuni.length(); i++) {
                         ConstraintLayout c = item.findViewById(CONSTRAINT_VIEWS[i]);
                         CheckBox cb = (CheckBox) c.getChildAt(3);
-                        cb.setChecked(isAdded[i]);
+                        if(permisiuni.charAt(i) == '1')
+                            cb.setChecked(true);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

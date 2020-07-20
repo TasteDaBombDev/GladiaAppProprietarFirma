@@ -89,15 +89,7 @@ public class ProfileOrganisation extends Fragment {
         });
 
 
-        ImageButton toDashboard = view.findViewById(R.id.toDashboard);
         ImageButton toProcent = view.findViewById(R.id.toProcent);
-
-        toDashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ProfileMainFragment.getViewPager().setCurrentItem(0);
-            }
-        });
 
         toProcent.setOnClickListener(new View.OnClickListener() {
             @Override

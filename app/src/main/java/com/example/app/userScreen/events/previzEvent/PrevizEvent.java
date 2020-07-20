@@ -182,19 +182,12 @@ public class PrevizEvent extends Fragment{
             PrevizEventMain.getEdit().setImageResource(R.drawable.ic_check_black_24dp);
             editmode = true;
         }else{
-//          sendDataToServer();
+            sendDataToServer();
             disable_content();
             PrevizEventMain.getEdit().setImageResource(R.drawable.ic_edit_black_24dp);
             editmode = false;
         }
         display();
-    }
-
-    private void setImageRounded(int radius){
-        Bitmap bitmap = ((BitmapDrawable)artistPic.getDrawable()).getBitmap();
-        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(),bitmap);
-        roundedBitmapDrawable.setCornerRadius(radius);
-        artistPic.setImageDrawable(roundedBitmapDrawable);
     }
 
     private void createDialog(){

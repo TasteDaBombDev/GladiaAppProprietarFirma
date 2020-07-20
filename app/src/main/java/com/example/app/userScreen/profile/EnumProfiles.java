@@ -23,7 +23,7 @@ public class EnumProfiles extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        if(position == 0)
+        if(position == 2)
             return dashboard;
         else
             if(position == 1){
@@ -35,14 +35,16 @@ public class EnumProfiles extends FragmentPagerAdapter {
                     isLocation = false;
                     return profileOrganisation;
                 }
-            } else if(position == 2)
+            } else if(position == 0)
                 return sales;
         return null;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        if(MainScreen.getCod().substring(2,3).equals("L"))
+            return 3;
+        return 2;
     }
 
     public static boolean isLocation(){
