@@ -37,7 +37,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
-                android:id="@+id/selectImgPetrecere"
+                android:id="@+id/selectImgVernisaj"
                 android:layout_width="0dp"
                 android:layout_height="180dp"
                 android:layout_marginTop="70dp"
@@ -49,19 +49,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/textView14"
                 app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintWidth_percent="0.9"
+                app:layout_constraintWidth_percent="1"
                 app:srcCompat="@drawable/prof_pic" />
 
             <TextView
-                android:id="@+id/placeHolderPetrecere"
+                android:id="@+id/placeHolderVernisaj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Selecteaza fotografie eveniment"
-                app:layout_constraintBottom_toBottomOf="@+id/selectImgPetrecere"
-                app:layout_constraintEnd_toEndOf="@+id/selectImgPetrecere"
-                app:layout_constraintStart_toStartOf="@+id/selectImgPetrecere"
-                app:layout_constraintTop_toTopOf="@+id/selectImgPetrecere"
+                app:layout_constraintBottom_toBottomOf="@+id/selectImgVernisaj"
+                app:layout_constraintEnd_toEndOf="@+id/selectImgVernisaj"
+                app:layout_constraintStart_toStartOf="@+id/selectImgVernisaj"
+                app:layout_constraintTop_toTopOf="@+id/selectImgVernisaj"
                 app:layout_constraintVertical_bias="0.8" />
 
             <LinearLayout
@@ -73,11 +73,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/selectImgPetrecere"
+                app:layout_constraintTop_toBottomOf="@+id/selectImgVernisaj"
                 app:layout_constraintWidth_percent="0.7">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petrecereTitle"
+                    android:id="@+id/vernisajTitle"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                     app:hintTextColor="@color/colorSecundary">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petrecereT"
+                        android:id="@+id/vernisajT"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="3"
@@ -109,7 +109,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petrecereData"
+                    android:id="@+id/vernisajData"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                     app:hintTextColor="@color/colorSecundary">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petrecereD"
+                        android:id="@+id/vernisajD"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textCursorDrawable="@drawable/color_cursor" />
@@ -146,7 +146,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/oraStart"
+                        android:id="@+id/oraStartV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -171,7 +171,7 @@
                     </LinearLayout>
 
                     <EditText
-                        android:id="@+id/oraEnd"
+                        android:id="@+id/oraEndV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -192,7 +192,7 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/setLocation"
+                        android:id="@+id/setLocationV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -201,7 +201,7 @@
                         app:cornerRadius="20dp" />
 
                     <TextView
-                        android:id="@+id/addressPlace"
+                        android:id="@+id/addressPlaceV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"

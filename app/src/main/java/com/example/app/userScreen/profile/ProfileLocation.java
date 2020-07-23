@@ -268,14 +268,14 @@ public class ProfileLocation extends Fragment {
         toDashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProfileMainFragment.getViewPager().setCurrentItem(0);
+                ProfileMainFragment.getViewPager().setCurrentItem(2);
             }
         });
 
         toProcent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProfileMainFragment.getViewPager().setCurrentItem(2);
+                ProfileMainFragment.getViewPager().setCurrentItem(0);
             }
         });
     }

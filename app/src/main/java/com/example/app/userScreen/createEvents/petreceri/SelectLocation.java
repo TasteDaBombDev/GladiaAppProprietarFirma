@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app.R;
+import com.example.app.userScreen.createEvents.vernisaje.VernisajPage1;
 import com.example.app.userScreen.events.previzEvent.PrevizEvent;
 import com.example.app.utils.Pairs;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -197,6 +198,8 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
                             case -1:
                                 PrevizEvent.setAdr(address);
                                 break;
+                            case 2:
+                                VernisajPage1.updateValue();
                         }
                         onBackPressed();
                     }

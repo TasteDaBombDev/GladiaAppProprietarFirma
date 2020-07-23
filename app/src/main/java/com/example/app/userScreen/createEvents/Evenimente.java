@@ -30,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
+import com.example.app.userScreen.createEvents.vernisaje.EnumFragmentsVernisaj;
 import com.example.app.userScreen.events.ListEvents;
 import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.createEvents.petreceri.EnumFragmentsPetreceri;
@@ -52,9 +53,9 @@ public class Evenimente extends Fragment {
     private boolean[] hasAppeared;
     private ConstraintLayout rootSelector;
     private ConstraintLayout layoutRoot;
-    private ViewPager petreceriForm;
+    private ViewPager petreceriForm, vernisajForm;
     private Button addP;
-    private WormDotsIndicator dotsIndicatorPetreceri;
+    private WormDotsIndicator dotsIndicatorPetreceri, dotsIndicatorVernisaj;
 
     public Evenimente(){
     }
@@ -83,10 +84,8 @@ public class Evenimente extends Fragment {
         final Animation popin = AnimationUtils.loadAnimation(getContext(),R.anim.fade_in);
         popin.setDuration(500);
 
-        assert getFragmentManager() != null;
-        EnumFragmentsPetreceri enumFragmentsPetreceri = new EnumFragmentsPetreceri(getFragmentManager(),getContext());
-        petreceriForm.setAdapter(enumFragmentsPetreceri);
-        dotsIndicatorPetreceri.setViewPager(petreceriForm);
+        initDots();
+
 
         for (int i = 0; i < layoutRoot.getChildCount(); i++) {
             final ConstraintLayout child = (ConstraintLayout) layoutRoot.getChildAt(i);
@@ -212,9 +211,13 @@ public class Evenimente extends Fragment {
     private void init(){
         rootSelector = view.findViewById(R.id.rootSelector);
         layoutRoot = view.findViewById(R.id.layoutsRoot);
+
         petreceriForm = view.findViewById(R.id.petreceriForm);
         dotsIndicatorPetreceri = view.findViewById(R.id.dotIndicatorP);
         addP = view.findViewById(R.id.addP);
+
+        vernisajForm = view.findViewById(R.id.vernisajForm);
+        dotsIndicatorVernisaj = view.findViewById(R.id.dotIndicatorV);
     }
 
     private void serverListeners(){
@@ -313,5 +316,16 @@ public class Evenimente extends Fragment {
                 queue.add(stringRequest);
             }
         });
+    }
+
+    public void initDots(){
+        assert getFragmentManager() != null;
+        EnumFragmentsPetreceri enumFragmentsPetreceri = new EnumFragmentsPetreceri(getFragmentManager(),getContext());
+        petreceriForm.setAdapter(enumFragmentsPetreceri);
+        dotsIndicatorPetreceri.setViewPager(petreceriForm);
+
+        EnumFragmentsVernisaj enumFragmentsVernisaj = new EnumFragmentsVernisaj(getFragmentManager(), getContext());
+        vernisajForm.setAdapter(enumFragmentsVernisaj);
+        dotsIndicatorVernisaj.setViewPager(vernisajForm);
     }
 }

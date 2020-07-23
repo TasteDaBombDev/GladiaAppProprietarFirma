@@ -28,7 +28,7 @@ public class MainScreen extends AppCompatActivity {
 
     private static OurViewPager viewPager;
     private TabLayout tabLayout;
-    private static int[] viewPagersPages = {5,0,0,0,0,0};
+    private static int[] viewPagersPages = {5,0,4,0,0,0};
 
     private static int userID;
     private static String descriere, menu, Cod, muzica, decor, numeFirma, nume, pozaPath, password, mail, type, dressCode, tema,  path, adresa;

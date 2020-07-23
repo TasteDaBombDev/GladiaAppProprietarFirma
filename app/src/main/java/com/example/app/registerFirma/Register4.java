@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.app.R;
 
@@ -72,18 +74,18 @@ public class Register4 extends Fragment {
         menu.setAdapter(adapter);
 
 
-//        SwipeMenuCreator creator = new SwipeMenuCreator() {
-//            @Override
-//            public void create(SwipeMenu menu) {
-//                SwipeMenuItem deleteItem = new SwipeMenuItem(getContext());
-//                deleteItem.setBackground(R.drawable.circle);
-//                deleteItem.setWidth(300);
-//                deleteItem.setIcon(R.drawable.ic_delete_black_24dp);
-//                menu.addMenuItem(deleteItem);
-//            }
-//        };
-//
-//        menu.setMenuCreator(creator);
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getContext());
+                deleteItem.setBackground(R.drawable.circle);
+                deleteItem.setWidth(300);
+                deleteItem.setIcon(R.drawable.ic_delete_black_24dp);
+                menu.addMenuItem(deleteItem);
+            }
+        };
+
+        menu.setMenuCreator(creator);
         menu.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
         menu.smoothCloseMenu();
         menu.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {

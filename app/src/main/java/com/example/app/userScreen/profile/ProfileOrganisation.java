@@ -94,7 +94,7 @@ public class ProfileOrganisation extends Fragment {
         toProcent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProfileMainFragment.getViewPager().setCurrentItem(2);
+                ProfileMainFragment.getViewPager().setCurrentItem(0);
             }
         });
 
