@@ -36,4 +36,12 @@ public class EnumFragmentsPetreceri extends FragmentPagerAdapter {
     public int getCount() {
         return 5;
     }
+
+    public static void destroy(){
+        PetreceriPage1.resetINSTANCE();
+        PetreceriPage2.resetINSTANCE();
+        PetreceriPage3.resetINSTANCE();
+        PetreceriPage4.resetINSTANCE();
+        PetreceriPage5.resetINSTANCE();
+    }
 }

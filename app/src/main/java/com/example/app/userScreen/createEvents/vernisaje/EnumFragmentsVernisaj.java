@@ -42,4 +42,11 @@ public class EnumFragmentsVernisaj extends FragmentPagerAdapter {
     public int getCount() {
         return 4;
     }
+
+    public static void destroy(){
+        VernisajPage1.resetINSTANCE();
+        VernisajPage2.resetINSTANCE();
+        VernisajPage3.resetINSTANCE();
+        VernisajPage3.resetINSTANCE();
+    }
 }

@@ -10,6 +10,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.RadioAccessSpecifier;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 import com.wefika.flowlayout.FlowLayout;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -56,7 +59,7 @@ public class VernisajPage3 extends Fragment {
     private ArrayList<String> name = new ArrayList<>();
     private ImageButton add;
     private ListView artisti;
-    private Adapter adapter;
+    private static Adapter adapter;
     private Bitmap bitmap = null;
 
     public VernisajPage3(){
@@ -212,7 +215,37 @@ public class VernisajPage3 extends Fragment {
         artistPic.setImageDrawable(roundedBitmapDrawable);
     }
 
-    public static ArrayList<Artist> getArtists() {
-        return artists;
+    public static String getArtistsDetalis() {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < artists.size(); i++) {
+            s.append(artists.get(i).getName()).append(" # ").append(artists.get(i).getDescriere()).append(" | ");
+        }
+        return s.toString();
+    }
+
+    private static String imgToString(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+
+        String encodeImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodeImage;
+    }
+
+    public static String[] getArtistsPic(){
+
+        String[] s = new String[artists.size()];
+
+        for (int i = 0; i < artists.size(); i++) {
+            s[i] = imgToString(artists.get(i).getImg());
+        }
+        return s;
+
+    }
+
+    public static void reset(){
+        artists.clear();
+        adapter.notifyDataSetChanged();
     }
 }

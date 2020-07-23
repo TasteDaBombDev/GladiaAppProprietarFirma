@@ -317,7 +317,7 @@ public class VernisajPage1 extends Fragment {
     }
 
     public static void reset(){
-        selectImg.setImageResource(R.drawable.nopic_round);
+        selectImg.setImageResource(R.drawable.prof_pic);
         title.setText("");
         data.setText("");
         oraEnd.setText("");

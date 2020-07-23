@@ -202,7 +202,8 @@ public class ListEvents extends Fragment {
                     eventsListing.setAdapter(adapter);
 
                     //-------------SAFE ZONE OF CONSTRUCTING----------
-                    Dashboard.constructProfile(getContext());
+                    if(MainScreen.getCod().substring(2,3).equals("L"))
+                        Dashboard.constructProfile(getContext());
 
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Error loading your events" + response, Toast.LENGTH_LONG).show();

@@ -31,6 +31,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
 import com.example.app.userScreen.createEvents.vernisaje.EnumFragmentsVernisaj;
+import com.example.app.userScreen.createEvents.vernisaje.VernisajPage1;
+import com.example.app.userScreen.createEvents.vernisaje.VernisajPage2;
+import com.example.app.userScreen.createEvents.vernisaje.VernisajPage3;
+import com.example.app.userScreen.createEvents.vernisaje.VernisajPage4;
 import com.example.app.userScreen.events.ListEvents;
 import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.createEvents.petreceri.EnumFragmentsPetreceri;
@@ -43,6 +47,7 @@ import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,7 +59,7 @@ public class Evenimente extends Fragment {
     private ConstraintLayout rootSelector;
     private ConstraintLayout layoutRoot;
     private ViewPager petreceriForm, vernisajForm;
-    private Button addP;
+    private Button addP, addV;
     private WormDotsIndicator dotsIndicatorPetreceri, dotsIndicatorVernisaj;
 
     public Evenimente(){
@@ -73,9 +78,7 @@ public class Evenimente extends Fragment {
 
         init();
         hasAppeared  = new boolean[layoutRoot.getChildCount()];
-        for (int i = 0; i < hasAppeared.length; i++) {
-            hasAppeared[i] = false;
-        }
+        Arrays.fill(hasAppeared, false);
 
         openingTabs();
         closingTabs();
@@ -218,6 +221,7 @@ public class Evenimente extends Fragment {
 
         vernisajForm = view.findViewById(R.id.vernisajForm);
         dotsIndicatorVernisaj = view.findViewById(R.id.dotIndicatorV);
+        addV = view.findViewById(R.id.addV);
     }
 
     private void serverListeners(){
@@ -230,7 +234,7 @@ public class Evenimente extends Fragment {
                 progress.setMessage("We are creating your party...");
                 progress.show();
 
-                String urlUpload = "http://gladiaholdings.com/PHP/addPetrecere.php";
+                String urlUpload = "http://gladiaholdings.com/PHP/firma/createEvent/addPetrecere.php";
 
                 StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
                     @Override
@@ -246,12 +250,10 @@ public class Evenimente extends Fragment {
 
                                 ListEvents.refresh();
 
-
                                 PetreceriPage1.reset();
-
                                 PetreceriPage2.reset();
-
                                 PetreceriPage3.reset();
+
                                 for (int i = 0; i < PetreceriPage3.getDoriane().getChildCount() ; i++) {
                                     final Button child = (Button) PetreceriPage3.getDoriane().getChildAt(i);
                                     child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
@@ -308,6 +310,101 @@ public class Evenimente extends Fragment {
                         params.put("bilet",String.valueOf(PetreceriPage4.getBilet()));
                         params.put("pretBilet",PetreceriPage4.getBiletPret());
                         params.put("IDorganizator",String.valueOf(MainScreen.getUserID()));
+
+
+                        return params;
+                    }
+                };
+                RequestQueue queue = Volley.newRequestQueue(getContext());
+                queue.add(stringRequest);
+            }
+        });
+
+        addV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final ProgressDialog progress = new ProgressDialog(getContext());
+                progress.setTitle("We are adding the vernisaj");
+                progress.setCancelable(false);
+                progress.setMessage("We are creating your vernisaj...");
+                progress.show();
+
+                String urlUpload = "http://gladiaholdings.com/PHP/firma/createEvent/addVernisaj.php";
+
+                StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            String msg = jsonObject.getString("message");
+                            if(success){
+                                String path = jsonObject.getString("path");
+                                Integer id = jsonObject.getInt("id");
+
+
+                                ListEvents.refresh();
+
+                                VernisajPage1.reset();
+                                VernisajPage2.reset();
+                                VernisajPage3.reset();
+
+                                VernisajPage4.reset();
+                                VernisajPage4.getBauturaButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+                                VernisajPage4.getMancareButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+
+
+                                ConstraintLayout c = (ConstraintLayout) layoutRoot.getChildAt(0);
+                                ViewPager v = (ViewPager) c.getChildAt(0);
+
+                                v.setCurrentItem(0);
+                                ConstraintLayout cc = (ConstraintLayout) c.getChildAt(3);
+                                ImageButton btn = (ImageButton) cc.getChildAt(0);
+                                btn.callOnClick();
+
+                                progress.dismiss();
+                            }
+                            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            Toast.makeText(getContext(), "Error on receiving data from server" + response, Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error: check your internet connection" + error, Toast.LENGTH_SHORT).show();
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("poza", VernisajPage1.getPoza());
+                        params.put("numeEvent", VernisajPage1.getTitle());
+                        params.put("data",VernisajPage1.getData());
+                        params.put("oraStart",VernisajPage1.getOraStart());
+                        params.put("oraEnd",VernisajPage1.getOraEnd());
+                        params.put("longitudine", String.valueOf(VernisajPage1.getLongitudine()));
+                        params.put("latitudine", String.valueOf(VernisajPage1.getLatitudine()));
+                        params.put("adresa",VernisajPage1.getAdresa());
+                        params.put("tematica", VernisajPage2.getTematica());
+                        params.put("descriere", VernisajPage2.getDescriere());
+                        params.put("mancare", String.valueOf(VernisajPage4.getMancare()));
+                        params.put("pretMancare",VernisajPage4.getMancarePret());
+                        params.put("bautura", String.valueOf(VernisajPage4.getBautura()));
+                        params.put("pretBautura", VernisajPage4.getBauturaPret());
+                        params.put("bilet",String.valueOf(VernisajPage4.getBilet()));
+                        params.put("pretBilet", VernisajPage4.getBiletPret());
+                        params.put("IDorganizator",String.valueOf(MainScreen.getUserID()));
+                        params.put("detaliiArtisti", VernisajPage3.getArtistsDetalis());
+
+                        String[] s = VernisajPage3.getArtistsPic();
+                        for (int i = 0; i < s.length; i++) {
+                            params.put("pic_" + i, s[i]);
+                        }
+
+                        params.put("no", String.valueOf(s.length));
+
 
                         return params;
                     }

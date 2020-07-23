@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.example.app.MainActivity;
 import com.example.app.R;
 import com.example.app.SplashScreen;
+import com.example.app.userScreen.createEvents.petreceri.EnumFragmentsPetreceri;
+import com.example.app.userScreen.createEvents.vernisaje.EnumFragmentsVernisaj;
 import com.example.app.userScreen.events.ListEvents;
 import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.createEvents.petreceri.PetreceriPage1;
@@ -75,11 +77,8 @@ public class ProfileOrganisation extends Fragment {
                     if(t)
                     {
                         ListEvents.deleteAll();
-                        PetreceriPage1.resetINSTANCE();
-                        PetreceriPage2.resetINSTANCE();
-                        PetreceriPage3.resetINSTANCE();
-                        PetreceriPage4.resetINSTANCE();
-                        PetreceriPage5.resetINSTANCE();
+                        EnumFragmentsVernisaj.destroy();
+                        EnumFragmentsPetreceri.destroy();
                         startActivity(intent);
                     }
                     else
