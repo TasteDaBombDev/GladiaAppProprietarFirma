@@ -239,9 +239,10 @@ public class ProfileLocation extends Fragment {
                     if(t)
                     {
                         ListEvents.deleteAll();
-                        EnumFragmentsVernisaj.destroy();
-                        EnumFragmentsPetreceri.destroy();
+//                        EnumFragmentsVernisaj.destroy();
+//                        EnumFragmentsPetreceri.destroy();
                         startActivity(intent);
+                        getActivity().finish();
                     }
                     else
                         Toast.makeText(getContext(),"Failed to logout",Toast.LENGTH_LONG).show();
