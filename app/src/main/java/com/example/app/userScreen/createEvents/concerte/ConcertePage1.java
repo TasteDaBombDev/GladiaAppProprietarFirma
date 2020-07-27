@@ -83,7 +83,7 @@ public class ConcertePage1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.petreceri_page1,container,false);
+        view = inflater.inflate(R.layout.concerte_page1,container,false);
 
         init();
         timePikers();

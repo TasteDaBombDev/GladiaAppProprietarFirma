@@ -52,7 +52,7 @@ public class ConcertePage4 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.petreceri_page3,container,false);
+        view = inflater.inflate(R.layout.concerte_page4,container,false);
         init();
         displaymusic = new ArrayList<>();
         toggle = new boolean[doriane.getChildCount()];

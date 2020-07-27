@@ -77,7 +77,7 @@ public class ConcertePage3 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.vernisaj_page3,container,false);
+        view = inflater.inflate(R.layout.concerte_page3,container,false);
         init();
         adapter = new Adapter(getContext(), name, artists);
         artisti.setAdapter(adapter);

@@ -47,7 +47,7 @@ public class ConcertePage2 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.vernisaj_page2,container,false);
+        view = inflater.inflate(R.layout.concerte_page2,container,false);
         init();
         focusListener();
 

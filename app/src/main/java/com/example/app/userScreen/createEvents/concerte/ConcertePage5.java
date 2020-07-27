@@ -47,7 +47,7 @@ public class ConcertePage5 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.vernisaj_page4, container, false);
+        view = inflater.inflate(R.layout.concerte_page5, container, false);
         init();
 
         mancarePret.setEnabled(false);
