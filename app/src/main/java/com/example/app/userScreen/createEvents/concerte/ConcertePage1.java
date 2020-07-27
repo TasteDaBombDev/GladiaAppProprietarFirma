@@ -104,7 +104,7 @@ public class ConcertePage1 extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),SelectLocation.class);
-                intent.putExtra("redirectedPage", 1);
+                intent.putExtra("redirectedPage", 3);
                 startActivity(intent);
             }
         });

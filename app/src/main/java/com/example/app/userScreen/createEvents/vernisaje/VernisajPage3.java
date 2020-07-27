@@ -5,18 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.RadioAccessSpecifier;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,18 +22,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 
 import com.example.app.R;
-import com.example.app.registerFirma.Register4;
 import com.example.app.utils.Artist;
 import com.google.android.material.textfield.TextInputEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-import com.wefika.flowlayout.FlowLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -148,7 +141,7 @@ public class VernisajPage3 extends Fragment {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-            @SuppressLint("ViewHolder") View item = layoutInflater.inflate(R.layout.vernisaj_artist_item,parent,false);
+            @SuppressLint("ViewHolder") View item = layoutInflater.inflate(R.layout.vc_artist_item,parent,false);
             pic = item.findViewById(R.id.artistPicItem);
             name = item.findViewById(R.id.artistNameItem);
             descriere = item.findViewById(R.id.descriereItem);

@@ -141,7 +141,7 @@ public class ConcertePage3 extends Fragment {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-            @SuppressLint("ViewHolder") View item = layoutInflater.inflate(R.layout.vernisaj_artist_item,parent,false);
+            @SuppressLint("ViewHolder") View item = layoutInflater.inflate(R.layout.vc_artist_item,parent,false);
             pic = item.findViewById(R.id.artistPicItem);
             name = item.findViewById(R.id.artistNameItem);
             descriere = item.findViewById(R.id.descriereItem);

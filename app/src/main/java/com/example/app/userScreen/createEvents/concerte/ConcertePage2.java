@@ -11,19 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.app.R;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
 
 public class ConcertePage2 extends Fragment {
-
-    @SuppressLint("StaticFieldLeak")
     private static ConcertePage2 INSTANCE = null;
-    private static TextInputLayout tematicaLayout;
-    private static TextInputEditText tematica;
-    private TextInputLayout descriereLayout;
-    private static TextInputEditText descriere;
     private View view;
-
+    private static ArrayList<String> repertoriu;
 
     public ConcertePage2(){
     }
@@ -47,65 +41,11 @@ public class ConcertePage2 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.concerte_page2,container,false);
-        init();
-        focusListener();
-
+        view = inflater.inflate(R.layout.concerte_page2, container, false);
         return view;
     }
 
-    private void init(){
-        tematicaLayout = view.findViewById(R.id.tematicaLayoutVernisaj);
-        tematica = view.findViewById(R.id.tematicaVernisaj);
-
-        descriereLayout = view.findViewById(R.id.descriereLayoutVernisaj);
-        descriere = view.findViewById(R.id.descriereVernisaj);
-    }
-
-    private void focusListener(){
-        tematica.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                {
-                    tematicaLayout.setCounterEnabled(true);
-                    tematicaLayout.setCounterMaxLength(20);
-                }
-                else
-                {
-                    tematicaLayout.setCounterEnabled(false);
-                    tematicaLayout.setCounterMaxLength(0);
-                }
-            }
-        });
-
-        descriere.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                {
-                    descriereLayout.setCounterEnabled(true);
-                    descriereLayout.setCounterMaxLength(500);
-                }
-                else
-                {
-                    descriereLayout.setCounterEnabled(false);
-                    descriereLayout.setCounterMaxLength(0);
-                }
-            }
-        });
-    }
-
-    public static String getDescriere(){
-        return descriere.getText().toString();
-    }
-
-    public static String getTematica(){
-        return tematica.getText().toString();
-    }
-
-    public static void reset(){
-        descriere.setText("");
-        tematica.setText("");
+    public static String getRepertoriu(){
+        return repertoriu.toString();
     }
 }

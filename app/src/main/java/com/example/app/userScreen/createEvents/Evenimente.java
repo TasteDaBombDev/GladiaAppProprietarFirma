@@ -31,6 +31,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
+import com.example.app.userScreen.createEvents.concerte.ConcertePage1;
+import com.example.app.userScreen.createEvents.concerte.ConcertePage2;
+import com.example.app.userScreen.createEvents.concerte.ConcertePage3;
+import com.example.app.userScreen.createEvents.concerte.ConcertePage4;
+import com.example.app.userScreen.createEvents.concerte.ConcertePage5;
+import com.example.app.userScreen.createEvents.concerte.EnumFragmentsConcerte;
 import com.example.app.userScreen.createEvents.vernisaje.EnumFragmentsVernisaj;
 import com.example.app.userScreen.createEvents.vernisaje.VernisajPage1;
 import com.example.app.userScreen.createEvents.vernisaje.VernisajPage2;
@@ -59,9 +65,9 @@ public class Evenimente extends Fragment {
     private boolean[] hasAppeared;
     private ConstraintLayout rootSelector;
     private ConstraintLayout layoutRoot;
-    private ViewPager petreceriForm, vernisajForm;
-    private Button addP, addV;
-    private WormDotsIndicator dotsIndicatorPetreceri, dotsIndicatorVernisaj;
+    private ViewPager petreceriForm, vernisajForm, concerteForm;
+    private Button addP, addV, addC;
+    private WormDotsIndicator dotsIndicatorPetreceri, dotsIndicatorVernisaj, dotsIndicatorConcerte;
 
     public Evenimente(){
     }
@@ -223,6 +229,10 @@ public class Evenimente extends Fragment {
         vernisajForm = view.findViewById(R.id.vernisajForm);
         dotsIndicatorVernisaj = view.findViewById(R.id.dotIndicatorV);
         addV = view.findViewById(R.id.addV);
+
+        concerteForm = view.findViewById(R.id.concerteForm);
+        dotsIndicatorConcerte = view.findViewById(R.id.dotsIndicatorConcerte);
+        addC = view.findViewById(R.id.addC);
     }
 
     private void serverListeners(){
@@ -418,6 +428,105 @@ public class Evenimente extends Fragment {
                 queue.add(stringRequest);
             }
         });
+
+        addC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final ProgressDialog progress = new ProgressDialog(getContext());
+                progress.setTitle("We are adding the concert");
+                progress.setCancelable(false);
+                progress.setMessage("We are creating your concert...");
+                progress.show();
+
+                String urlUpload = "http://gladiaholdings.com/PHP/firma/createEvent/addConcert.php";
+
+                StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            String msg = jsonObject.getString("message");
+                            if(success){
+                                String path = jsonObject.getString("path");
+                                Integer id = jsonObject.getInt("id");
+
+
+                                ListEvents.refresh();
+
+                                VernisajPage1.reset();
+                                VernisajPage2.reset();
+                                VernisajPage3.reset();
+
+                                VernisajPage4.reset();
+                                VernisajPage4.getBauturaButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+                                VernisajPage4.getMancareButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+
+
+                                ConstraintLayout c = (ConstraintLayout) layoutRoot.getChildAt(2);
+                                ViewPager v = (ViewPager) c.getChildAt(0);
+
+                                v.setCurrentItem(0);
+                                ConstraintLayout cc = (ConstraintLayout) c.getChildAt(3);
+                                ImageButton btn = (ImageButton) cc.getChildAt(0);
+                                btn.callOnClick();
+
+                                progress.dismiss();
+                            }
+                            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            Toast.makeText(getContext(), "Error on receiving data from server", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                            Log.e("response", response);
+                            progress.dismiss();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error: check your internet connection", Toast.LENGTH_SHORT).show();
+                        Log.e("error", error.toString());
+                        progress.dismiss();
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("poza", ConcertePage1.getPoza());
+                        params.put("numeEvent", ConcertePage1.getTitle());
+                        params.put("data",ConcertePage1.getData());
+                        params.put("oraStart",ConcertePage1.getOraStart());
+                        params.put("oraEnd",ConcertePage1.getOraEnd());
+                        params.put("longitudine", String.valueOf(ConcertePage1.getLongitudine()));
+                        params.put("latitudine", String.valueOf(ConcertePage1.getLatitudine()));
+                        params.put("adresa",ConcertePage1.getAdresa());
+                        params.put("descriere", ConcertePage5.getDescriere());
+                        params.put("mancare", String.valueOf(ConcertePage5.getMancare()));
+                        params.put("pretMancare",ConcertePage5.getMancarePret());
+                        params.put("bautura", String.valueOf(ConcertePage5.getBautura()));
+                        params.put("pretBautura", ConcertePage5.getBauturaPret());
+                        params.put("bilet",String.valueOf(ConcertePage5.getBilet()));
+                        params.put("pretBilet", ConcertePage5.getBiletPret());
+                        params.put("IDorganizator",String.valueOf(MainScreen.getUserID()));
+                        params.put("detaliiArtisti", ConcertePage3.getArtistsDetalis());
+                        params.put("genuriMuzicale", ConcertePage4.getGenuri());
+                        params.put("repertoriu", ConcertePage2.getRepertoriu());
+
+                        String[] s = ConcertePage3.getArtistsPic();
+                        for (int i = 0; i < s.length; i++) {
+                            params.put("pic_" + i, s[i]);
+                        }
+
+                        params.put("no", String.valueOf(s.length));
+
+
+                        return params;
+                    }
+                };
+                RequestQueue queue = Volley.newRequestQueue(getContext());
+                queue.add(stringRequest);
+            }
+        });
     }
 
     public void initDots(){
@@ -429,5 +538,9 @@ public class Evenimente extends Fragment {
         EnumFragmentsVernisaj enumFragmentsVernisaj = new EnumFragmentsVernisaj(getFragmentManager(), getContext());
         vernisajForm.setAdapter(enumFragmentsVernisaj);
         dotsIndicatorVernisaj.setViewPager(vernisajForm);
+
+        EnumFragmentsConcerte enumFragmentsConcerte = new EnumFragmentsConcerte(getFragmentManager(), getContext());
+        concerteForm.setAdapter(enumFragmentsConcerte);
+        dotsIndicatorConcerte.setViewPager(concerteForm);
     }
 }

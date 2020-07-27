@@ -15,6 +15,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.app.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class ConcertePage5 extends Fragment {
 
@@ -23,6 +25,8 @@ public class ConcertePage5 extends Fragment {
     private static boolean mancareB = false, bauturaB = false, biletB = false;
     private static EditText biletPret, mancarePret, bauturaPret;
     private static Switch aSwitch;
+    private TextInputLayout descriereLayout;
+    private static TextInputEditText descriere;
     private View view;
 
     public ConcertePage5(){
@@ -49,6 +53,7 @@ public class ConcertePage5 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.concerte_page5, container, false);
         init();
+        focusListener();
 
         mancarePret.setEnabled(false);
         bauturaPret.setEnabled(false);
@@ -121,6 +126,9 @@ public class ConcertePage5 extends Fragment {
         biletPret = view.findViewById(R.id.biletPret);
 
         aSwitch = view.findViewById(R.id.outdorIndor);
+
+        descriereLayout = view.findViewById(R.id.descriereLayoutConcert);
+        descriere = view.findViewById(R.id.descriereConcert);
     }
 
     public static int getMancare(){
@@ -165,6 +173,30 @@ public class ConcertePage5 extends Fragment {
         mancareB = false;
         mancarePret.setText("");
         biletPret.setText("");
+        descriere.setText("");
+    }
+
+    private void focusListener(){
+
+        descriere.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    descriereLayout.setCounterEnabled(true);
+                    descriereLayout.setCounterMaxLength(500);
+                }
+                else
+                {
+                    descriereLayout.setCounterEnabled(false);
+                    descriereLayout.setCounterMaxLength(0);
+                }
+            }
+        });
+    }
+
+    public static String getDescriere(){
+        return descriere.getText().toString();
     }
 
     public static Button getBauturaButton(){

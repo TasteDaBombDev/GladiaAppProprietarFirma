@@ -460,14 +460,14 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#fff"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager2"
+                android:id="@+id/concerteForm"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -509,7 +509,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/viewPager2"
+                app:layout_constraintTop_toTopOf="@id/concerteForm"
                 app:layout_constraintVertical_bias="0.0">
 
                 <ImageButton
@@ -525,6 +525,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                    android:id="@+id/dotsIndicatorConcerte"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:dotsColor="@color/colorPrimary"

@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app.R;
+import com.example.app.userScreen.createEvents.concerte.ConcertePage1;
 import com.example.app.userScreen.createEvents.vernisaje.VernisajPage1;
 import com.example.app.userScreen.events.previzEventPetrecere.PrevizEvent;
 import com.example.app.utils.Pairs;
@@ -199,6 +200,10 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
                                 break;
                             case 2:
                                 VernisajPage1.updateValue();
+                                break;
+                            case 3:
+                                ConcertePage1.updateValue();
+                                break;
                         }
                         onBackPressed();
                     }
