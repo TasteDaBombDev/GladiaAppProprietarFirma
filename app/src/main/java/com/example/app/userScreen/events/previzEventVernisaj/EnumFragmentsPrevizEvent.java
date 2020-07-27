@@ -1,4 +1,4 @@
-package com.example.app.userScreen.events.previzEvent;
+package com.example.app.userScreen.events.previzEventVernisaj;
 
 import android.content.Context;
 
@@ -6,6 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.example.app.userScreen.events.previzEventPetrecere.PrevizEvent;
+import com.example.app.userScreen.events.previzEventPetrecere.Stats;
 
 public class EnumFragmentsPrevizEvent extends FragmentPagerAdapter {
 
@@ -20,9 +23,9 @@ public class EnumFragmentsPrevizEvent extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0)
-            return PrevizEvent.getINSTANCE();
+            return PrevizEventVernisaj.getINSTANCE();
         else if (position == 1)
-            return Stats.getINSTANCE();
+            return StatsVernisaj.getINSTANCE();
         return null;
     }
 

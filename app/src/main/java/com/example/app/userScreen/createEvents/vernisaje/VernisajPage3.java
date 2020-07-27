@@ -134,14 +134,14 @@ public class VernisajPage3 extends Fragment {
     class Adapter extends ArrayAdapter<String> {
 
         Context context;
-        ArrayList<Artist> artisti;
+        ArrayList<Artist> artistiArray;
         ImageView pic;
         TextView name, descriere;
 
         Adapter(Context c, ArrayList<String> names, ArrayList<Artist> fel){
             super(c, R.layout.event_item,R.id.eventName, names);
             this.context = c;
-            this.artisti = fel;
+            this.artistiArray = fel;
         }
 
         @NonNull
@@ -153,12 +153,12 @@ public class VernisajPage3 extends Fragment {
             name = item.findViewById(R.id.artistNameItem);
             descriere = item.findViewById(R.id.descriereItem);
 
-            name.setText(artisti.get(position).getName());
-            descriere.setText(artisti.get(position).getDescriere());
-            pic.setImageBitmap(artisti.get(position).getImg());
+            name.setText(artistiArray.get(position).getName());
+            descriere.setText(artistiArray.get(position).getDescriere());
+            pic.setImageBitmap(artistiArray.get(position).getImg());
             setImageRoundedAdapter();
 
-            if(artisti.get(position).getDescriere().length() == 0)
+            if(artistiArray.get(position).getDescriere().length() == 0)
                 descriere.setVisibility(View.GONE);
 
             return item;
@@ -246,6 +246,6 @@ public class VernisajPage3 extends Fragment {
 
     public static void reset(){
         artists.clear();
-        adapter.notifyDataSetChanged();
+        adapter = null;
     }
 }

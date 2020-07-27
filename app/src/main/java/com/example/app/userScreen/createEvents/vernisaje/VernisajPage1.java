@@ -170,8 +170,6 @@ public class VernisajPage1 extends Fragment {
 
                     selectImg.setImageBitmap(bitmap);
                     setImageRounded();
-                    TextView placeHolder = view.findViewById(R.id.placeHolderPetrecere);
-                    placeHolder.setText("");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

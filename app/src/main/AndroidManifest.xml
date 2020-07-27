@@ -16,33 +16,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".userScreen.profile.dashboard.Dashboard" />
-        <activity android:name=".userScreen.profile.Sales" />
-        <activity android:name=".registerFirma.RegsiterDescriereOrganizatie" />
-        <activity android:name=".userScreen.profile.ProfileOrganisation" />
-        <activity android:name=".registerFirma.Register4" />
-        <activity android:name=".registerFirma.Register3" />
-        <activity android:name=".registerFirma.Register2" />
-        <activity android:name=".registerFirma.Register1" />
+<!--        <activity android:name=".userScreen.profile.dashboard.Dashboard" />-->
+<!--        <activity android:name=".userScreen.profile.Sales" />-->
+<!--        <activity android:name=".registerFirma.RegsiterDescriereOrganizatie" />-->
+<!--        <activity android:name=".userScreen.profile.ProfileOrganisation" />-->
+<!--        <activity android:name=".registerFirma.Register4" />-->
+<!--        <activity android:name=".registerFirma.Register3" />-->
+<!--        <activity android:name=".registerFirma.Register2" />-->
+<!--        <activity android:name=".registerFirma.Register1" />-->
         <activity android:name=".registerFirma.RegisterFirma" />
-        <activity android:name=".userScreen.events.previzEvent.PrevizEventMain" />
-        <activity android:name=".userScreen.events.previzEvent.PrevizEvent" />
-        <activity
-            android:name=".userScreen.createEvents.petreceri.PetreceriPage4"
-            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".userScreen.events.previzEventPetrecere.PrevizEventMain" />
+<!--        <activity android:name=".userScreen.events.previzEventPetrecere.PrevizEvent" />-->
+<!--        <activity-->
+<!--            android:name=".userScreen.createEvents.petreceri.PetreceriPage4"-->
+<!--            android:windowSoftInputMode="adjustResize" />-->
         <activity android:name=".userScreen.createEvents.petreceri.SelectLocation" />
-        <activity
-            android:name=".userScreen.createEvents.petreceri.PetreceriPage2"
-            android:windowSoftInputMode="adjustResize" />
+<!--        <activity-->
+<!--            android:name=".userScreen.createEvents.petreceri.PetreceriPage2"-->
+<!--            android:windowSoftInputMode="adjustResize" />-->
         <activity android:name=".userScreen.createEvents.petreceri.SelectPic" />
-        <activity android:name=".termsAndConditions.Terms3" />
-        <activity android:name=".termsAndConditions.Terms2" />
-        <activity android:name=".termsAndConditions.Terms1" />
+<!--        <activity android:name=".termsAndConditions.Terms3" />-->
+<!--        <activity android:name=".termsAndConditions.Terms2" />-->
+<!--        <activity android:name=".termsAndConditions.Terms1" />-->
         <activity android:name=".termsAndConditions.TermsAndConditionsMain" />
-        <activity
-            android:name=".userScreen.createEvents.Evenimente"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".userScreen.profile.ProfileLocation" />
+<!--        <activity-->
+<!--            android:name=".userScreen.createEvents.Evenimente"-->
+<!--            android:windowSoftInputMode="adjustResize" />-->
+<!--        <activity android:name=".userScreen.profile.ProfileLocation" />-->
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

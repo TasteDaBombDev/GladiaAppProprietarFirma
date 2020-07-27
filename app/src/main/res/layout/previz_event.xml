@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context=".userScreen.events.previzEvent.PrevizEvent">
+    tools:context=".userScreen.events.previzEventPetrecere.PrevizEvent">
 
     <ImageView
         android:id="@+id/profPic"

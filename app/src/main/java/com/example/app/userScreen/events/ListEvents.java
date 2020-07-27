@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +32,7 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.app.R;
 import com.example.app.userScreen.MainScreen;
-import com.example.app.userScreen.events.previzEvent.PrevizEventMain;
+import com.example.app.userScreen.events.previzEventPetrecere.PrevizEventMain;
 import com.example.app.userScreen.profile.dashboard.Dashboard;
 import com.example.app.utils.EventDetails;
 import com.example.app.utils.ServerData;
@@ -141,7 +139,7 @@ public class ListEvents extends Fragment {
 
         Context context;
         ArrayList<EventDetails> event;
-        TextView name, date, hour;
+        TextView name, date, hour, type;
         ImageView image;
 
         public AdapterList(Context c, ArrayList<String> names, ArrayList<EventDetails> eventsInfo){
@@ -159,6 +157,7 @@ public class ListEvents extends Fragment {
             image = item.findViewById(R.id.eventPic);
             hour = item.findViewById(R.id.eventOra);
             date = item.findViewById(R.id.eventDate);
+            type = item.findViewById(R.id.type);
 
             name.setText(event.get(position).getName());
 
@@ -166,6 +165,7 @@ public class ListEvents extends Fragment {
 
             hour.setText(event.get(position).getHour());
             date.setText(event.get(position).getDate());
+            type.setText(event.get(position).getType());
 
             return item;
         }
@@ -179,16 +179,15 @@ public class ListEvents extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.getBoolean("existance")){
-                        for (int i = 0; i < (jsonObject.length() / 5); i++) {
-                            ServerData.addEventsInfo(new EventDetails(
-                                    jsonObject.getInt("id" + i),
-                                    jsonObject.getString("poza" + i),
-                                    jsonObject.getString("nume" + i),
-                                    jsonObject.getString("date" + i),
-                                    jsonObject.getString("hours" + i))
-                            );
-                        }
+                    for (int i = 0; i < (jsonObject.length() / 5); i++) {
+                        ServerData.addEventsInfo(new EventDetails(
+                                jsonObject.getInt("id" + i),
+                                jsonObject.getString("poza" + i),
+                                jsonObject.getString("nume" + i),
+                                jsonObject.getString("date" + i),
+                                jsonObject.getString("hours" + i),
+                                jsonObject.getString("type" + i))
+                        );
                     }
 //                    for (int i = 0; i < 35; i++)
 //                       ServerData.addEventsInfo(new EventDetails(i,"http://gladiaholdings.com/FILES/AFACERI/23/1342629831_1594022827.png","Titlu eveniment", "20/02/2020", "12:20 - 12:30"));
@@ -206,7 +205,8 @@ public class ListEvents extends Fragment {
                         Dashboard.constructProfile(getContext());
 
                 } catch (JSONException e) {
-                    Toast.makeText(getContext(), "Error loading your events" + response, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error loading your events", Toast.LENGTH_LONG).show();
+                    Log.e("error", e.toString());
                     e.printStackTrace();
                 }
             }

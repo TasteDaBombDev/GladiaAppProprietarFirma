@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -354,7 +355,7 @@ public class Evenimente extends Fragment {
                                 VernisajPage4.getMancareButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
 
 
-                                ConstraintLayout c = (ConstraintLayout) layoutRoot.getChildAt(0);
+                                ConstraintLayout c = (ConstraintLayout) layoutRoot.getChildAt(2);
                                 ViewPager v = (ViewPager) c.getChildAt(0);
 
                                 v.setCurrentItem(0);
@@ -366,14 +367,18 @@ public class Evenimente extends Fragment {
                             }
                             Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
-                            Toast.makeText(getContext(), "Error on receiving data from server" + response, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Error on receiving data from server", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
+                            Log.e("response", response);
+                            progress.dismiss();
                         }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "Error: check your internet connection" + error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Error: check your internet connection", Toast.LENGTH_SHORT).show();
+                        Log.e("error", error.toString());
+                        progress.dismiss();
                     }
                 }){
                     @Override

@@ -1,13 +1,14 @@
-package com.example.app.userScreen.events.previzEvent;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+package com.example.app.userScreen.events.previzEventVernisaj;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.app.R;
+import com.example.app.userScreen.events.previzEventPetrecere.EnumFragmentsPrevizEvent;
 import com.google.android.material.tabs.TabLayout;
 
 public class PrevizEventMain extends AppCompatActivity {

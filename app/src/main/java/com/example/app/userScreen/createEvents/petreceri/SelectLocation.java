@@ -17,7 +17,6 @@ import android.text.TextWatcher;
 import android.transition.TransitionManager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,7 +29,7 @@ import android.widget.Toast;
 
 import com.example.app.R;
 import com.example.app.userScreen.createEvents.vernisaje.VernisajPage1;
-import com.example.app.userScreen.events.previzEvent.PrevizEvent;
+import com.example.app.userScreen.events.previzEventPetrecere.PrevizEvent;
 import com.example.app.utils.Pairs;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;

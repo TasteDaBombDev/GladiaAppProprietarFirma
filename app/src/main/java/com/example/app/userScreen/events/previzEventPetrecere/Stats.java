@@ -1,4 +1,4 @@
-package com.example.app.userScreen.events.previzEvent;
+package com.example.app.userScreen.events.previzEventPetrecere;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

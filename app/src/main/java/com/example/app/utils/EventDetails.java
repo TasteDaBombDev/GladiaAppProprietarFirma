@@ -7,13 +7,15 @@ public class EventDetails {
     private String name;
     private String date;
     private String hour;
+    private String type;
 
-    public EventDetails(int id, String imgPath, String name, String date, String hour) {
+    public EventDetails(int id, String imgPath, String name, String date, String hour, String type) {
         this.id = id;
         this.imgPath = imgPath;
         this.name = name;
         this.date = date;
         this.hour = hour;
+        this.type = type;
     }
 
     public int getId() {
@@ -40,6 +42,10 @@ public class EventDetails {
         return hour;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
     }
@@ -54,5 +60,9 @@ public class EventDetails {
 
     public void setHour(String hour) {
         this.hour = hour;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
