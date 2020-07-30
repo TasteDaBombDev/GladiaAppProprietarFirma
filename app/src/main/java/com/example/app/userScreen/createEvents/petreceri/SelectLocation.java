@@ -30,7 +30,9 @@ import android.widget.Toast;
 import com.example.app.R;
 import com.example.app.userScreen.createEvents.concerte.ConcertePage1;
 import com.example.app.userScreen.createEvents.vernisaje.VernisajPage1;
-import com.example.app.userScreen.events.previzEventPetrecere.PrevizEvent;
+import com.example.app.userScreen.events.previzEvent.previzEventConcert.PrevizEventConcert;
+import com.example.app.userScreen.events.previzEvent.previzEventPetrecere.PrevizEventPetreceri;
+import com.example.app.userScreen.events.previzEvent.previzEventVernisaj.PrevizEventVernisaj;
 import com.example.app.utils.Pairs;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -192,11 +194,18 @@ public class SelectLocation extends AppCompatActivity implements OnMapReadyCallb
                             e.printStackTrace();
                         }
                         switch (extras.getInt("redirectedPage")){
+                            case -1:
+                                PrevizEventPetreceri.setAdr(address, lat, lng);
+                                break;
+                            case -2:
+                                PrevizEventVernisaj.setAdr(address, lat, lng);
+                                break;
+                            case -3:
+                                PrevizEventConcert.setAdr(address, lat, lng);
+                                break;
+
                             case 1:
                                 PetreceriPage1.updateValue();
-                                break;
-                            case -1:
-                                PrevizEvent.setAdr(address);
                                 break;
                             case 2:
                                 VernisajPage1.updateValue();

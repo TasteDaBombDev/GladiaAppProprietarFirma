@@ -228,12 +228,14 @@ public class ConcertePage3 extends Fragment {
 
     public static String[] getArtistsPic(){
 
-        String[] s = new String[artists.size()];
+        if(artists.get(0).getImg() != null){
+            String[] s = new String[artists.size()];
 
-        for (int i = 0; i < artists.size(); i++) {
-            s[i] = imgToString(artists.get(i).getImg());
-        }
-        return s;
+            for (int i = 0; i < artists.size(); i++) {
+                s[i] = imgToString(artists.get(i).getImg());
+            }
+            return s;
+        } else return new String[0];
 
     }
 

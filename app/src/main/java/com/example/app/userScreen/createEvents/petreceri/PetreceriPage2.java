@@ -43,7 +43,7 @@ public class PetreceriPage2 extends Fragment {
     @SuppressLint("StaticFieldLeak")
     private static PetreceriPage2 INSTANCE = null;
     private static ImageView vedetaPic;
-    private static Bitmap bitmap;
+    private static Bitmap bitmap = null;
     private static TextInputLayout tematicaLayout, vedetaNameLayout, tipLayout;
     private static TextInputEditText tematica, vedetaName;
     private TextInputLayout tinutaLayout, descriereLayout;
@@ -260,8 +260,10 @@ public class PetreceriPage2 extends Fragment {
     }
 
     public static String getVedetaPic() {
-        String data = imgToString(bitmap);
-        return data;
+        if(bitmap == null) {
+            String data = imgToString(bitmap);
+            return data;
+        } else return "-null-";
     }
 
     public static void reset(){

@@ -1,4 +1,4 @@
-package com.example.app.userScreen.events.previzEventVernisaj;
+package com.example.app.userScreen.events.previzEvent.previzEventConcert;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -34,8 +34,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
 import com.example.app.userScreen.createEvents.petreceri.SelectLocation;
-import com.example.app.userScreen.events.previzEventPetrecere.PrevizEventMain;
-import com.example.app.userScreen.events.previzEventPetrecere.Stats;
+import com.example.app.userScreen.events.previzEvent.PrevizEventMain;
+import com.example.app.userScreen.events.previzEvent.Stats;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -43,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,30 +52,31 @@ import jp.wasabeef.picasso.transformations.MaskTransformation;
 
 import static android.view.View.GONE;
 
-public class PrevizEventVernisaj extends Fragment{
+public class PrevizEventConcert extends Fragment{
 
 
-    private static PrevizEventVernisaj INSTANCE = null;
+    private static PrevizEventConcert INSTANCE = null;
     private View view;
     private ArrayList<String> a = new ArrayList<>();
 
     private static ProgressDialog loading;
     private static String imgPath, title;
-    private ImageView profPic, artistPic;
-    private static EditText titleTV,adresa, dataXml, oraStartXml, oraEndXml, tematicaXml, numeArtistXml, genuriMuzicaleXml, descriereXml, tinutaXml, pretMancareXml, pretBauturaXml, pretBiletXml;
+    private ImageView profPic;
+    private static EditText titleTV,adresa, dataXml, oraStartXml, oraEndXml, repertoriuXML, genuriMuzicaleXml, descriereXml, tinutaXml, pretMancareXml, pretBauturaXml, pretBiletXml;
 
-    private String data, oraStart, oraEnd, tematica, pozaArtist, numeArtist, genuriMuzicale, descriere, tinuta, adr;
+    private String data, oraStart, oraEnd, repertoriu, pozaArtist, numeArtist, genuriMuzicale, descriere, tinuta, adr, permisiuni;
     private int mancare, bautura;
     private static double pretMancare, pretBautura, pretBilet, lat, lng;
     private boolean editmode = false;
+    private String[] VIEWS = new String[15];
 
-    public PrevizEventVernisaj(){
-
+    public PrevizEventConcert(){
+        Arrays.fill(VIEWS, "");
     }
 
-    public static PrevizEventVernisaj getINSTANCE(){
+    public static PrevizEventConcert getINSTANCE(){
         if(INSTANCE == null)
-            INSTANCE = new PrevizEventVernisaj();
+            INSTANCE = new PrevizEventConcert();
         return INSTANCE;
     }
 
@@ -88,12 +90,12 @@ public class PrevizEventVernisaj extends Fragment{
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.previz_event,container,false);
-
+        view = inflater.inflate(R.layout.previz_event_concert,container,false);
+        
         init();
 
         timePikers();
-        disable_content();
+//        disable_content();
         adresa.setFocusable(false);
         adresa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +103,7 @@ public class PrevizEventVernisaj extends Fragment{
                 if(editmode){
                     Intent i = new Intent(getContext(), SelectLocation.class);
                     SelectLocation.setAddress(String.valueOf(adresa.getText()));
-                    i.putExtra("redirectedPage",-1);
+                    i.putExtra("redirectedPage",-3);
                     startActivity(i);
                 }
             }
@@ -159,7 +161,9 @@ public class PrevizEventVernisaj extends Fragment{
                                 a.remove(j);
                         }
                         cb.setChecked(false);
-                    } else cb.setEnabled(true);
+                    }
+                        else
+                            cb.setEnabled(true);
                 }
 
                 @Override
@@ -178,7 +182,7 @@ public class PrevizEventVernisaj extends Fragment{
             PrevizEventMain.getEdit().setImageResource(R.drawable.ic_check_black_24dp);
             editmode = true;
         }else{
-            sendDataToServer();
+//            sendDataToServer();
             disable_content();
             PrevizEventMain.getEdit().setImageResource(R.drawable.ic_edit_black_24dp);
             editmode = false;
@@ -208,15 +212,13 @@ public class PrevizEventVernisaj extends Fragment{
         dataXml = view.findViewById(R.id.dataXml);
         oraStartXml = view.findViewById(R.id.oraStartXml);
         oraEndXml = view.findViewById(R.id.oraEndXml);
-        tematicaXml = view.findViewById(R.id.tematicaXml);
-        numeArtistXml = view.findViewById(R.id.numeArtistXml);
+        repertoriuXML = view.findViewById(R.id.repertoriuXML);
         genuriMuzicaleXml = view.findViewById(R.id.genuriMuzicaleXml);
         descriereXml = view.findViewById(R.id.descriereXml);
         tinutaXml = view.findViewById(R.id. tinutaXml);
         pretMancareXml = view.findViewById(R.id.pretMancareXml);
         pretBauturaXml = view.findViewById(R.id. pretBauturaXml);
         pretBiletXml = view.findViewById(R.id.pretBiletXml);
-        artistPic = view.findViewById(R.id.artistPic);
     }
 
     private void disable_content(){
@@ -249,8 +251,10 @@ public class PrevizEventVernisaj extends Fragment{
         }
     }
 
-    public static void setAdr(String adrss){
+    public static void setAdr(String adrss, double latitudine, double longitudine){
         adresa.setText(adrss);
+        lat = latitudine;
+        lng = longitudine;
     }
 
     private void display(){
@@ -274,7 +278,7 @@ public class PrevizEventVernisaj extends Fragment{
     }
 
     private void fetchData(){
-        String urlUpload = "http://gladiaholdings.com/PHP/fetchEvent.php";
+        String urlUpload = "http://gladiaholdings.com/PHP/afaceri/getEvent/fetchEventConcerte.php";
 
         StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
             @Override
@@ -282,81 +286,10 @@ public class PrevizEventVernisaj extends Fragment{
                 try {
                     LinearLayout root = view.findViewById(R.id.root);
                     JSONObject jsonObject = new JSONObject(response);
-                    imgPath = jsonObject.getString("poza");
-                    title = jsonObject.getString("title");
 
-                    data = jsonObject.getString("data");
-                    oraStart = jsonObject.getString("oraStart");
-                    oraEnd = jsonObject.getString("oraEnd");
-                    tematica = jsonObject.getString("tematica");
-                    pozaArtist = jsonObject.getString("pozaArtist");
-                    numeArtist = jsonObject.getString("numeArtist");
-                    genuriMuzicale = jsonObject.getString("genuriMuzicale");
-                    descriere = jsonObject.getString("descriere");
-                    tinuta = jsonObject.getString("tinuta");
-                    mancare = jsonObject.getInt("mancare");
-                    lat = jsonObject.getDouble("lat");
-                    lng = jsonObject.getDouble("lng");
+                    constructInterface(jsonObject, root);
+                    createVIEWS(root);
 
-                    if(mancare == 1)
-                        pretMancareXml.setText(String.valueOf(jsonObject.getDouble("pretMancare")));
-                    else
-                        root.getChildAt(8).setVisibility(GONE);
-
-                    bautura = jsonObject.getInt("bautura");
-                    if(bautura == 1)
-                        pretBauturaXml.setText(String.valueOf(jsonObject.getDouble("pretBautura")));
-                    else
-                        root.getChildAt(9).setVisibility(GONE);
-
-                    if(pretBilet != 0.0)
-                        pretBiletXml.setText(String.valueOf(jsonObject.getDouble("pretBilet")));
-                    else
-                        root.getChildAt(10).setVisibility(GONE);
-
-                    titleTV.setText(title);
-                    Picasso.get().load(imgPath).into(profPic);
-
-                    adresa.setText(jsonObject.getString("adresa"));
-                    adr = adresa.getText().toString().trim();
-
-                    dataXml.setText(data);
-                    oraStartXml.setText(oraStart + "  -");
-                    oraEndXml.setText(oraEnd);
-
-                    if(tematica.length() != 0)
-                        tematicaXml.setText(tematica);
-                    else
-                        root.getChildAt(3).setVisibility(GONE);
-
-
-                    if(numeArtist.length() != 0)
-                        numeArtistXml.setText(numeArtist);
-                    else
-                        root.getChildAt(4).setVisibility(GONE);
-
-                    final Transformation transformation = new MaskTransformation(getContext(), R.drawable.circle);
-                    Picasso.get().load(pozaArtist).transform(transformation).into(artistPic);
-
-
-                    genuriMuzicale = genuriMuzicale.replace("#",", ");
-                    genuriMuzicale = genuriMuzicale.substring(1);
-                    genuriMuzicaleXml.setText(genuriMuzicale);
-
-                    if(descriere.length() != 0)
-                        descriereXml.setText(descriere);
-                    else
-                        root.getChildAt(6).setVisibility(GONE);
-
-
-                    if(tinuta.length() != 0)
-                        tinutaXml.setText(tinuta);
-                    else
-                        root.getChildAt(7).setVisibility(GONE);
-
-                    a.add(adr);
-                    a.add(data);
-                    a.add(oraStart + " - " + oraEnd);
                     Stats.setUp(a);
 
 
@@ -364,6 +297,7 @@ public class PrevizEventVernisaj extends Fragment{
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
+                    loading.dismiss();
                 }
 
             }
@@ -400,6 +334,7 @@ public class PrevizEventVernisaj extends Fragment{
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
+                    loading.dismiss();
                 }
 
             }
@@ -520,5 +455,93 @@ public class PrevizEventVernisaj extends Fragment{
 
     public static String getImgPath() {
         return imgPath;
+    }
+
+    private void constructInterface(JSONObject jsonObject, LinearLayout root) throws JSONException {
+        imgPath = jsonObject.getString("poza");
+        title = jsonObject.getString("title");
+
+        data = jsonObject.getString("data");
+        oraStart = jsonObject.getString("oraStart");
+        oraEnd = jsonObject.getString("oraEnd");
+        pozaArtist = jsonObject.getString("pozaArtist");
+        numeArtist = jsonObject.getString("numeArtist");
+        genuriMuzicale = jsonObject.getString("genuriMuzicale");
+        descriere = jsonObject.getString("descriere");
+        repertoriu = jsonObject.getString("repertoriu");
+        mancare = jsonObject.getInt("mancare");
+        lat = jsonObject.getDouble("lat");
+        lng = jsonObject.getDouble("lng");
+
+        if(mancare == 1)
+            pretMancareXml.setText(String.valueOf(jsonObject.getDouble("pretMancare")));
+        else
+            root.getChildAt(8).setVisibility(GONE);
+
+        bautura = jsonObject.getInt("bautura");
+        if(bautura == 1)
+            pretBauturaXml.setText(String.valueOf(jsonObject.getDouble("pretBautura")));
+        else
+            root.getChildAt(9).setVisibility(GONE);
+
+        if(pretBilet != 0.0)
+            pretBiletXml.setText(String.valueOf(jsonObject.getDouble("pretBilet")));
+        else
+            root.getChildAt(10).setVisibility(GONE);
+
+        titleTV.setText(title);
+        if(imgPath.equals("-null-"))
+            profPic.setImageResource(R.drawable.nopic_round);
+        else Picasso.get().load(imgPath).into(profPic);
+
+        adresa.setText(jsonObject.getString("adresa"));
+        adr = adresa.getText().toString().trim();
+
+        dataXml.setText(data);
+        oraStartXml.setText(oraStart + "  -");
+        oraEndXml.setText(oraEnd);
+
+        if(repertoriu.length() != 0)
+            repertoriuXML.setText(repertoriu);
+        else
+            root.getChildAt(3).setVisibility(GONE);
+
+        final Transformation transformation = new MaskTransformation(getContext(), R.drawable.circle);
+
+
+        genuriMuzicale = genuriMuzicale.replace("#",", ");
+        genuriMuzicale = genuriMuzicale.substring(1);
+        genuriMuzicaleXml.setText(genuriMuzicale);
+
+        if(descriere.length() != 0)
+            descriereXml.setText(descriere);
+        else
+            root.getChildAt(6).setVisibility(GONE);
+
+
+        if(tinuta.length() != 0)
+            tinutaXml.setText(tinuta);
+        else
+            root.getChildAt(7).setVisibility(GONE);
+
+        permisiuni = jsonObject.getString("permisiuni");
+    }
+
+    private void createVIEWS(LinearLayout root){
+        for (int i = 1; i < root.getChildCount(); i++) {
+            if(i != 3){
+                ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
+                EditText e = (EditText) c.getChildAt(2);
+                if(i == 2) {
+                    EditText oraStartData = (EditText) c.getChildAt(3);
+                    EditText oraEndData = (EditText) c.getChildAt(4);
+                    TextView ttv = (TextView) c.getChildAt(5);
+                    VIEWS[i] = ttv.getText().toString().trim() + "\n" + e.getText().toString().trim() + "\n" + oraStartData.getText().toString().trim() + ": " +  oraEndData.getText().toString().trim();
+                } else{
+                    TextView ttv = (TextView) c.getChildAt(3);
+                    VIEWS[i] = ttv.getText().toString().trim() + ": " + e.getText().toString().trim();
+                }
+            } else VIEWS[i] = "";
+        }
     }
 }

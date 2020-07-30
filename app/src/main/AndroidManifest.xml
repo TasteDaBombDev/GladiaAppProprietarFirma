@@ -25,11 +25,11 @@
 <!--        <activity android:name=".registerFirma.Register2" />-->
 <!--        <activity android:name=".registerFirma.Register1" />-->
         <activity android:name=".registerFirma.RegisterFirma" />
-        <activity android:name=".userScreen.events.previzEventPetrecere.PrevizEventMain" />
-<!--        <activity android:name=".userScreen.events.previzEventPetrecere.PrevizEvent" />-->
+        <!--        <activity android:name=".userScreen.events.previzEventPetrecere.PrevizEvent" />-->
 <!--        <activity-->
 <!--            android:name=".userScreen.createEvents.petreceri.PetreceriPage4"-->
 <!--            android:windowSoftInputMode="adjustResize" />-->
+        <activity android:name=".userScreen.events.previzEvent.PrevizEventMain" />
         <activity android:name=".userScreen.createEvents.petreceri.SelectLocation" />
 <!--        <activity-->
 <!--            android:name=".userScreen.createEvents.petreceri.PetreceriPage2"-->

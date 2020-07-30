@@ -289,12 +289,15 @@ public class Evenimente extends Fragment {
                         } catch (JSONException e) {
                             Toast.makeText(getContext(), "Error on receiving data from server" + response, Toast.LENGTH_LONG).show();
                             e.printStackTrace();
+                            Log.e("msg", response);
+                            progress.dismiss();
                         }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getContext(), "Error: check your internet connection" + error, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
                     }
                 }){
                     @Override
@@ -454,13 +457,13 @@ public class Evenimente extends Fragment {
 
                                 ListEvents.refresh();
 
-                                VernisajPage1.reset();
-                                VernisajPage2.reset();
-                                VernisajPage3.reset();
+                                ConcertePage1.reset();
+                                ConcertePage3.reset();
 
-                                VernisajPage4.reset();
-                                VernisajPage4.getBauturaButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
-                                VernisajPage4.getMancareButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+                                ConcertePage4.reset();
+                                ConcertePage5.reset();
+                                ConcertePage5.getBauturaButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+                                ConcertePage5.getMancareButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
 
 
                                 ConstraintLayout c = (ConstraintLayout) layoutRoot.getChildAt(2);

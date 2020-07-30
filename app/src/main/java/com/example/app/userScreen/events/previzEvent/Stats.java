@@ -1,4 +1,4 @@
-package com.example.app.userScreen.events.previzEventPetrecere;
+package com.example.app.userScreen.events.previzEvent;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.app.R;
+import com.example.app.userScreen.events.previzEvent.previzEventPetrecere.PrevizEventPetreceri;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,7 +40,7 @@ public class Stats extends Fragment implements OnMapReadyCallback {
     private GoogleMap gMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private ConstraintLayout clip;
-    private ImageView buss,ciot;
+    private ImageView buss;
     private boolean on = false;
 
     public Stats(){
@@ -70,20 +71,17 @@ public class Stats extends Fragment implements OnMapReadyCallback {
         i = view.findViewById(R.id.previzImgMap);
         transformation = new MaskTransformation(getContext(), R.drawable.circle);
 
-        ciot = view.findViewById(R.id.ciot);
-        clip = view.findViewById(R.id.clip);
+        clip = view.findViewById(R.id.profile);
         buss = view.findViewById(R.id.bussinessIcon);
 
         buss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!on){
-                    ciot.setVisibility(View.GONE);
                     clip.setVisibility(View.GONE);
                     on = true;
                 }
                 else{
-                    ciot.setVisibility(View.VISIBLE);
                     clip.setVisibility(View.VISIBLE);
                     on = false;
                 }
@@ -138,7 +136,7 @@ public class Stats extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
         gMap.getUiSettings().setAllGesturesEnabled(false);
-        goToLoc(PrevizEvent.getLat(), PrevizEvent.getLng());
+        goToLoc(PrevizEventPetreceri.getLat(), PrevizEventPetreceri.getLng());
         googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
     }
 
@@ -149,10 +147,11 @@ public class Stats extends Fragment implements OnMapReadyCallback {
     }
 
     public static void setUp(ArrayList<String> text){
-        t.setText(PrevizEvent.getTitle());
-        Picasso.get().load(PrevizEvent.getImgPath()).transform(transformation).into(i);
+        t.setText(PrevizEventPetreceri.getTitle());
+        Picasso.get().load(PrevizEventPetreceri.getImgPath()).transform(transformation).into(i);
 
-        LinearLayout root = view.findViewById(R.id.root);
+        LinearLayout root = view.findViewById(R.id.optionsRoot);
+        root.removeAllViews();
         for (int j = 0; j < root.getChildCount(); j++) {
             TextView txt = (TextView) root.getChildAt(j);
             txt.setText(text.get(j));

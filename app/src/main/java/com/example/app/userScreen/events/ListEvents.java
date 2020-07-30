@@ -32,7 +32,7 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.app.R;
 import com.example.app.userScreen.MainScreen;
-import com.example.app.userScreen.events.previzEventPetrecere.PrevizEventMain;
+import com.example.app.userScreen.events.previzEvent.PrevizEventMain;
 import com.example.app.userScreen.profile.dashboard.Dashboard;
 import com.example.app.utils.EventDetails;
 import com.example.app.utils.ServerData;
@@ -106,6 +106,7 @@ public class ListEvents extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), PrevizEventMain.class);
                 intent.putExtra("ID", ServerData.getEventsInfo().get(position).getId());
+                intent.putExtra("type", ServerData.getEventsInfo().get(position).getType());
                 startActivity(intent);
             }
         });
@@ -179,7 +180,7 @@ public class ListEvents extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    for (int i = 0; i < (jsonObject.length() / 5); i++) {
+                    for (int i = 0; i < (jsonObject.length() / 6); i++) {
                         ServerData.addEventsInfo(new EventDetails(
                                 jsonObject.getInt("id" + i),
                                 jsonObject.getString("poza" + i),
@@ -207,6 +208,7 @@ public class ListEvents extends Fragment {
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Error loading your events", Toast.LENGTH_LONG).show();
                     Log.e("error", e.toString());
+                    Log.e("resp", response);
                     e.printStackTrace();
                 }
             }

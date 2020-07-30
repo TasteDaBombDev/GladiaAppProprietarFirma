@@ -1,4 +1,4 @@
-package com.example.app.userScreen.events.previzEventVernisaj;
+package com.example.app.userScreen.events.previzEvent;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.app.R;
-import com.example.app.userScreen.events.previzEventPetrecere.EnumFragmentsPrevizEvent;
 import com.google.android.material.tabs.TabLayout;
 
 public class PrevizEventMain extends AppCompatActivity {
@@ -29,7 +28,7 @@ public class PrevizEventMain extends AppCompatActivity {
         editBtn = findViewById(R.id.butonEditat);
 
         pager = findViewById(R.id.pager);
-        EnumFragmentsPrevizEvent enumFragmentsPrevizEvent = new EnumFragmentsPrevizEvent(getSupportFragmentManager(),this);
+        EnumFragmentsPrevizEvent enumFragmentsPrevizEvent = new EnumFragmentsPrevizEvent(getSupportFragmentManager(),this, extras.getString("type"));
         pager.setAdapter(enumFragmentsPrevizEvent);
         pager.setOffscreenPageLimit(2);
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -73,5 +72,12 @@ public class PrevizEventMain extends AppCompatActivity {
 
     public static ImageButton getEdit(){
         return editBtn;
+    }
+
+    @Override
+    public void onBackPressed() {
+        editBtn.setVisibility(View.VISIBLE);
+        pager.setCurrentItem(0);
+        super.onBackPressed();
     }
 }
