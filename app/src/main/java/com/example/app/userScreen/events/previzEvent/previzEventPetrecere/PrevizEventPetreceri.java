@@ -58,7 +58,7 @@ public class PrevizEventPetreceri extends Fragment{
 
     private static PrevizEventPetreceri INSTANCE = null;
     private View view;
-    private ArrayList<String> a = new ArrayList<>();
+    private static ArrayList<String> a = new ArrayList<>();
     
     private static ProgressDialog loading;
     private static String imgPath, title;
@@ -128,18 +128,18 @@ public class PrevizEventPetreceri extends Fragment{
             final ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
             final CheckBox cb = (CheckBox) c.getChildAt(0);
 
+            final int finalI = i;
             cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     EditText e = (EditText) c.getChildAt(2);
-                    TextView ttv = (TextView) c.getChildAt(3);
-                    String p = ttv.getText().toString() + ": " + e.getText().toString();
-
+                    LinearLayout root = view.findViewById(R.id.root);
+                    createVIEWS(root);
                     if(!e.getText().toString().equals(""))
                         if(isChecked)
-                            a.add(p);
+                            a.add(VIEWS[finalI]);
                         else
-                            a.remove(p);
+                            a.remove(VIEWS[finalI]);
                 }
             });
 
@@ -185,6 +185,7 @@ public class PrevizEventPetreceri extends Fragment{
         }else{
 //            sendDataToServer();
             disable_content();
+            Stats.setUp(a, getContext());
             PrevizEventMain.getEdit().setImageResource(R.drawable.ic_edit_black_24dp);
             editmode = false;
         }
@@ -292,6 +293,7 @@ public class PrevizEventPetreceri extends Fragment{
 
                     contructInterface(jsonObject, root);
                     createVIEWS(root);
+                    Log.e("ss--------ss", pozaArtist);
 
                     String permisiuni = jsonObject.getString("permisiuni");
                     for (int i = 0; i < permisiuni.length(); i++) {
@@ -299,7 +301,12 @@ public class PrevizEventPetreceri extends Fragment{
                             a.add(VIEWS[i]);
                     }
 
-                    Stats.setUp(a);
+                    a.add(title);
+                    a.add(imgPath);
+                    a.add(VIEWS[1]);
+                    a.add(VIEWS[2]);
+
+                    Stats.setUp(a, getContext());
 
 
                     loading.dismiss();
@@ -521,9 +528,7 @@ public class PrevizEventPetreceri extends Fragment{
             root.getChildAt(10).setVisibility(GONE);
 
         titleTV.setText(title);
-        if (imgPath.equals("-null-"))
-            profPic.setImageResource(R.drawable.nopic_round);
-        else Picasso.get().load(imgPath).into(profPic);
+        Picasso.get().load(imgPath).into(profPic);
 
         adresa.setText(jsonObject.getString("adresa"));
         adr = adresa.getText().toString().trim();
@@ -544,7 +549,10 @@ public class PrevizEventPetreceri extends Fragment{
             root.getChildAt(4).setVisibility(GONE);
 
         final Transformation transformation = new MaskTransformation(getContext(), R.drawable.circle);
-        Picasso.get().load(pozaArtist).transform(transformation).into(artistPic);
+
+        if (pozaArtist.equals("-null-"))
+            profPic.setImageResource(R.drawable.nopic_round);
+        else Picasso.get().load(pozaArtist).transform(transformation).into(artistPic);
 
 
         genuriMuzicale = genuriMuzicale.replace("#", ", ");
@@ -561,5 +569,9 @@ public class PrevizEventPetreceri extends Fragment{
             tinutaXml.setText(tinuta);
         else
             root.getChildAt(7).setVisibility(GONE);
+    }
+
+    public static ArrayList<String> getA() {
+        return a;
     }
 }

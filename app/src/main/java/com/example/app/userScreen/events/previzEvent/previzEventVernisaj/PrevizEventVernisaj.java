@@ -67,7 +67,7 @@ public class PrevizEventVernisaj extends Fragment{
 
     private static PrevizEventVernisaj INSTANCE = null;
     private View view;
-    private ArrayList<String> a = new ArrayList<>();
+    private static ArrayList<String> a = new ArrayList<>();
 
     private static ProgressDialog loading;
     private static String imgPath, title;
@@ -137,18 +137,20 @@ public class PrevizEventVernisaj extends Fragment{
             final ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
             final CheckBox cb = (CheckBox) c.getChildAt(0);
 
+            final int finalI = i;
             cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     EditText e = (EditText) c.getChildAt(2);
-                    TextView ttv = (TextView) c.getChildAt(3);
-                    String p = ttv.getText().toString() + ": " + e.getText().toString();
+
+                    LinearLayout root = view.findViewById(R.id.root);
+                    createVIEWS(root);
 
                     if(!e.getText().toString().equals(""))
                         if(isChecked)
-                            a.add(p);
+                            a.add(VIEWS[finalI]);
                         else
-                            a.remove(p);
+                            a.remove(VIEWS[finalI]);
                 }
             });
 
@@ -192,6 +194,7 @@ public class PrevizEventVernisaj extends Fragment{
         }else{
 //            sendDataToServer();
             disable_content();
+            Stats.setUp(a,getContext());
             PrevizEventMain.getEdit().setImageResource(R.drawable.ic_edit_black_24dp);
             editmode = false;
         }
@@ -309,8 +312,12 @@ public class PrevizEventVernisaj extends Fragment{
                             a.add(VIEWS[i]);
                     }
 
-                    Stats.setUp(a);
 
+                    a.add(title);
+                    a.add(imgPath);
+                    a.add(VIEWS[1]);
+                    a.add(VIEWS[2]);
+                    Stats.setUp(a, getContext());
 
                     loading.dismiss();
                 } catch (JSONException e) {
@@ -318,7 +325,6 @@ public class PrevizEventVernisaj extends Fragment{
                     Log.e("stacktree", response);
                     loading.dismiss();
                     getActivity().onBackPressed();
-
                 }
 
             }
@@ -611,5 +617,9 @@ public class PrevizEventVernisaj extends Fragment{
             roundedBitmapDrawable.setCircular(true);
             pic.setImageDrawable(roundedBitmapDrawable);
         }
+    }
+
+    public static ArrayList<String> getA() {
+        return a;
     }
 }

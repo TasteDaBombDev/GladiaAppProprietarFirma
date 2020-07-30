@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.app.R;
+import com.example.app.userScreen.events.previzEvent.previzEventPetrecere.PrevizEventPetreceri;
+import com.example.app.userScreen.events.previzEvent.previzEventVernisaj.PrevizEventVernisaj;
 import com.google.android.material.tabs.TabLayout;
 
 public class PrevizEventMain extends AppCompatActivity {
@@ -78,6 +80,10 @@ public class PrevizEventMain extends AppCompatActivity {
     public void onBackPressed() {
         editBtn.setVisibility(View.VISIBLE);
         pager.setCurrentItem(0);
+        PrevizEventPetreceri.getA().clear();
+        PrevizEventVernisaj.getA().clear();
         super.onBackPressed();
     }
+
+
 }

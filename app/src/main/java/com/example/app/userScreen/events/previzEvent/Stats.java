@@ -1,6 +1,8 @@
 package com.example.app.userScreen.events.previzEvent;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -146,15 +148,16 @@ public class Stats extends Fragment implements OnMapReadyCallback {
         gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,16));
     }
 
-    public static void setUp(ArrayList<String> text){
-        t.setText(PrevizEventPetreceri.getTitle());
-        Picasso.get().load(PrevizEventPetreceri.getImgPath()).transform(transformation).into(i);
+    public static void setUp(ArrayList<String> text, Context c){
+        t.setText(text.get(0));
+        Picasso.get().load(text.get(1)).transform(transformation).into(i);
 
         LinearLayout root = view.findViewById(R.id.optionsRoot);
         root.removeAllViews();
-        for (int j = 0; j < root.getChildCount(); j++) {
-            TextView txt = (TextView) root.getChildAt(j);
+        for (int j = 2; j < text.size(); j++) {
+            TextView txt = new TextView(c);
             txt.setText(text.get(j));
+            root.addView(txt);
         }
 
     }

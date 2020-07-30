@@ -290,7 +290,7 @@ public class PrevizEventConcert extends Fragment{
                     constructInterface(jsonObject, root);
                     createVIEWS(root);
 
-                    Stats.setUp(a);
+                    Stats.setUp(a, getContext());
 
 
                     loading.dismiss();

@@ -260,7 +260,7 @@ public class PetreceriPage2 extends Fragment {
     }
 
     public static String getVedetaPic() {
-        if(bitmap == null) {
+        if(bitmap != null) {
             String data = imgToString(bitmap);
             return data;
         } else return "-null-";
