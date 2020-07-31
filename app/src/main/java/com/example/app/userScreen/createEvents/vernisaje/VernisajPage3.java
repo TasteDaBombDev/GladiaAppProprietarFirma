@@ -228,7 +228,7 @@ public class VernisajPage3 extends Fragment {
 
     public static String[] getArtistsPic(){
 
-        if(artists.get(0).getImg() != null){
+        if(artists.size() != 0){
             String[] s = new String[artists.size()];
 
             for (int i = 0; i < artists.size(); i++) {

@@ -32,6 +32,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -42,6 +43,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
 import com.example.app.userScreen.createEvents.petreceri.SelectLocation;
+import com.example.app.userScreen.events.previzEvent.EnumArtists;
 import com.example.app.userScreen.events.previzEvent.PrevizEventMain;
 import com.example.app.userScreen.events.previzEvent.Stats;
 import com.example.app.utils.Artist;
@@ -534,28 +536,38 @@ public class PrevizEventVernisaj extends Fragment{
         if(tematica.length() != 0)
             tematicaXml.setText(tematica);
         else
-            root.getChildAt(3).setVisibility(GONE);
+            root.getChildAt(4).setVisibility(GONE);
 
         if(descriere.length() != 0)
             descriereXml.setText(descriere);
         else
-            root.getChildAt(6).setVisibility(GONE);
+            root.getChildAt(5).setVisibility(GONE);
 
         permisiuni = jsonObject.getString("permisiuni");
 
-        LinearLayout artistiRoot = view.findViewById(R.id.artistiRoot);
+
         if(detaliiArtist.equals(""))
             root.getChildAt(3).setVisibility(GONE);
         else {
-//            String[] lists = detaliiArtist.split("|");
-//            System.arraycopy(lists, 0, lists, 1, (lists.length - 1));
-//            ArrayList<String> artistList = (ArrayList<String>) Arrays.asList(lists);
-//            Log.e("list", artistList.toString());
-//            String[] pics = pozeArtist.split(" | ");
-//            for (int i = 1; i < pics.length; i++) {
-//
-//            }
-//            Adapter adapter = new Adapter(getContext(), artistList, );
+            String[] lists = detaliiArtist.split("\\|");
+            String[] pics = pozeArtist.split(" | ");
+            ArrayList<String> paths = new ArrayList<>();
+            ArrayList<String> names = new ArrayList<>();
+            ArrayList<String> descriere = new ArrayList<>();
+
+            for (int i = 0; i < lists.length - 1; i++) {
+                String[] p = lists[i].split("#");
+                names.add(p[0].trim());
+                descriere.add(p[1].trim());
+            }
+            for (int i = 2; i < pics.length; i+=2) {
+                paths.add(pics[i]);
+            }
+
+            ViewPager vp = view.findViewById(R.id.artistiDisplay);
+            EnumArtists enumArtists = new EnumArtists(getFragmentManager(), paths, names, descriere);
+            vp.setAdapter(enumArtists);
+
         }
     }
 
@@ -575,47 +587,6 @@ public class PrevizEventVernisaj extends Fragment{
                     VIEWS[i] = ttv.getText().toString().trim() + ": " + e.getText().toString().trim();
                 }
             } else VIEWS[i] = "";
-        }
-    }
-
-    class Adapter extends ArrayAdapter<String> {
-
-        Context context;
-        ArrayList<Artist> artistiArray;
-        ImageView pic;
-        TextView name, descriere;
-
-        Adapter(Context c, ArrayList<String> names, ArrayList<Artist> fel){
-            super(c, R.layout.event_item,R.id.eventName, names);
-            this.context = c;
-            this.artistiArray = fel;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-            @SuppressLint("ViewHolder") View item = layoutInflater.inflate(R.layout.vc_artist_item,parent,false);
-            pic = item.findViewById(R.id.artistPicItem);
-            name = item.findViewById(R.id.artistNameItem);
-            descriere = item.findViewById(R.id.descriereItem);
-
-            name.setText(artistiArray.get(position).getName());
-            descriere.setText(artistiArray.get(position).getDescriere());
-            pic.setImageBitmap(artistiArray.get(position).getImg());
-            setImageRoundedAdapter();
-
-            if(artistiArray.get(position).getDescriere().length() == 0)
-                descriere.setVisibility(View.GONE);
-
-            return item;
-        }
-
-        private void setImageRoundedAdapter(){
-            Bitmap bitmap = ((BitmapDrawable)pic.getDrawable()).getBitmap();
-            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(),bitmap);
-            roundedBitmapDrawable.setCircular(true);
-            pic.setImageDrawable(roundedBitmapDrawable);
         }
     }
 
