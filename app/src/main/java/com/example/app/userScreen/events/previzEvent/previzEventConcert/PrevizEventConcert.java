@@ -377,7 +377,6 @@ public class PrevizEventConcert extends Fragment{
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    Toast.makeText(getContext(), jsonObject.getString("mesaj"), Toast.LENGTH_SHORT).show();
 
                     LinearLayout root = view.findViewById(R.id.root);
                     createVIEWS(root);
@@ -387,15 +386,15 @@ public class PrevizEventConcert extends Fragment{
                     Toast.makeText(getContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                     loading.dismiss();
-                    Log.e("err", response);
+                    getActivity().onBackPressed();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), "Check your internet connection and try again.", Toast.LENGTH_SHORT).show();
                 loading.dismiss();
+                getActivity().onBackPressed();
             }
         }){
             @Override
