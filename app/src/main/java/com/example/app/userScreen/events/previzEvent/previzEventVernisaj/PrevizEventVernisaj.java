@@ -507,6 +507,9 @@ public class PrevizEventVernisaj extends Fragment{
         lat = jsonObject.getDouble("lat");
         lng = jsonObject.getDouble("lng");
 
+        Stats.getLatLng(lat, lng);
+
+
         if(mancare == 1)
             pretMancareXml.setText(String.valueOf(jsonObject.getDouble("pretMancare")));
         else

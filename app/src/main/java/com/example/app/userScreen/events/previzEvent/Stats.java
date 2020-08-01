@@ -44,6 +44,7 @@ public class Stats extends Fragment implements OnMapReadyCallback {
     private ConstraintLayout clip;
     private ImageView buss;
     private boolean on = false;
+    private static double lat = 0.0f, lng = 0.0f;
 
     public Stats(){
 
@@ -138,7 +139,7 @@ public class Stats extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
         gMap.getUiSettings().setAllGesturesEnabled(false);
-        goToLoc(PrevizEventPetreceri.getLat(), PrevizEventPetreceri.getLng());
+        goToLoc(lat, lng);
         googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
     }
 
@@ -156,9 +157,15 @@ public class Stats extends Fragment implements OnMapReadyCallback {
         root.removeAllViews();
         for (int j = 2; j < text.size(); j++) {
             TextView txt = new TextView(c);
+            txt.setPadding(0,20,0,0);
             txt.setText(text.get(j));
             root.addView(txt);
         }
 
+    }
+
+    public static void getLatLng(double latitudine, double longitudine){
+        lat = latitudine;
+        lng = longitudine;
     }
 }

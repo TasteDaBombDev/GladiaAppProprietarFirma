@@ -62,10 +62,11 @@ public class PrevizEventConcert extends Fragment{
     private static ProgressDialog loading;
     private static String imgPath, title;
     private ImageView profPic;
-    private static EditText titleTV,adresa, dataXml, oraStartXml, oraEndXml, repertoriuXML, genuriMuzicaleXml, descriereXml, tinutaXml, pretMancareXml, pretBauturaXml, pretBiletXml;
+    private static EditText titleTV,adresa, dataXml, oraStartXml, oraEndXml, genuriMuzicaleXml, descriereXml, tinutaXml, pretMancareXml, pretBauturaXml, pretBiletXml;
+    private LinearLayout repertoriuRoot;
 
-    private String data, oraStart, oraEnd, repertoriu, pozaArtist, numeArtist, genuriMuzicale, descriere, tinuta, adr, permisiuni;
-    private int mancare, bautura;
+    private String data = "", oraStart = "", oraEnd = "", repertoriu = "", pozaArtist = "", numeArtist = "", genuriMuzicale = "", descriere = "", tinuta = "", adr = "", permisiuni= "";
+    private int mancare = 0, bautura = 0;
     private static double pretMancare, pretBautura, pretBilet, lat, lng;
     private boolean editmode = false;
     private String[] VIEWS = new String[15];
@@ -95,7 +96,7 @@ public class PrevizEventConcert extends Fragment{
         init();
 
         timePikers();
-//        disable_content();
+        disable_content();
         adresa.setFocusable(false);
         adresa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,54 +124,56 @@ public class PrevizEventConcert extends Fragment{
         fetchData();
 
         LinearLayout root = view.findViewById(R.id.root);
-        for (int i = 3; i < root.getChildCount(); i++) {
-            final ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
-            final CheckBox cb = (CheckBox) c.getChildAt(0);
+        for (int i = 4; i < root.getChildCount(); i++) {
+            if(i != 5){
+                final ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
+                final CheckBox cb = (CheckBox) c.getChildAt(0);
 
-            cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    EditText e = (EditText) c.getChildAt(2);
-                    TextView ttv = (TextView) c.getChildAt(3);
-                    String p = ttv.getText().toString() + ": " + e.getText().toString();
-
-                    if(!e.getText().toString().equals(""))
-                        if(isChecked)
-                            a.add(p);
-                        else
-                            a.remove(p);
-                }
-            });
-
-            EditText infos = (EditText) c.getChildAt(2);
-            if(infos.getText().toString().length() == 0)
-                cb.setEnabled(false);
-            infos.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(s.length() == 0)
-                    {
-                        cb.setEnabled(false);
+                final int finalI = i;
+                cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        EditText e = (EditText) c.getChildAt(2);
                         TextView ttv = (TextView) c.getChildAt(3);
-                        for (int j = 0; j < a.size(); j++) {
-                            if(a.get(j).contains(ttv.getText().toString()))
-                                a.remove(j);
-                        }
-                        cb.setChecked(false);
+
+                        if(!e.getText().toString().equals(""))
+                            if(isChecked)
+                                a.add(VIEWS[finalI]);
+                            else
+                                a.remove(VIEWS[finalI]);
                     }
+                });
+
+                EditText infos = (EditText) c.getChildAt(2);
+                if(infos.getText().toString().length() == 0)
+                    cb.setEnabled(false);
+                infos.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if(s.length() == 0)
+                        {
+                            cb.setEnabled(false);
+                            TextView ttv = (TextView) c.getChildAt(3);
+                            for (int j = 0; j < a.size(); j++) {
+                                if(a.get(j).contains(ttv.getText().toString()))
+                                    a.remove(j);
+                            }
+                            cb.setChecked(false);
+                        }
                         else
                             cb.setEnabled(true);
-                }
+                    }
 
-                @Override
-                public void afterTextChanged(Editable s) {
+                    @Override
+                    public void afterTextChanged(Editable s) {
 
-                }
-            });
+                    }
+                });
+            }
         }
 
         return view;
@@ -212,7 +215,7 @@ public class PrevizEventConcert extends Fragment{
         dataXml = view.findViewById(R.id.dataXml);
         oraStartXml = view.findViewById(R.id.oraStartXml);
         oraEndXml = view.findViewById(R.id.oraEndXml);
-        repertoriuXML = view.findViewById(R.id.repertoriuXML);
+        repertoriuRoot = view.findViewById(R.id.repertoriuRoot);
         genuriMuzicaleXml = view.findViewById(R.id.genuriMuzicaleXml);
         descriereXml = view.findViewById(R.id.descriereXml);
         tinutaXml = view.findViewById(R.id. tinutaXml);
@@ -224,14 +227,16 @@ public class PrevizEventConcert extends Fragment{
     private void disable_content(){
         LinearLayout root = view.findViewById(R.id.root);
         for (int i = 1; i < root.getChildCount(); i++) {
-            ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
-            c.getChildAt(2).setBackgroundResource(R.drawable.aggro_zone);
-            c.getChildAt(2).setEnabled(false);
-            if(i == 2) {
-                c.getChildAt(3).setBackgroundResource(R.drawable.aggro_zone);
-                c.getChildAt(3).setEnabled(false);
-                c.getChildAt(4).setBackgroundResource(R.drawable.aggro_zone);
-                c.getChildAt(4).setEnabled(false);
+            if(i != 3 && i != 5){
+                ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
+                c.getChildAt(2).setBackgroundResource(R.drawable.aggro_zone);
+                c.getChildAt(2).setEnabled(false);
+                if(i == 2) {
+                    c.getChildAt(3).setBackgroundResource(R.drawable.aggro_zone);
+                    c.getChildAt(3).setEnabled(false);
+                    c.getChildAt(4).setBackgroundResource(R.drawable.aggro_zone);
+                    c.getChildAt(4).setEnabled(false);
+                }
             }
         }
     }
@@ -239,14 +244,16 @@ public class PrevizEventConcert extends Fragment{
     private void enable_content(){
         LinearLayout root = view.findViewById(R.id.root);
         for (int i = 1; i < root.getChildCount(); i++) {
-            ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
-            c.getChildAt(2).setBackgroundResource(R.drawable.edit_text_shape);
-            c.getChildAt(2).setEnabled(true);
-            if(i == 2) {
-                c.getChildAt(3).setBackgroundResource(R.drawable.edit_text_shape);
-                c.getChildAt(3).setEnabled(true);
-                c.getChildAt(4).setBackgroundResource(R.drawable.edit_text_shape);
-                c.getChildAt(4).setEnabled(true);
+            if(i != 3 && i != 5){
+                ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
+                c.getChildAt(2).setBackgroundResource(R.drawable.edit_text_shape);
+                c.getChildAt(2).setEnabled(true);
+                if(i == 2) {
+                    c.getChildAt(3).setBackgroundResource(R.drawable.edit_text_shape);
+                    c.getChildAt(3).setEnabled(true);
+                    c.getChildAt(4).setBackgroundResource(R.drawable.edit_text_shape);
+                    c.getChildAt(4).setEnabled(true);
+                }
             }
         }
     }
@@ -261,19 +268,31 @@ public class PrevizEventConcert extends Fragment{
         LinearLayout root = view.findViewById(R.id.root);
         if(editmode)
             for (int i = 3; i < root.getChildCount(); i++) {
-                ConstraintLayout child = (ConstraintLayout) root.getChildAt(i);
-                child.setVisibility(View.VISIBLE);
-                CheckBox ck = (CheckBox) child.getChildAt(0);
-                ck.setVisibility(View.VISIBLE);
+                if(i != 5 && i != 3){
+                    ConstraintLayout child = (ConstraintLayout) root.getChildAt(i);
+                    child.setVisibility(View.VISIBLE);
+                    CheckBox ck = (CheckBox) child.getChildAt(0);
+                    ck.setVisibility(View.VISIBLE);
+                }
             }
         else
             for (int i = 3; i < root.getChildCount(); i++) {
-                ConstraintLayout child = (ConstraintLayout) root.getChildAt(i);
-                CheckBox ck = (CheckBox) child.getChildAt(0);
-                ck.setVisibility(View.INVISIBLE);
-                EditText t = (EditText) child.getChildAt(2);
-                if(String.valueOf(t.getText()).length() == 0)
-                    child.setVisibility(GONE);
+                if(i != 5 && i != 3) {
+                    ConstraintLayout child = (ConstraintLayout) root.getChildAt(i);
+                    CheckBox ck = (CheckBox) child.getChildAt(0);
+                    ck.setVisibility(View.INVISIBLE);
+                    EditText t = (EditText) child.getChildAt(2);
+                    if (String.valueOf(t.getText()).length() == 0)
+                        child.setVisibility(GONE);
+                } else {
+                    if(i == 3){
+                        if(numeArtist.equals(""))
+                            root.getChildAt(3).setVisibility(GONE);
+                    } else {
+                        if(repertoriu.equals(""))
+                            root.getChildAt(5).setVisibility(GONE);
+                    }
+                }
             }
     }
 
@@ -298,6 +317,7 @@ public class PrevizEventConcert extends Fragment{
                     Toast.makeText(getContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                     loading.dismiss();
+                    getActivity().onBackPressed();
                 }
 
             }
@@ -306,6 +326,7 @@ public class PrevizEventConcert extends Fragment{
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), "Check your internet connection and try again.", Toast.LENGTH_SHORT).show();
                 loading.dismiss();
+                getActivity().onBackPressed();
             }
         }){
             @Override
@@ -457,7 +478,7 @@ public class PrevizEventConcert extends Fragment{
         return imgPath;
     }
 
-    private void constructInterface(JSONObject jsonObject, LinearLayout root) throws JSONException {
+    private void constructInterface(JSONObject jsonObject, LinearLayout root) throws JSONException{
         imgPath = jsonObject.getString("poza");
         title = jsonObject.getString("title");
 
@@ -473,21 +494,23 @@ public class PrevizEventConcert extends Fragment{
         lat = jsonObject.getDouble("lat");
         lng = jsonObject.getDouble("lng");
 
+        Stats.getLatLng(lat, lng);
+
         if(mancare == 1)
             pretMancareXml.setText(String.valueOf(jsonObject.getDouble("pretMancare")));
         else
-            root.getChildAt(8).setVisibility(GONE);
+            root.getChildAt(7).setVisibility(GONE);
 
         bautura = jsonObject.getInt("bautura");
         if(bautura == 1)
             pretBauturaXml.setText(String.valueOf(jsonObject.getDouble("pretBautura")));
         else
-            root.getChildAt(9).setVisibility(GONE);
+            root.getChildAt(8).setVisibility(GONE);
 
         if(pretBilet != 0.0)
             pretBiletXml.setText(String.valueOf(jsonObject.getDouble("pretBilet")));
         else
-            root.getChildAt(10).setVisibility(GONE);
+            root.getChildAt(9).setVisibility(GONE);
 
         titleTV.setText(title);
         if(imgPath.equals("-null-"))
@@ -501,10 +524,14 @@ public class PrevizEventConcert extends Fragment{
         oraStartXml.setText(oraStart + "  -");
         oraEndXml.setText(oraEnd);
 
-        if(repertoriu.length() != 0)
-            repertoriuXML.setText(repertoriu);
-        else
-            root.getChildAt(3).setVisibility(GONE);
+        if(repertoriu.length() != 0) {
+            String[] repertorii = repertoriu.split("\\|");
+            for (int i = 0; i < repertorii.length; i++) {
+                TextView t = new TextView(getContext());
+                t.setText(repertorii[i].trim());
+                repertoriuRoot.addView(t);
+            }
+        } else root.getChildAt(3).setVisibility(GONE);
 
         final Transformation transformation = new MaskTransformation(getContext(), R.drawable.circle);
 
@@ -518,18 +545,12 @@ public class PrevizEventConcert extends Fragment{
         else
             root.getChildAt(6).setVisibility(GONE);
 
-
-        if(tinuta.length() != 0)
-            tinutaXml.setText(tinuta);
-        else
-            root.getChildAt(7).setVisibility(GONE);
-
         permisiuni = jsonObject.getString("permisiuni");
     }
 
     private void createVIEWS(LinearLayout root){
         for (int i = 1; i < root.getChildCount(); i++) {
-            if(i != 3){
+            if(i != 3 && i != 5){
                 ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
                 EditText e = (EditText) c.getChildAt(2);
                 if(i == 2) {

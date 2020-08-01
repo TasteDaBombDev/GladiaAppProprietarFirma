@@ -46,6 +46,10 @@ public class ConcertePage2 extends Fragment {
     }
 
     public static String getRepertoriu(){
-        return repertoriu.toString();
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < repertoriu.size(); i++) {
+            s.append(repertoriu.get(i)).append(" | ");
+        }
+        return s.toString();
     }
 }

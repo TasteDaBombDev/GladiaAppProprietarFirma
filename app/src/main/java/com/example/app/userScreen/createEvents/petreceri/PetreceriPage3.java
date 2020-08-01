@@ -72,13 +72,11 @@ public class PetreceriPage3 extends Fragment {
                     if(!toggle[finalI]) {
                         child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.orange));
                         toggle[finalI] = true;
-                        searchKey = searchKey + "#" + child.getText();
                         displaymusic.add((String) child.getText());
                     }
                     else {
                         child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
                         toggle[finalI] = false;
-                        searchKey = searchKey.replace("#" + child.getText(),"");
                         displaymusic.remove(child.getText());
                     }
 
@@ -107,7 +105,7 @@ public class PetreceriPage3 extends Fragment {
     }
 
     public static String getGenuri(){
-        return searchKey;
+        return displaymusic.toString();
     }
 
     public static void reset(){
