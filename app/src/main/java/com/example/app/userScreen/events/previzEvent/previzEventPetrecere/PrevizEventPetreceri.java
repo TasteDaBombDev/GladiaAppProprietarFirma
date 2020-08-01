@@ -589,7 +589,7 @@ public class PrevizEventPetreceri extends Fragment{
      * @throws JSONException
      */
 
-    private void contructInterface(JSONObject jsonObject, LinearLayout root) throws JSONException {
+    private void contructInterface(JSONObject jsonObject, LinearLayout root) throws JSONException{
 
         imgPath = jsonObject.getString("poza");
         title = jsonObject.getString("title");
@@ -606,8 +606,7 @@ public class PrevizEventPetreceri extends Fragment{
         mancare = jsonObject.getInt("mancare");
         lat = jsonObject.getDouble("lat");
         lng = jsonObject.getDouble("lng");
-
-        Stats.getLatLng(lat, lng);
+        Stats.goToLoc(getContext(),lat,lng);
 
         if (mancare == 1)
             pretMancareXml.setText(String.valueOf(jsonObject.getDouble("pretMancare")));
@@ -649,13 +648,15 @@ public class PrevizEventPetreceri extends Fragment{
         final Transformation transformation = new MaskTransformation(getContext(), R.drawable.circle);
 
         if (pozaArtist.equals("-null-"))
-            profPic.setImageResource(R.drawable.nopic_round);
+            artistPic.setImageResource(R.drawable.nopic_round);
         else Picasso.get().load(pozaArtist).transform(transformation).into(artistPic);
 
 
-        genuriMuzicale = genuriMuzicale.replace("[", "");
-        genuriMuzicale = genuriMuzicale.replace("]", "");
-        genuriMuzicaleXml.setText(genuriMuzicale);
+        if(genuriMuzicale.length() != 2){
+            genuriMuzicale = genuriMuzicale.replace("[", "");
+            genuriMuzicale = genuriMuzicale.replace("]", "");
+            genuriMuzicaleXml.setText(genuriMuzicale);
+        } else root.getChildAt(5).setVisibility(GONE);
 
         if (descriere.length() != 0)
             descriereXml.setText(descriere);

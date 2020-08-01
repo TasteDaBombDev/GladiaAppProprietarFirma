@@ -15,17 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/bussinessIcon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.50"
-        app:srcCompat="@drawable/ic_business_black_24dp" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/profile"
         android:layout_width="match_parent"
@@ -77,6 +66,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/cover_photo" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:tint="#fff"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    app:layout_constraintStart_toEndOf="@+id/previzImgMap"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.8"
+                    app:srcCompat="@drawable/ic_keyboard_arrow_right_black_small" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView

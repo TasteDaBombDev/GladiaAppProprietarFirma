@@ -54,38 +54,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/deschidere"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/circle"
-            android:backgroundTint="#fff"
-            app:layout_constraintCircle="@id/circleCenter"
-            app:layout_constraintCircleAngle="60"
-            app:layout_constraintCircleRadius="120dp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="260dp"
-            tools:layout_editor_absoluteY="232dp">
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Deschidere"
-                android:textColor="#000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/vernisaj"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/circle"
             android:backgroundTint="#fff"
             app:layout_constraintCircle="@id/circleCenter"
-            app:layout_constraintCircleAngle="120"
+            app:layout_constraintCircleAngle="90"
             app:layout_constraintCircleRadius="120dp"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="260dp"
@@ -129,38 +104,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/festival"
+            android:id="@+id/defaultEvent"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/circle"
             android:backgroundTint="#fff"
             app:layout_constraintCircle="@id/circleCenter"
-            app:layout_constraintCircleAngle="240"
-            app:layout_constraintCircleRadius="120dp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="52dp"
-            tools:layout_editor_absoluteY="352dp">
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Festival"
-                android:textColor="#000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/spectacol"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/circle"
-            android:backgroundTint="#fff"
-            app:layout_constraintCircle="@id/circleCenter"
-            app:layout_constraintCircleAngle="300"
+            app:layout_constraintCircleAngle="270"
             app:layout_constraintCircleRadius="120dp"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="52dp"
@@ -170,7 +120,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Spectacol"
+                android:text="Default"
                 android:textColor="#000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -274,93 +224,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.47">
-
-                </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/deschidere_layout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="#fff"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </androidx.viewpager.widget.ViewPager>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/addD"></LinearLayout>
-
-            <Button
-                android:id="@+id/addD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/orange"
-                android:elevation="20dp"
-                android:text="Adauga Deschidere"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.98" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/header_shadow"
-                android:elevation="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
-
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                    android:translationZ="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:dotsColor="@color/colorPrimary"
-                    app:dotsCornerRadius="8dp"
-                    app:dotsSize="10dp"
-                    app:dotsSpacing="4dp"
-                    app:dotsStrokeColor="@color/colorPrimary"
-                    app:dotsStrokeWidth="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
 
                 </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -545,94 +408,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/festival_layout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="#fff"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </androidx.viewpager.widget.ViewPager>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/addF"></LinearLayout>
-
-            <Button
-                android:id="@+id/addF"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/orange"
-                android:elevation="20dp"
-                android:text="Adauga Festival"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.98" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/header_shadow"
-                android:elevation="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/viewPager3"
-                app:layout_constraintVertical_bias="0.0">
-
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                    android:translationZ="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:dotsColor="@color/colorPrimary"
-                    app:dotsCornerRadius="8dp"
-                    app:dotsSize="10dp"
-                    app:dotsSpacing="4dp"
-                    app:dotsStrokeColor="@color/colorPrimary"
-                    app:dotsStrokeWidth="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/spectacol_layout"
+            android:id="@+id/default_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#fff"

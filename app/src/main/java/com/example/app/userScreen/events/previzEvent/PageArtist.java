@@ -54,7 +54,7 @@ public class PageArtist extends Fragment {
         descriere = view.findViewById(R.id.descriereItem);
 
         final Transformation transformation = new MaskTransformation(getContext(), R.drawable.circle);
-        Picasso.get().load(path).transform(transformation).into(img);
+        Picasso.get().load(path).placeholder(R.drawable.nopic_round).error(R.drawable.nopic_round).transform(transformation).into(img);
         nameAfis.setText(name);
         descriere.setText(descreie);
 

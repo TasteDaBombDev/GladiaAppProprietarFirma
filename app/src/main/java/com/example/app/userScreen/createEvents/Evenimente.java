@@ -460,23 +460,30 @@ public class Evenimente extends Fragment {
                                 ConcertePage1.reset();
                                 ConcertePage3.reset();
 
+
                                 ConcertePage4.reset();
+
+                                for (int i = 0; i < ConcertePage4.getDoriane().getChildCount() ; i++) {
+                                    final Button child = (Button) ConcertePage4.getDoriane().getChildAt(i);
+                                    child.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
+                                }
+
                                 ConcertePage5.reset();
                                 ConcertePage5.getBauturaButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
                                 ConcertePage5.getMancareButton().setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorPrimary));
 
 
-                                ConstraintLayout c = (ConstraintLayout) layoutRoot.getChildAt(2);
+                                ConstraintLayout c = (ConstraintLayout) layoutRoot.getChildAt(3);
                                 ViewPager v = (ViewPager) c.getChildAt(0);
 
                                 v.setCurrentItem(0);
                                 ConstraintLayout cc = (ConstraintLayout) c.getChildAt(3);
                                 ImageButton btn = (ImageButton) cc.getChildAt(0);
                                 btn.callOnClick();
-
-                                progress.dismiss();
                             }
                             Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            Log.e("res", response);
                         } catch (JSONException e) {
                             Toast.makeText(getContext(), "Error on receiving data from server", Toast.LENGTH_LONG).show();
                             e.printStackTrace();

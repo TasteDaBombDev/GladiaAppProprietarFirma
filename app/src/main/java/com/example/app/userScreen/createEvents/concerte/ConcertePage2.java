@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ConcertePage2 extends Fragment {
     private static ConcertePage2 INSTANCE = null;
     private View view;
-    private static ArrayList<String> repertoriu;
+    private static ArrayList<String> repertoriu = new ArrayList<>();
 
     public ConcertePage2(){
     }

@@ -1,6 +1,7 @@
 package com.example.app.userScreen.events.previzEvent;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.app.R;
+import com.example.app.userScreen.events.previzEvent.previzEventConcert.PrevizEventConcert;
 import com.example.app.userScreen.events.previzEvent.previzEventPetrecere.PrevizEventPetreceri;
 import com.example.app.userScreen.events.previzEvent.previzEventVernisaj.PrevizEventVernisaj;
 import com.google.android.material.tabs.TabLayout;
@@ -82,6 +84,7 @@ public class PrevizEventMain extends AppCompatActivity {
         pager.setCurrentItem(0);
         PrevizEventPetreceri.getA().clear();
         PrevizEventVernisaj.getA().clear();
+        PrevizEventConcert.getA().clear();
         super.onBackPressed();
     }
 

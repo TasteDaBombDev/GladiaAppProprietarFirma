@@ -1,5 +1,6 @@
 package com.example.app.userScreen.events.previzEvent.previzEventConcert;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,7 +36,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app.R;
+import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.createEvents.petreceri.SelectLocation;
+import com.example.app.userScreen.events.previzEvent.EnumArtists;
 import com.example.app.userScreen.events.previzEvent.PrevizEventMain;
 import com.example.app.userScreen.events.previzEvent.Stats;
 import com.squareup.picasso.Picasso;
@@ -57,22 +62,26 @@ public class PrevizEventConcert extends Fragment{
 
     private static PrevizEventConcert INSTANCE = null;
     private View view;
-    private ArrayList<String> a = new ArrayList<>();
+    private static ArrayList<String> a = new ArrayList<>();
 
     private static ProgressDialog loading;
     private static String imgPath, title;
     private ImageView profPic;
-    private static EditText titleTV,adresa, dataXml, oraStartXml, oraEndXml, genuriMuzicaleXml, descriereXml, tinutaXml, pretMancareXml, pretBauturaXml, pretBiletXml;
+    private static EditText titleTV,adresa, dataXml, oraStartXml, oraEndXml, genuriMuzicaleXml, descriereXml, pretMancareXml, pretBauturaXml, pretBiletXml;
     private LinearLayout repertoriuRoot;
 
-    private String data = "", oraStart = "", oraEnd = "", repertoriu = "", pozaArtist = "", numeArtist = "", genuriMuzicale = "", descriere = "", tinuta = "", adr = "", permisiuni= "";
+    private String data = "", oraStart = "", oraEnd = "", repertoriu = "", pozaArtist = "", numeArtist = "", genuriMuzicale = "", descriere = "", tinuta = "", adr = "";
     private int mancare = 0, bautura = 0;
     private static double pretMancare, pretBautura, pretBilet, lat, lng;
     private boolean editmode = false;
     private String[] VIEWS = new String[15];
+    private Integer[] permisiuni = new Integer[15];
 
     public PrevizEventConcert(){
         Arrays.fill(VIEWS, "");
+        Arrays.fill(permisiuni, 0);
+        permisiuni[1] = 1;
+        permisiuni[2] = 1;
     }
 
     public static PrevizEventConcert getINSTANCE(){
@@ -134,13 +143,20 @@ public class PrevizEventConcert extends Fragment{
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         EditText e = (EditText) c.getChildAt(2);
-                        TextView ttv = (TextView) c.getChildAt(3);
+                        LinearLayout root = view.findViewById(R.id.root);
+                        createVIEWS(root);
 
                         if(!e.getText().toString().equals(""))
-                            if(isChecked)
+                            if(isChecked){
                                 a.add(VIEWS[finalI]);
-                            else
+                                permisiuni[finalI] = 1;
+//                            nowChecket ++;
+                            }
+                            else {
                                 a.remove(VIEWS[finalI]);
+                                permisiuni[finalI] = 0;
+//                            nowChecket --;
+                            }
                     }
                 });
 
@@ -185,8 +201,9 @@ public class PrevizEventConcert extends Fragment{
             PrevizEventMain.getEdit().setImageResource(R.drawable.ic_check_black_24dp);
             editmode = true;
         }else{
-//            sendDataToServer();
+            sendDataToServer();
             disable_content();
+            Stats.setUp(a,getContext());
             PrevizEventMain.getEdit().setImageResource(R.drawable.ic_edit_black_24dp);
             editmode = false;
         }
@@ -218,7 +235,6 @@ public class PrevizEventConcert extends Fragment{
         repertoriuRoot = view.findViewById(R.id.repertoriuRoot);
         genuriMuzicaleXml = view.findViewById(R.id.genuriMuzicaleXml);
         descriereXml = view.findViewById(R.id.descriereXml);
-        tinutaXml = view.findViewById(R.id. tinutaXml);
         pretMancareXml = view.findViewById(R.id.pretMancareXml);
         pretBauturaXml = view.findViewById(R.id. pretBauturaXml);
         pretBiletXml = view.findViewById(R.id.pretBiletXml);
@@ -297,7 +313,7 @@ public class PrevizEventConcert extends Fragment{
     }
 
     private void fetchData(){
-        String urlUpload = "http://gladiaholdings.com/PHP/afaceri/getEvent/fetchEventConcerte.php";
+        String urlUpload = "http://gladiaholdings.com/PHP/firma/getEvent/fetchEventConcerte.php";
 
         StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
             @Override
@@ -309,6 +325,17 @@ public class PrevizEventConcert extends Fragment{
                     constructInterface(jsonObject, root);
                     createVIEWS(root);
 
+                    a.add(title);
+                    a.add(imgPath);
+                    a.add(VIEWS[1]);
+                    a.add(VIEWS[2]);
+                    String permis = jsonObject.getString("permisiuni");
+                    for (int i = 4; i < root.getChildCount(); i++) {
+                        ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
+                        CheckBox cb = (CheckBox) c.getChildAt(0);
+                        if (permis.charAt(i) == '1')
+                            cb.setChecked(true);
+                    }
                     Stats.setUp(a, getContext());
 
 
@@ -317,6 +344,7 @@ public class PrevizEventConcert extends Fragment{
                     Toast.makeText(getContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                     loading.dismiss();
+                    Log.e("err", response);
                     getActivity().onBackPressed();
                 }
 
@@ -342,7 +370,7 @@ public class PrevizEventConcert extends Fragment{
     }
 
     private void sendDataToServer(){
-        String urlUpload = "http://gladiaholdings.com/PHP/updateEventPetreceri.php";
+        String urlUpload = "http://gladiaholdings.com/PHP/firma/updateEvent/updateEventConcerte.php";
 
         StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
             @Override
@@ -351,11 +379,15 @@ public class PrevizEventConcert extends Fragment{
                     JSONObject jsonObject = new JSONObject(response);
                     Toast.makeText(getContext(), jsonObject.getString("mesaj"), Toast.LENGTH_SHORT).show();
 
+                    LinearLayout root = view.findViewById(R.id.root);
+                    createVIEWS(root);
+
                     loading.dismiss();
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Error loading your event" + response, Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                     loading.dismiss();
+                    Log.e("err", response);
                 }
 
             }
@@ -369,14 +401,39 @@ public class PrevizEventConcert extends Fragment{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                LinearLayout root = view.findViewById(R.id.root);
 
-                params.put("no",root.getChildCount() + "");
-                for (int i = 1; i < root.getChildCount(); i++) {
-                    ConstraintLayout c = (ConstraintLayout) root.getChildAt(i);
-                    EditText e = (EditText) c.getChildAt(2);
-                    params.put("val_" + i, e.getText().toString().trim());
+                params.put("ID", String.valueOf(PrevizEventMain.getID()));
+                params.put("title", titleTV.getText().toString().trim());
+                params.put("adresa", adresa.getText().toString().trim());
+                params.put("data", dataXml.getText().toString().trim());
+                String oraS = oraStartXml.getText().toString().trim().replace("-", "").trim();
+                params.put("oraStart", oraS);
+                params.put("oraEnd", oraEndXml.getText().toString().trim());
+                params.put("descriere", descriereXml.getText().toString().trim());
+                params.put("genuriMuzicale", genuriMuzicaleXml.getText().toString().trim());
+                if(pretBauturaXml.getText().toString().trim().length() != 0) {
+                    params.put("bautura", "1");
+                    params.put("pretBautura", pretBauturaXml.getText().toString().trim());
+                } else {
+                    params.put("bautura", "0");
+                    params.put("pretBautura", "");
                 }
+                if(pretMancareXml.getText().toString().trim().length() != 0) {
+                    params.put("mancare", "1");
+                    params.put("pretMancare", pretMancareXml.getText().toString().trim());
+                } else {
+                    params.put("mancare", "0");
+                    params.put("pretMancare", "");
+                }
+                params.put("pretBilet", pretBauturaXml.getText().toString().trim());
+                params.put("IDorganizator", String.valueOf(MainScreen.getUserID()));
+                StringBuilder t = new StringBuilder();
+                for (int i = 0; i < permisiuni.length; i++) {
+                    if (permisiuni[i] == 0)
+                        t.append("0");
+                    else t.append("1");
+                }
+                params.put("permisiuni", t.toString());
                 params.put("x",String.valueOf(SelectLocation.getLat()));
                 params.put("y",String.valueOf(SelectLocation.getLng()));
                 return params;
@@ -478,9 +535,10 @@ public class PrevizEventConcert extends Fragment{
         return imgPath;
     }
 
+    @SuppressLint("SetTextI18n")
     private void constructInterface(JSONObject jsonObject, LinearLayout root) throws JSONException{
         imgPath = jsonObject.getString("poza");
-        title = jsonObject.getString("title");
+        title = jsonObject.getString("numeEvent");
 
         data = jsonObject.getString("data");
         oraStart = jsonObject.getString("oraStart");
@@ -491,10 +549,68 @@ public class PrevizEventConcert extends Fragment{
         descriere = jsonObject.getString("descriere");
         repertoriu = jsonObject.getString("repertoriu");
         mancare = jsonObject.getInt("mancare");
-        lat = jsonObject.getDouble("lat");
-        lng = jsonObject.getDouble("lng");
+        lat = jsonObject.getDouble("latitudine");
+        lng = jsonObject.getDouble("longitudine");
+        Stats.goToLoc(getContext(),lat,lng);
 
-        Stats.getLatLng(lat, lng);
+        /*
+
+        Construct INTERFACE ---->
+
+         */
+
+        titleTV.setText(title);
+        Picasso.get().load(imgPath).into(profPic);
+
+        adresa.setText(jsonObject.getString("adresa"));
+        adr = adresa.getText().toString().trim();
+
+        dataXml.setText(data);
+        oraStartXml.setText(oraStart + "  -");
+        oraEndXml.setText(oraEnd);
+
+        if(numeArtist.length() != 0){
+            String[] lists = numeArtist.split("\\|");
+            String[] pics = pozaArtist.split(" | ");
+            ArrayList<String> paths = new ArrayList<>();
+            ArrayList<String> names = new ArrayList<>();
+            ArrayList<String> descriere = new ArrayList<>();
+
+            for (int i = 0; i < lists.length - 1; i++) {
+                String[] p = lists[i].split("#");
+                names.add(p[0].trim());
+                descriere.add(p[1].trim());
+            }
+            for (int i = 2; i < pics.length; i+=2) {
+                paths.add(pics[i]);
+            }
+
+            ViewPager enumArtisti = view.findViewById(R.id.enumArtisti);
+            EnumArtists enumArtists = new EnumArtists(getFragmentManager(), paths, names, descriere);
+            enumArtisti.setAdapter(enumArtists);
+        } else root.getChildAt(3).setVisibility(GONE);
+
+
+        if(genuriMuzicale.length() != 2) {
+            genuriMuzicale = genuriMuzicale.replace("[", "");
+            genuriMuzicale = genuriMuzicale.replace("]", "");
+            genuriMuzicaleXml.setText(genuriMuzicale);
+        } else root.getChildAt(4).setVisibility(GONE);
+
+        if(repertoriu.length() != 0) {
+            String[] repertorii = repertoriu.split("\\|");
+            for (String s : repertorii) {
+                TextView t = new TextView(getContext());
+                t.setText(s.trim());
+                repertoriuRoot.addView(t);
+            }
+        } else root.getChildAt(5).setVisibility(GONE);
+
+
+        if(descriere.length() != 0)
+            descriereXml.setText(descriere);
+        else
+            root.getChildAt(6).setVisibility(GONE);
 
         if(mancare == 1)
             pretMancareXml.setText(String.valueOf(jsonObject.getDouble("pretMancare")));
@@ -511,41 +627,6 @@ public class PrevizEventConcert extends Fragment{
             pretBiletXml.setText(String.valueOf(jsonObject.getDouble("pretBilet")));
         else
             root.getChildAt(9).setVisibility(GONE);
-
-        titleTV.setText(title);
-        if(imgPath.equals("-null-"))
-            profPic.setImageResource(R.drawable.nopic_round);
-        else Picasso.get().load(imgPath).into(profPic);
-
-        adresa.setText(jsonObject.getString("adresa"));
-        adr = adresa.getText().toString().trim();
-
-        dataXml.setText(data);
-        oraStartXml.setText(oraStart + "  -");
-        oraEndXml.setText(oraEnd);
-
-        if(repertoriu.length() != 0) {
-            String[] repertorii = repertoriu.split("\\|");
-            for (int i = 0; i < repertorii.length; i++) {
-                TextView t = new TextView(getContext());
-                t.setText(repertorii[i].trim());
-                repertoriuRoot.addView(t);
-            }
-        } else root.getChildAt(3).setVisibility(GONE);
-
-        final Transformation transformation = new MaskTransformation(getContext(), R.drawable.circle);
-
-
-        genuriMuzicale = genuriMuzicale.replace("#",", ");
-        genuriMuzicale = genuriMuzicale.substring(1);
-        genuriMuzicaleXml.setText(genuriMuzicale);
-
-        if(descriere.length() != 0)
-            descriereXml.setText(descriere);
-        else
-            root.getChildAt(6).setVisibility(GONE);
-
-        permisiuni = jsonObject.getString("permisiuni");
     }
 
     private void createVIEWS(LinearLayout root){
@@ -564,5 +645,9 @@ public class PrevizEventConcert extends Fragment{
                 }
             } else VIEWS[i] = "";
         }
+    }
+
+    public static ArrayList<String> getA() {
+        return a;
     }
 }

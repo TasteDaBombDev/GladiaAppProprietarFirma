@@ -115,7 +115,8 @@ public class ListEvents extends Fragment {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 if (index == 0) {
-                    deleteFromServer(ServerData.getEventsInfo().get(position).getId());
+                    deleteFromServer(ServerData.getEventsInfo().get(position).getId(), ServerData.getEventsInfo().get(position).getType());
+                    Log.e("par", ServerData.getEventsInfo().get(position).getId() + "-" + ServerData.getEventsInfo().get(position).getType());
                 }
                 return false;
             }
@@ -229,7 +230,7 @@ public class ListEvents extends Fragment {
         queue.add(stringRequest);
     }
 
-    private void deleteFromServer(final int id){
+    private void deleteFromServer(final int id, final String typeb){
         String urlUpload = "http://gladiaholdings.com/PHP/deleteEvent.php";
 
         StringRequest stringRequest =  new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
@@ -237,26 +238,39 @@ public class ListEvents extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.getBoolean("success"))
-                    {
+                    if(jsonObject.getBoolean("success")) {
                         ServerData.getEventsInfo().clear();
                         serverRun(false);
                     }
+                    Log.e("succ", response);
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Error deleting your event", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
+                    Log.e("succ", response);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), "Connection Timeout", Toast.LENGTH_SHORT).show();
+                Log.e("succ", error.toString());
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("pID",String.valueOf(id));
+                params.put("ID",String.valueOf(id));
+                if(typeb.equals("petrecere")) {
+                    params.put("tableName", "petreceri");
+                    params.put("idCodename", "IDpetrecere");
+                } else if(typeb.equals("vernisaj")) {
+                    params.put("tableName", "vernisaje");
+                    params.put("idCodename", "ID");
+                } else {
+                    params.put("tableName", "concerte");
+                    params.put("idCodename", "IDconcerte");
+                }
+                Log.e("params: ", params.toString());
                 return params;
             }
         };

@@ -18,6 +18,7 @@ import com.example.app.R;
 import com.wefika.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PetreceriPage3 extends Fragment {
 
@@ -111,9 +112,7 @@ public class PetreceriPage3 extends Fragment {
     public static void reset(){
         genuriMuzicale.setText("");
         displaymusic.clear();
-        for (int i = 0; i < toggle.length; i++) {
-            toggle[i] = false;
-        }
+        Arrays.fill(toggle, false);
     }
     public static FlowLayout getDoriane(){
         return doriane;

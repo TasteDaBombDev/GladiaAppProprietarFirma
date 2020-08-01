@@ -1,7 +1,14 @@
 package com.example.app.userScreen.events.previzEvent;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +20,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 
 import com.example.app.R;
+import com.example.app.userScreen.MainScreen;
 import com.example.app.userScreen.events.previzEvent.previzEventPetrecere.PrevizEventPetreceri;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -33,18 +49,18 @@ import jp.wasabeef.picasso.transformations.MaskTransformation;
 
 public class Stats extends Fragment implements OnMapReadyCallback {
 
+    @SuppressLint("StaticFieldLeak")
     private static Stats INSTANCE = null;
     private static TextView t;
     private static ImageView i;
     private static View view;
-    private static Transformation transformation;
     private MapView gMapView;
-    private GoogleMap gMap;
-    private FusedLocationProviderClient fusedLocationProviderClient;
+    private static GoogleMap gMap;
     private ConstraintLayout clip;
     private ImageView buss;
     private boolean on = false;
-    private static double lat = 0.0f, lng = 0.0f;
+    private static Resources r;
+    private static boolean mapOK = false;
 
     public Stats(){
 
@@ -72,24 +88,10 @@ public class Stats extends Fragment implements OnMapReadyCallback {
 
         t = view.findViewById(R.id.numeEvent);
         i = view.findViewById(R.id.previzImgMap);
-        transformation = new MaskTransformation(getContext(), R.drawable.circle);
 
         clip = view.findViewById(R.id.profile);
         buss = view.findViewById(R.id.bussinessIcon);
-
-        buss.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!on){
-                    clip.setVisibility(View.GONE);
-                    on = true;
-                }
-                else{
-                    clip.setVisibility(View.VISIBLE);
-                    on = false;
-                }
-            }
-        });
+        r = getResources();
 
         return view;
     }
@@ -128,7 +130,7 @@ public class Stats extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         if (gMapView != null)
@@ -139,19 +141,48 @@ public class Stats extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
         gMap.getUiSettings().setAllGesturesEnabled(false);
-        goToLoc(lat, lng);
+        mapOK = true;
         googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
     }
 
-    public void goToLoc(double lat, double lng){
-        LatLng loc = new LatLng(lat,lng);
-        gMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
-        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,16));
+    public static void goToLoc(final Context c, final double lat, final double lng){
+        if(mapOK){
+            LatLng loc = new LatLng(lat,lng);
+            MarkerOptions m = new MarkerOptions().position(loc)
+                    .icon(bitmapDescriptorFromVector(c, R.drawable.ic_location_on_black_24dp, 100,100));
+            gMap.addMarker(m);
+            gMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
+            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,15));
+        } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    LatLng loc = new LatLng(lat,lng);
+                    MarkerOptions m = new MarkerOptions().position(loc)
+                            .icon(bitmapDescriptorFromVector(c, R.drawable.ic_location_on_black_24dp, 100,100));
+                    gMap.addMarker(m);
+                    gMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
+                    gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,15));
+                }
+            }, 1000);
+        }
+        Log.e("lkat", lat + "");
+        Log.e("lng", lng + "");
+    }
+
+    private static BitmapDescriptor bitmapDescriptorFromVector(Context c, int vectorResource, int width, int height){
+        Drawable vectorDrawable = ContextCompat.getDrawable(c, vectorResource);
+        vectorDrawable.setBounds(0,0, width, height);
+        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(b);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(b);
     }
 
     public static void setUp(ArrayList<String> text, Context c){
         t.setText(text.get(0));
-        Picasso.get().load(text.get(1)).transform(transformation).into(i);
+        Picasso.get().load(text.get(1)).into(i);
+        setImageRounded();
 
         LinearLayout root = view.findViewById(R.id.optionsRoot);
         root.removeAllViews();
@@ -164,8 +195,10 @@ public class Stats extends Fragment implements OnMapReadyCallback {
 
     }
 
-    public static void getLatLng(double latitudine, double longitudine){
-        lat = latitudine;
-        lng = longitudine;
+    private static void setImageRounded(){
+        Bitmap bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(r,bitmap);
+        roundedBitmapDrawable.setCircular(true);
+        i.setImageDrawable(roundedBitmapDrawable);
     }
 }
