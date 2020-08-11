@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.app">
+    package="com.zone_bussiness.app">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -16,34 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-<!--        <activity android:name=".userScreen.profile.dashboard.Dashboard" />-->
-<!--        <activity android:name=".userScreen.profile.Sales" />-->
-<!--        <activity android:name=".registerFirma.RegsiterDescriereOrganizatie" />-->
-<!--        <activity android:name=".userScreen.profile.ProfileOrganisation" />-->
-<!--        <activity android:name=".registerFirma.Register4" />-->
-<!--        <activity android:name=".registerFirma.Register3" />-->
-<!--        <activity android:name=".registerFirma.Register2" />-->
-<!--        <activity android:name=".registerFirma.Register1" />-->
-        <activity android:name=".registerFirma.RegisterFirma" />
-        <!--        <activity android:name=".userScreen.events.previzEventPetrecere.PrevizEvent" />-->
-<!--        <activity-->
-<!--            android:name=".userScreen.createEvents.petreceri.PetreceriPage4"-->
-<!--            android:windowSoftInputMode="adjustResize" />-->
-        <activity android:name=".userScreen.events.previzEvent.PrevizEventMain" />
-        <activity android:name=".userScreen.createEvents.petreceri.SelectLocation" />
-<!--        <activity-->
-<!--            android:name=".userScreen.createEvents.petreceri.PetreceriPage2"-->
-<!--            android:windowSoftInputMode="adjustResize" />-->
-        <activity android:name=".userScreen.createEvents.petreceri.SelectPic" />
-<!--        <activity android:name=".termsAndConditions.Terms3" />-->
-<!--        <activity android:name=".termsAndConditions.Terms2" />-->
-<!--        <activity android:name=".termsAndConditions.Terms1" />-->
-        <activity android:name=".termsAndConditions.TermsAndConditionsMain" />
-<!--        <activity-->
-<!--            android:name=".userScreen.createEvents.Evenimente"-->
-<!--            android:windowSoftInputMode="adjustResize" />-->
-<!--        <activity android:name=".userScreen.profile.ProfileLocation" />-->
-        <activity android:name=".SplashScreen">
+        <activity android:name="com.zone_bussiness.app.registerFirma.RegisterFirma" />
+        <activity android:name="com.zone_bussiness.app.userScreen.events.previzEvent.PrevizEventMain" />
+        <activity android:name="com.zone_bussiness.app.userScreen.createEvents.petreceri.SelectLocation" />
+        <activity android:name="com.zone_bussiness.app.userScreen.createEvents.petreceri.SelectPic" />
+        <activity android:name="com.zone_bussiness.app.termsAndConditions.TermsAndConditionsMain" />
+        <activity android:name="com.zone_bussiness.app.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,8 +33,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
-        <activity android:name=".userScreen.MainScreen" />
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.zone_bussiness.app.userScreen.MainScreen" />
+        <activity android:name="com.zone_bussiness.app.MainActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

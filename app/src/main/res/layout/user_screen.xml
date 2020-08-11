@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".userScreen.MainScreen">
 
-    <com.example.app.utils.OurViewPager
+    <com.zone_bussiness.app.utils.OurViewPager
         android:id="@+id/mainSlider"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.example.app.utils.OurViewPager>
+    </com.zone_bussiness.app.utils.OurViewPager>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
